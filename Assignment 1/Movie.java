@@ -1,12 +1,12 @@
 /*
 *  Author: Connor Baker
-*  Version: 0.4a
+*  Version: 0.6a
 *  Created: August 29, 2016
 *  Last Updated: August 29, 2016
 *
 *  Description: Take input from command line (after sanitization) and pipe to
 *  methods. We ask a user to input information about a movie and then print it
-*  back out to them.
+*  back out to them (with a bit of extra formatting).
 *
 *  TODO: Strings are immutable. If I want to modify them I have to create a new
 *  object. Doing this introduces a new name to keep track of. Find a way to
@@ -18,9 +18,6 @@
 *  TODO: Implement the argumented constructor. Currently the program does not
 *  accept user input.
 *
-*  TODO: Consider using an array of String to store information that changes as
-*  the program runs.
-*
 *  TODO: Anwari likes to see the input printed out after being input ("You
 *  entered:" kind of thing).
 */
@@ -29,116 +26,135 @@
 import java.util.Scanner;
 
 public class Movie {
-  // Initialize a boolean to tell us whether the default constructor is in use
-  // boolean usingDefaultConstructor = false;
-
-  /*
-  *  array[0] is the name of the movie
-  *  array[1] is the star of the movie
-  *  array[2] is the rating of the movie
-  *  array[3] is the showTime of the movie
-  *  array[4] is the length of the movie
-  */
-  String[] array = new String[5];
-
   // Initialize all variables used in class Movie
   double like = 0.0; // Review by critics/fans out of 5.0
 
-  // /*
-  // *  Initialize all strings used in the class Movie (they are immutable),
-  // *  which poses a problem to us in terms of modifying them from the default
-  // *  constructor
-  // */
-  // String name = null; // Name of the movie
-  // String star = null; // Lead actor/actress of the movie
-  // String rating = null; // MPAA rating assigned to the movie
-  // String showTime = null; // Time at which the movie plays
-  // String length = null; // The duration of the movie
+  String name = "";
+  String star = "";
+  String rating = "";
+  String showTime = "";
+  String length = "";
 
   // Default constructor for Movie
   Movie() {
-    array[0] = "The Life of Connor Baker";
-    array[1] = "Connor Baker";
-    array[2] = "G";
-    array[3] = "8:30pm";
-    array[4] = "2h30m";
+    String name = "The Life of Connor Baker";
+    String star = "Connor Baker";
+    String rating = "G";
+    String showTime = "8:30pm";
+    String length = "2h30m";
     like = 5.0;
   }
 
   // Argumented constructor for Movie
   // Movie(String newName, String newStar, String newRating, double newLike, String newShowTime, String newLength) {
-  Movie(double newLike) {
-    // String name = setName();
-    // String star = newStar;
-    // String rating = newRating;
-    // like = newLike;
-    // String showTime = newShowTime;
-    // String length = newLength;
+  Movie(String name, double like) {
+    name = setName("");
+    // String newStar = setStar();
+    // String newRating = setRating();
+    // String newShowTime = setShowTime();
+    // String newLength = setLength();
+    // like = setLike();
   }
 
-  // void setName(String newName) {
-  //   Scanner scanner = new Scanner(System.in);
-  //   System.out.println("Please input the name of the movie, and the press the ENTER key");
-  //   newName = scanner.next();
-  //   scanner.close();
-  //   return newName;
-  // }
+  String setName(String newName) {
+    Scanner scanner = new Scanner(System.in);
+    System.out.println("Please input the name of the movie, and the press the ENTER key");
+    newName = scanner.nextLine();
+    scanner.close(); // Make sure to close the scanner
+    return newName;
+  }
 
   void displayName() {
-    System.out.println(array[0]);
+    System.out.println("Movie Title: " + name);
   }
 
   // void setStar(String newStar) {
-  //
+  //   Scanner scanner = new Scanner(System.in);
+  //   System.out.println("Please input the name of the movie, and the press the ENTER key");
+  //   star = scanner.next();
+  //   scanner.close(); // Make sure to close the scanner
   // }
-
-  void displayStar() {
-    System.out.println(array[1]);
-  }
-
+  //
+  // void displayStar() {
+  //   System.out.println("Leading Actor/Actress: " + star);
+  // }
+  //
   // void setRating(String newRating) {
+  //   Scanner scanner = new Scanner(System.in);
+  //   System.out.println("Please input the name of the movie, and the press the ENTER key");
+  //   rating = scanner.next();
+  //   scanner.close(); // Make sure to close the scanner
+  // }
   //
+  // void displayRating() {
+  //   System.out.println("MPAA Rating: " + rating);
+  // }
+  //
+  // void setShowTime(String newShowTime) {
+  //   Scanner scanner = new Scanner(System.in);
+  //   System.out.println("Please input the name of the movie, and the press the ENTER key");
+  //   showTime = scanner.next();
+  //   scanner.close(); // Make sure to close the scanner
+  // }
+  //
+  // void displayShowTime() {
+  //   System.out.println("Movie Starts at: " + showTime);
+  // }
+  //
+  // void setLength(String newLength) {
+  //   Scanner scanner = new Scanner(System.in);
+  //   System.out.println("Please input the name of the movie, and the press the ENTER key");
+  //   length = scanner.next();
+  //   scanner.close(); // Make sure to close the scanner
+  // }
+  //
+  // void displayLength() {
+  //   System.out.println("Movie Runtime: " + length);
   // }
 
-  void displayRating() {
-    System.out.println(array[2]);
-  }
-
-  void setLike(double newLike) {
+  void setLike() {
     Scanner scanner = new Scanner(System.in);
     System.out.println("Please input the rating of the movie (out of 5.0), and then press the ENTER key");
-    newLike = scanner.nextDouble();
-    scanner.close();
+    like = scanner.nextDouble();
+    scanner.close(); // Make sure to close the scanner
   }
 
   void displayLike() {
-    System.out.println(like);
-  }
-
-  // void setShowTime(String newShowTime) {
-  //
-  // }
-
-  void displayShowTime() {
-    System.out.println(array[3]);
-  }
-
-  // void setLength(String newLength) {
-  //
-  // }
-
-  void displayLength() {
-    System.out.println(array[4]);
+    System.out.println("Critics Review (out of 5.0): " + like);
   }
 
   public static void main(String[] args) {
-    Movie newMovie = new Movie();
-    // newMovie.setLike();
-    newMovie.displayName();
-    newMovie.displayStar();
-    newMovie.displayRating();
-    newMovie.displayLike();
-    newMovie.displayShowTime();
-    newMovie.displayLength();
+    Scanner scanner = new Scanner(System.in);
+    System.out.println("Do you wish to enter details about a movie? Type YES or NO and then press ENTER.");
+    String useArgumentedConstructor = scanner.nextLine();
+    if (useArgumentedConstructor.equalsIgnoreCase("yes")) {
+      Movie newMovie = new Movie();
+      // newMovie.setLike();
+      newMovie.setName();
+      // newMovie.setStar();
+      // newMovie.setRating();
+      // newMovie.setLike();
+      // newMovie.setShowTime();
+      // newMovie.setLength();
+      newMovie.displayLike();
+      newMovie.displayName();
+      // newMovie.displayStar();
+      // newMovie.displayRating();
+      // newMovie.displayLike();
+      // newMovie.displayShowTime();
+      // newMovie.displayLength();
+    } else if (useArgumentedConstructor.equalsIgnoreCase("no")) {
+      Movie newMovie = new Movie();
+      newMovie.displayLike();
+      newMovie.displayName();
+      // newMovie.displayStar();
+      // newMovie.displayRating();
+      // newMovie.displayLike();
+      // newMovie.displayShowTime();
+      // newMovie.displayLength();
+    } else {
+
+    }
+    scanner.close(); // Make sure to close the scanner
   }
 }

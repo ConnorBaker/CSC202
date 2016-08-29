@@ -1,6 +1,6 @@
 /*
 *  Author: Connor Baker
-*  Version: 0.3a
+*  Version: 0.4a
 *  Created: August 29, 2016
 *  Last Updated: August 29, 2016
 *
@@ -20,6 +20,9 @@
 *
 *  TODO: Consider using an array of String to store information that changes as
 *  the program runs.
+*
+*  TODO: Anwari likes to see the input printed out after being input ("You
+*  entered:" kind of thing).
 */
 
 // Import necessary packages
@@ -81,25 +84,25 @@ public class Movie {
   //   return newName;
   // }
 
-  // void displayName() {
-  //   System.out.println(name);
-  // }
+  void displayName() {
+    System.out.println(array[0]);
+  }
 
   // void setStar(String newStar) {
   //
   // }
 
-  // void displayStar() {
-  //   System.out.println(star);
-  // }
+  void displayStar() {
+    System.out.println(array[1]);
+  }
 
   // void setRating(String newRating) {
   //
   // }
 
-  // void displayRating() {
-  //   System.out.println(rating);
-  // }
+  void displayRating() {
+    System.out.println(array[2]);
+  }
 
   void setLike(double newLike) {
     Scanner scanner = new Scanner(System.in);
@@ -116,26 +119,26 @@ public class Movie {
   //
   // }
 
-  // void displayShowTime() {
-  //   System.out.println(showTime);
-  // }
+  void displayShowTime() {
+    System.out.println(array[3]);
+  }
 
   // void setLength(String newLength) {
   //
   // }
 
-  // void displayLength() {
-  //   System.out.println(length);
-  // }
+  void displayLength() {
+    System.out.println(array[4]);
+  }
 
   public static void main(String[] args) {
     Movie newMovie = new Movie();
     // newMovie.setLike();
-    // newMovie.displayName();
-    // newMovie.displayStar();
-    // newMovie.displayRating();
+    newMovie.displayName();
+    newMovie.displayStar();
+    newMovie.displayRating();
     newMovie.displayLike();
-    // newMovie.displayShowTime();
-    // newMovie.displayLength();
+    newMovie.displayShowTime();
+    newMovie.displayLength();
   }
 }

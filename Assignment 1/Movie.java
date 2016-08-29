@@ -1,14 +1,22 @@
 /*
 *  Author: Connor Baker
-*  Version: 0.1a
-*  Created: August 25, 2016
-*  Last Updated: August 25, 2016
+*  Version: 0.2a
+*  Created: August 29, 2016
+*  Last Updated: August 29, 2016
 *
 *  Description: Take input from command line (after sanitization) and pipe to
 *  methods. We ask a user to input information about a movie and then print it
 *  back out to them.
 *
-*  TODO: Make it all work.
+*  TODO: Strings are immutable. If I want to modify them I have to create a new
+*  object. Doing this introduces a new name to keep track of. Find a way to
+*  either modify the String using a Java class or make a new string equal to
+*  the desired modified string, set the old string equal to null to for GC, and
+*  then set the new string equal to the old String's name (which takes care of
+*  the name changing).
+*
+*  TODO: Implement the argumented constructor. Currently the program does not
+*  accept user input.
 */
 
 // Import necessary packages
@@ -19,9 +27,10 @@ public class Movie {
   double like = 0.0; // Review by critics/fans out of 5.0
 
   // /*
-  // * Initialize all strings used in the class Movie (they are immutable), which
-  // * poses a problem to us in terms of modifying them from the default
-  // * constructor
+  // *  Initialize all strings used in the class Movie (they are immutable),
+  // *  which
+  // *  poses a problem to us in terms of modifying them from the default
+  // *  constructor
   // */
   // String name = null; // Name of the movie
   // String star = null; // Lead actor/actress of the movie
@@ -31,12 +40,12 @@ public class Movie {
 
   // Default constructor for Movie
   Movie() {
-    // name = "The Life of Connor Baker";
-    // star = "Connor Baker";
-    // rating = "G";
+    String name = "The Life of Connor Baker";
+    String star = "Connor Baker";
+    String rating = "G";
     like = 5.0;
-    // showTime = "8:30pm";
-    // length = "2h30m";
+    String showTime = "8:30pm";
+    String length = "2h30m";
   }
 
   // Argumented constructor for Movie
@@ -57,27 +66,27 @@ public class Movie {
   //   scanner.close();
   //   return newName;
   // }
-  //
-  // String getName() {
-  //   return name;
-  // }
-  //
+
+  void displayName() {
+    System.out.println(name);
+  }
+
   // void setStar(String newStar) {
   //
   // }
-  //
-  // String getStar() {
-  //   return star;
-  // }
-  //
+
+  void displayStar() {
+    System.out.println(star);
+  }
+
   // void setRating(String newRating) {
   //
   // }
-  //
-  // String getRating() {
-  //   return rating;
-  // }
-  //
+
+  void displayRating() {
+    System.out.println(rating);
+  }
+
   void setLike(double newLike) {
     Scanner scanner = new Scanner(System.in);
     System.out.println("Please input the rating of the movie (out of 5.0), and then press the ENTER key");
@@ -85,28 +94,33 @@ public class Movie {
     scanner.close();
   }
 
-  double getLike() {
-    return like;
+  void displayLike() {
+    System.out.println(like);
   }
-  //
+
   // void setShowTime(String newShowTime) {
   //
   // }
-  //
-  // String getShowTime() {
-  //   return showTime;
-  // }
-  //
+
+  void displayShowTime() {
+    System.out.println(showTime);
+  }
+
   // void setLength(String newLength) {
   //
   // }
-  //
-  // String getLength() {
-  //   return length;
-  // }
+
+  void displayLength() {
+    System.out.println(length);
+  }
 
   public static void main(String[] args) {
     Movie newMovie = new Movie();
-    System.out.println(getLike());
+    newMovie.displayName();
+    newMovie.displayStar();
+    newMovie.displayRating();
+    newMovie.displayLike();
+    newMovie.displayShowTime();
+    newMovie.displayLength();
   }
 }

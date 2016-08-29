@@ -1,6 +1,6 @@
 /*
 *  Author: Connor Baker
-*  Version: 0.2a
+*  Version: 0.3a
 *  Created: August 29, 2016
 *  Last Updated: August 29, 2016
 *
@@ -17,19 +17,33 @@
 *
 *  TODO: Implement the argumented constructor. Currently the program does not
 *  accept user input.
+*
+*  TODO: Consider using an array of String to store information that changes as
+*  the program runs.
 */
 
 // Import necessary packages
 import java.util.Scanner;
 
 public class Movie {
+  // Initialize a boolean to tell us whether the default constructor is in use
+  // boolean usingDefaultConstructor = false;
+
+  /*
+  *  array[0] is the name of the movie
+  *  array[1] is the star of the movie
+  *  array[2] is the rating of the movie
+  *  array[3] is the showTime of the movie
+  *  array[4] is the length of the movie
+  */
+  String[] array = new String[5];
+
   // Initialize all variables used in class Movie
   double like = 0.0; // Review by critics/fans out of 5.0
 
   // /*
   // *  Initialize all strings used in the class Movie (they are immutable),
-  // *  which
-  // *  poses a problem to us in terms of modifying them from the default
+  // *  which poses a problem to us in terms of modifying them from the default
   // *  constructor
   // */
   // String name = null; // Name of the movie
@@ -40,23 +54,23 @@ public class Movie {
 
   // Default constructor for Movie
   Movie() {
-    String name = "The Life of Connor Baker";
-    String star = "Connor Baker";
-    String rating = "G";
+    array[0] = "The Life of Connor Baker";
+    array[1] = "Connor Baker";
+    array[2] = "G";
+    array[3] = "8:30pm";
+    array[4] = "2h30m";
     like = 5.0;
-    String showTime = "8:30pm";
-    String length = "2h30m";
   }
 
   // Argumented constructor for Movie
   // Movie(String newName, String newStar, String newRating, double newLike, String newShowTime, String newLength) {
   Movie(double newLike) {
-    // name = newName;
-    // star = newStar;
-    // rating = newRating;
-    like = newLike;
-    // showTime = newShowTime;
-    // length = newLength;
+    // String name = setName();
+    // String star = newStar;
+    // String rating = newRating;
+    // like = newLike;
+    // String showTime = newShowTime;
+    // String length = newLength;
   }
 
   // void setName(String newName) {
@@ -67,25 +81,25 @@ public class Movie {
   //   return newName;
   // }
 
-  void displayName() {
-    System.out.println(name);
-  }
+  // void displayName() {
+  //   System.out.println(name);
+  // }
 
   // void setStar(String newStar) {
   //
   // }
 
-  void displayStar() {
-    System.out.println(star);
-  }
+  // void displayStar() {
+  //   System.out.println(star);
+  // }
 
   // void setRating(String newRating) {
   //
   // }
 
-  void displayRating() {
-    System.out.println(rating);
-  }
+  // void displayRating() {
+  //   System.out.println(rating);
+  // }
 
   void setLike(double newLike) {
     Scanner scanner = new Scanner(System.in);
@@ -102,25 +116,26 @@ public class Movie {
   //
   // }
 
-  void displayShowTime() {
-    System.out.println(showTime);
-  }
+  // void displayShowTime() {
+  //   System.out.println(showTime);
+  // }
 
   // void setLength(String newLength) {
   //
   // }
 
-  void displayLength() {
-    System.out.println(length);
-  }
+  // void displayLength() {
+  //   System.out.println(length);
+  // }
 
   public static void main(String[] args) {
     Movie newMovie = new Movie();
-    newMovie.displayName();
-    newMovie.displayStar();
-    newMovie.displayRating();
+    // newMovie.setLike();
+    // newMovie.displayName();
+    // newMovie.displayStar();
+    // newMovie.displayRating();
     newMovie.displayLike();
-    newMovie.displayShowTime();
-    newMovie.displayLength();
+    // newMovie.displayShowTime();
+    // newMovie.displayLength();
   }
 }

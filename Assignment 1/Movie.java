@@ -1,6 +1,6 @@
 /*
 *  Author: Connor Baker
-*  Version: 0.7a
+*  Version: 0.8a
 *  Created: August 31, 2016
 *  Last Updated: August 31, 2016
 *
@@ -41,58 +41,58 @@ public class Movie {
     length = argumentedLength;
   }
 
-  void setLike() {
-
+  void setLike(double tempLike) {
+    like = tempLike;
   }
 
-  void setName() {
-
+  void setName(String tempName) {
+    name = tempName;
   }
 
-  void setStar() {
-
+  void setStar(String tempStar) {
+    star = tempStar;
   }
 
-  void setRating() {
-
+  void setRating(String tempRating) {
+    rating = tempRating;
   }
 
-  void setShowTime() {
-
+  void setShowTime(String tempShowTime) {
+    showTime = tempShowTime;
   }
 
-  void setLength() {
-
+  void setLength(String tempLength) {
+    length = tempLength;
   }
 
   void displayLike() {
-    System.out.println(like);
+    System.out.print("Critics have given this movie a " + like + " out of five stars. \n");
   }
 
   void displayName() {
-    System.out.println(name);
+    System.out.print("\n\n\nYou've entered the movie " + name + ", ");
   }
 
   void displayStar() {
-    System.out.println(star);
+    System.out.print("starring the well-loved " + star + " as the lead. \n");
   }
 
   void displayRating() {
-    System.out.println(rating);
+    System.out.print("The MPAA has rated this movie " + rating + ", so be sure to keep that in mind when purchasing tickets. \n");
   }
 
   void displayShowtime() {
-    System.out.println(showTime);
+    System.out.print("The show-time that you're interested in is at " + showTime + ", ");
   }
 
   void displayLength() {
-    System.out.println(length);
+    System.out.print("and it runs for a total of " + length+ ". \n");
   }
 
   void displayAllAttributes() {
-    displayLike();
     displayName();
     displayStar();
+    displayLike();
     displayRating();
     displayShowtime();
     displayLength();
@@ -113,7 +113,7 @@ public class Movie {
 
       // Create a list of prompts to display for each iteration of our loop
       String[] arrayOfPrompts = {
-        "Please enter the title of the movie, followed by the ENTER key: ",
+        "Please enter the name of the movie, followed by the ENTER key: ",
         "Please enter the lead actor/actress, followed by the ENTER key: ",
         "Please enter the MPAA rating, followed by the ENTER key: ",
         "Please enter the show time of the movie, followed by the ENTER key: ",
@@ -134,7 +134,18 @@ public class Movie {
       // Make sure to close the scanner
       scanner.close();
 
+      // Pass arguments to the set methods
+      // Anwari - Like this with no arguments passed below?
+      // setLike(newLike);
+      // setName(arguments[0]);
+      // setStar(arguments[1]);
+      // setRating(arguments[2]);
+      // setShowTime(arguments[3]);
+      // setLength(arguments[4]);
+
+
       // Create the argumented constructor
+      // Anwari - Or like this with no set methods above?
       Movie newMovie = new Movie(arguments[0], arguments[1], arguments[2], arguments[3], arguments[4], newLike);
 
       // Print everything from the constructor
@@ -147,7 +158,7 @@ public class Movie {
       // Print everything from the constructor
       newMovie.displayAllAttributes();
     } else {
-      System.out.println("You didn't type YES or NO. It isn't case senstive.");
+      System.out.println("You didn't type YES or NO. Run the program again.");
     }
   }
 }

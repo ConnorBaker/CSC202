@@ -1,6 +1,6 @@
 /*
 *  Author: Connor Baker
-*  Version: 0.8a
+*  Version: 0.9a
 *  Created: August 31, 2016
 *  Last Updated: August 31, 2016
 *
@@ -39,30 +39,6 @@ public class Movie {
     rating = argumentedRating;
     showTime = argumentedShowTime;
     length = argumentedLength;
-  }
-
-  void setLike(double tempLike) {
-    like = tempLike;
-  }
-
-  void setName(String tempName) {
-    name = tempName;
-  }
-
-  void setStar(String tempStar) {
-    star = tempStar;
-  }
-
-  void setRating(String tempRating) {
-    rating = tempRating;
-  }
-
-  void setShowTime(String tempShowTime) {
-    showTime = tempShowTime;
-  }
-
-  void setLength(String tempLength) {
-    length = tempLength;
   }
 
   void displayLike() {
@@ -133,16 +109,6 @@ public class Movie {
 
       // Make sure to close the scanner
       scanner.close();
-
-      // Pass arguments to the set methods
-      // Anwari - Like this with no arguments passed below?
-      // setLike(newLike);
-      // setName(arguments[0]);
-      // setStar(arguments[1]);
-      // setRating(arguments[2]);
-      // setShowTime(arguments[3]);
-      // setLength(arguments[4]);
-
 
       // Create the argumented constructor
       // Anwari - Or like this with no set methods above?

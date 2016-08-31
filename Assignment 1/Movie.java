@@ -1,157 +1,153 @@
 /*
 *  Author: Connor Baker
-*  Version: 0.6a
-*  Created: August 29, 2016
-*  Last Updated: August 29, 2016
+*  Version: 0.7a
+*  Created: August 31, 2016
+*  Last Updated: August 31, 2016
 *
 *  Description: Take input from command line (after sanitization) and pipe to
 *  methods. We ask a user to input information about a movie and then print it
 *  back out to them (with a bit of extra formatting).
-*
-*  TODO: Strings are immutable. If I want to modify them I have to create a new
-*  object. Doing this introduces a new name to keep track of. Find a way to
-*  either modify the String using a Java class or make a new string equal to
-*  the desired modified string, set the old string equal to null to for GC, and
-*  then set the new string equal to the old String's name (which takes care of
-*  the name changing).
-*
-*  TODO: Implement the argumented constructor. Currently the program does not
-*  accept user input.
-*
-*  TODO: Anwari likes to see the input printed out after being input ("You
-*  entered:" kind of thing).
 */
 
 // Import necessary packages
 import java.util.Scanner;
 
 public class Movie {
-  // Initialize all variables used in class Movie
-  double like = 0.0; // Review by critics/fans out of 5.0
+  // Initialize all necessary variables for class Movie
+  double like;
+  String name;
+  String star;
+  String rating;
+  String showTime;
+  String length;
 
   // Default constructor for Movie
   Movie() {
-    String name = "The Life of Connor Baker";
-    String star = "Connor Baker";
-    String rating = "G";
-    String showTime = "8:30pm";
-    String length = "2h30m";
     like = 5.0;
+    name = "The Life of Connor Baker";
+    star = "Connor Baker";
+    rating = "G";
+    showTime = "8:30pm";
+    length = "2h30m";
   }
 
   // Argumented constructor for Movie
-  Movie(String name, String star, String rating, double like, String showTime, String length) {
-    // name = setName();
-    // String newStar = setStar();
-    // String newRating = setRating();
-    // String newShowTime = setShowTime();
-    // String newLength = setLength();
-    // like = setLike();
+  Movie(String argumentedName, String argumentedStar, String argumentedRating, String argumentedShowTime, String argumentedLength, double argumentedLike) {
+    like = argumentedLike;
+    name = argumentedName;
+    star = argumentedStar;
+    rating = argumentedRating;
+    showTime = argumentedShowTime;
+    length = argumentedLength;
   }
 
-  // String setName(String newName) {
-  //   newName = "";
-  //   return newName;
-  // }
+  void setLike() {
 
-  // void displayName() {
-  //   System.out.println("Movie Title: " + name);
-  // }
+  }
 
-  // void setStar(String newStar) {
-  //   Scanner scanner = new Scanner(System.in);
-  //   System.out.println("Please input the name of the movie, and the press the ENTER key");
-  //   star = scanner.next();
-  //   scanner.close(); // Make sure to close the scanner
-  // }
-  //
-  // void displayStar() {
-  //   System.out.println("Leading Actor/Actress: " + star);
-  // }
-  //
-  // void setRating(String newRating) {
-  //   Scanner scanner = new Scanner(System.in);
-  //   System.out.println("Please input the name of the movie, and the press the ENTER key");
-  //   rating = scanner.next();
-  //   scanner.close(); // Make sure to close the scanner
-  // }
-  //
-  // void displayRating() {
-  //   System.out.println("MPAA Rating: " + rating);
-  // }
-  //
-  // void setShowTime(String newShowTime) {
-  //   Scanner scanner = new Scanner(System.in);
-  //   System.out.println("Please input the name of the movie, and the press the ENTER key");
-  //   showTime = scanner.next();
-  //   scanner.close(); // Make sure to close the scanner
-  // }
-  //
-  // void displayShowTime() {
-  //   System.out.println("Movie Starts at: " + showTime);
-  // }
-  //
-  // void setLength(String newLength) {
-  //   Scanner scanner = new Scanner(System.in);
-  //   System.out.println("Please input the name of the movie, and the press the ENTER key");
-  //   length = scanner.next();
-  //   scanner.close(); // Make sure to close the scanner
-  // }
-  //
-  // void displayLength() {
-  //   System.out.println("Movie Runtime: " + length);
-  // }
+  void setName() {
 
-  // double setLike(double newLike) {
-  //   Scanner scanner = new Scanner(System.in);
-  //   System.out.println("Please input the rating of the movie (out of 5.0), and then press the ENTER key");
-  //   like = scanner.nextDouble();
-  //   scanner.close(); // Make sure to close the scanner
-  // }
-  //
-  // void displayLike() {
-  //   System.out.println("Critics Review (out of 5.0): " + like);
-  // }
+  }
+
+  void setStar() {
+
+  }
+
+  void setRating() {
+
+  }
+
+  void setShowTime() {
+
+  }
+
+  void setLength() {
+
+  }
+
+  void displayLike() {
+    System.out.println(like);
+  }
+
+  void displayName() {
+    System.out.println(name);
+  }
+
+  void displayStar() {
+    System.out.println(star);
+  }
+
+  void displayRating() {
+    System.out.println(rating);
+  }
+
+  void displayShowtime() {
+    System.out.println(showTime);
+  }
+
+  void displayLength() {
+    System.out.println(length);
+  }
+
+  void displayAllAttributes() {
+    displayLike();
+    displayName();
+    displayStar();
+    displayRating();
+    displayShowtime();
+    displayLength();
+  }
 
   public static void main(String[] args) {
-    String[] text = {"Please enter the name of the movie, then press the ENTER key: ",
-    "Please enter the name of the lead actor/actress, then press the ENTER key: ",
-    "Please enter the MPAA rating, then press the ENTER key: ",
-    "Please enter the show time of the movie, then press the ENTER key: ",
-    "Please enter the length the movie, then press the ENTER key: "};
-
 
     Scanner scanner = new Scanner(System.in);
-    System.out.println("Do you wish to enter details about a movie? Type YES or NO and then press ENTER.");
-
+    System.out.println("Do you wish to enter details about a movie? Type YES or NO, followed by the ENTER key: ");
     String useArgumentedConstructor = scanner.nextLine();
+
+
+    // Determine whether to use the default constructor or not
     if (useArgumentedConstructor.equalsIgnoreCase("yes")) {
-      String[] array = new String[5];
-      for (int i = 0; i < array.length; i++) {
-        System.out.println(text[i]);
-        array[i] = scanner.nextLine();
+      // Create an array of strings to hold arguments to pass to the augmented
+      // movie constructor
+      String[] arguments = new String[5];
+
+      // Create a list of prompts to display for each iteration of our loop
+      String[] arrayOfPrompts = {
+        "Please enter the title of the movie, followed by the ENTER key: ",
+        "Please enter the lead actor/actress, followed by the ENTER key: ",
+        "Please enter the MPAA rating, followed by the ENTER key: ",
+        "Please enter the show time of the movie, followed by the ENTER key: ",
+        "Please enter the length of the movie, followed by the ENTER key: ",
+        "Please enter the rating of the movie (out of 5.0), followed by the ENTER key: "
+      };
+
+      // Use a for loop to grab user input for the arguments array
+      for (int i = 0; i < arrayOfPrompts.length - 1; i++) {
+        System.out.println(arrayOfPrompts[i]);
+        arguments[i] = scanner.nextLine();
       }
 
-      Movie newMovie = new Movie(array[0], array[1], array[2], array[3], array[4], like);
-      newMovie.displayLike();
-      newMovie.displayName();
-      // newMovie.displayStar();
-      // newMovie.displayRating();
-      // newMovie.displayLike();
-      // newMovie.displayShowTime();
-      // newMovie.displayLength();
-    } else if (useArgumentedConstructor.equalsIgnoreCase("no")) {
-      Movie newMovie = new Movie();
-      newMovie.displayLike();
-      newMovie.displayName();
-      // newMovie.displayStar();
-      // newMovie.displayRating();
-      // newMovie.displayLike();
-      // newMovie.displayShowTime();
-      // newMovie.displayLength();
-    } else {
+      // Grab the last of the inputs, a double for critic rating
+      System.out.println(arrayOfPrompts[5]);
+      double newLike = scanner.nextDouble();
 
+      // Make sure to close the scanner
+      scanner.close();
+
+      // Create the argumented constructor
+      Movie newMovie = new Movie(arguments[0], arguments[1], arguments[2], arguments[3], arguments[4], newLike);
+
+      // Print everything from the constructor
+      newMovie.displayAllAttributes();
+
+    } else if (useArgumentedConstructor.equalsIgnoreCase("no")) {
+      // Create the default constructor
+      Movie newMovie = new Movie();
+
+      // Print everything from the constructor
+      newMovie.displayAllAttributes();
+    } else {
+      System.out.println("You didn't type YES or NO. It isn't case senstive.");
     }
-    scanner.close(); // Make sure to close the scanner
   }
 }

@@ -1,6 +1,6 @@
 /*
 *  Author: Connor Baker
-*  Version: 0.1a
+*  Version: 0.2a
 *  Created: September 1, 2016
 *  Last Updated: September 1, 2016
 *
@@ -26,20 +26,31 @@ public class Base2to10 {
     // Make sure to close the scanner
     scanner.close();
 
-    // Create an array of booleans to determine the converted number
-    boolean[] array = new boolean[input.length()-1];
+    // Create an array of char to determine the converted number
+    char[] array = new char[input.length()];
 
-    for (int i = 1; i < input.length(); i++) {
-      if (Integer.parseInt(input.substring(i)) == 1) {
-        System.out.println(Integer.parseInt(input.substring(i)));
-        System.out.println("right");
-      } else if (Integer.parseInt(input.substring(i)) == 0) {
-        System.out.println(Integer.parseInt(input.substring(i)));
-        System.out.println("left");
+    // Populate the char array
+    for (int i = 0; i < input.length(); i++) {
+      array[i] = input.charAt(i);
+    }
+
+    // Create an array of booleans to help calculate the nubmer
+    int[] movementarray = new int[array.length];
+
+    // Populate the movementarray
+    for (int i = 0; i < array.length; i++) {
+      if (Integer.valueOf(array[i]) == 1) {
+        movementarray[i] = 1;
       } else {
-        System.out.println(Integer.parseInt(input.substring(i)));
-        System.out.println("The 'decimal' must be in base two. Please input the number in the correct format.");
-        break;
+        movementarray[i] = 0;
+      }
+    }
+
+    for (int i = 0; i < movementarray.length(); i++) {
+      if (movementarray[i] == 1) {
+        System.out.println("right");
+      } else {
+        System.out.println("left");
       }
     }
   }

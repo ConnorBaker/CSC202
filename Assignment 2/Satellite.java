@@ -1,8 +1,8 @@
 /*
 *  Author: Connor Baker
-*  Version: 0.1a
+*  Version: 0.2a
 *  Created: September 3, 2016
-*  Last Updated: September 3, 2016
+*  Last Updated: September 7, 2016
 *
 *  Description: Calculate the position of the receiver on the surface of the
 *  earth by using three satellites to triangulate.
@@ -13,7 +13,6 @@
 import java.util.Scanner;
 
 public class Satellite {
-
   // Create variables to be used (both in seconds)
   static double latencyFromReceiver;
   static double latencyFromBroadcast;
@@ -21,7 +20,7 @@ public class Satellite {
   // Create named constant for the speed of light
   final static double SPEED_OF_LIGHT = 299792458;
 
-  // Create default constructor for the Satellite
+  // Create argumented constructor for the Satellite
   Satellite(int input) {
     if (input == 19) {
       latencyFromReceiver = 0.0025;
@@ -67,13 +66,13 @@ public class Satellite {
     } else if (input == 24) {
       Satellite newSatellite = new Satellite(24);
     } else {
-      System.out.println("Enter a correct choice. Re-run the program.");
+      System.out.println("Enter one of the given satellite IDs. Please re-run the program.");
     }
 
     // Find the PsuedoRange
     double range = PsuedoRange();
 
     // Print out the result
-    System.out.println("The result is: " + range + " meters.");
+    System.out.println("The pseudo-range from satellite ID #" + input + " to the receiver is "+ range + " meters.");
   }
 }

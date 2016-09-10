@@ -1,8 +1,8 @@
 /*
 *  Author: Connor Baker
-*  Version: 0.9b
+*  Version: 0.9c
 *  Created: August 31, 2016
-*  Last Updated: August 31, 2016
+*  Last Updated: September 10 , 2016
 *
 *  Description: Take input from command line and pipe to the argumented
 *  constructor. We ask a user to input information about a movie and then print
@@ -36,7 +36,8 @@ public class Movie {
   }
 
   // Argumented constructor for Movie
-  Movie(String argumentedName, String argumentedStar, String argumentedRating, String argumentedShowTime, String argumentedLength, double argumentedLike) {
+  Movie(String argumentedName, String argumentedStar, String argumentedRating,
+    String argumentedShowTime, String argumentedLength, double argumentedLike) {
     like = argumentedLike;
     name = argumentedName;
     star = argumentedStar;
@@ -47,7 +48,7 @@ public class Movie {
 
   // Method that prints variable name to terminal
   void displayName() {
-    System.out.print("\n\n\nYou've entered the movie " + name + ", ");
+    System.out.print("\n\nYou've entered the movie " + name + ", ");
   }
 
   // Method that prints variable star to terminal
@@ -57,17 +58,20 @@ public class Movie {
 
   // Method that prints variable like to terminal
   void displayLike() {
-    System.out.print("Critics have given this movie a " + like + " out of five stars. \n");
+    System.out.print("Critics have given this movie a " + like + " out of five"
+      + " stars. \n");
   }
 
   // Method that prints variable rating to terminal
   void displayRating() {
-    System.out.print("The MPAA has rated this movie " + rating + ", so be sure to keep that in mind when purchasing tickets. \n");
+    System.out.print("The MPAA has rated this movie " + rating + ", so be sure"
+      + " to keep that in mind when purchasing tickets. \n");
   }
 
   // Method that prints variable showTime to terminal
   void displayShowtime() {
-    System.out.print("The show-time that you're interested in is at " + showTime + ", ");
+    System.out.print("The show-time that you're interested in is at " +
+      showTime + ", ");
   }
 
   // Method that prints variable length to terminal
@@ -89,7 +93,8 @@ public class Movie {
 
     // Create scanner to grab input from user
     Scanner scanner = new Scanner(System.in);
-    System.out.println("Do you wish to enter details about a movie? Type YES or NO, followed by the ENTER key: ");
+    System.out.println("Do you wish to enter details about a movie? Type YES"
+      + " or NO, followed by the ENTER key: ");
     String useArgumentedConstructor = scanner.nextLine();
 
     // Determine whether to use the default constructor or not
@@ -104,7 +109,8 @@ public class Movie {
         "Please enter the MPAA rating, followed by the ENTER key: ",
         "Please enter the show time of the movie, followed by the ENTER key: ",
         "Please enter the length of the movie, followed by the ENTER key: ",
-        "Please enter the rating of the movie (out of 5.0), followed by the ENTER key: "
+        "Please enter the rating of the movie (out of 5.0), followed by the"
+          + " ENTER key: "
       };
 
       // Use a for loop to grab user input for the arguments array
@@ -121,7 +127,8 @@ public class Movie {
       scanner.close();
 
       // Create the argumented constructor
-      Movie newMovie = new Movie(arguments[0], arguments[1], arguments[2], arguments[3], arguments[4], newLike);
+      Movie newMovie = new Movie(arguments[0], arguments[1], arguments[2],
+        arguments[3], arguments[4], newLike);
 
       // Print everything from the argumented constructor
       newMovie.displayAllAttributes();

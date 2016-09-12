@@ -1,12 +1,14 @@
 /*
 *  Author: Connor Baker
-*  Version: 0.2a
+*  Version: 0.3a
 *  Created: September 3, 2016
-*  Last Updated: September 7, 2016
+*  Last Updated: September 11, 2016
 *
-*  Description: Calculate the position of the receiver on the surface of the
-*  earth by using three satellites to triangulate.
-*
+*  Description: Calculate the distance from a satellite (determined upon
+*  runtime by user inputting the ID of the satellite) to a reciever by means of
+*  the pseudo-range function given in class ((latencyFromReceiver -
+*  latencyFromBroadcast) SPEED_OF_LIGHT). The latency from the broadcaster and
+*  to the reciever are pre-determined and are not inputted by the user.
 */
 
 // Import necessary packages
@@ -21,7 +23,7 @@ public class Satellite {
   final static double SPEED_OF_LIGHT = 299792458;
 
   // Create argumented constructor for the Satellite
-  Satellite(int input) {
+  Satellite(int input) { // begin Satellite()
     if (input == 19) {
       latencyFromReceiver = 0.0025;
       latencyFromBroadcast = 0.00000002;
@@ -35,20 +37,22 @@ public class Satellite {
       latencyFromReceiver = 0.0012;
       latencyFromBroadcast = 0.0000000015;
     }
-  }
+  } // end Satellite()
 
   // Method to calculate the pseudo-range between a satellite and a receiver
-  static double PsuedoRange() {
-    double temp = ((latencyFromReceiver - latencyFromBroadcast) * SPEED_OF_LIGHT);
+  static double PsuedoRange() { // begin PsuedoRange()
+    double temp = ((latencyFromReceiver - latencyFromBroadcast) *
+      SPEED_OF_LIGHT);
     return temp;
-  }
+  } // end PsuedoRange()
 
-  public static void main(String[] args) {
+  public static void main(String[] args) { // begin main()
     // Create the scanner to grab input from the user
     Scanner scanner = new Scanner(System.in);
 
     // Prompt the user for input
-    System.out.println("Please input the ID of satellite to be used to  calculate the distance to the reciever (Choice of 19, 20, 22, 24): ");
+    System.out.println("Please input the ID of satellite to be used to"
+      + " calculate the distance to the reciever (Choice of 19, 20, 22, 24): ");
 
     // Grab input from the user
     int input = scanner.nextInt();
@@ -66,13 +70,15 @@ public class Satellite {
     } else if (input == 24) {
       Satellite newSatellite = new Satellite(24);
     } else {
-      System.out.println("Enter one of the given satellite IDs. Please re-run the program.");
+      System.out.println("Enter one of the given satellite IDs. Please re-run"
+        + " the program.");
     }
 
     // Find the PsuedoRange
     double range = PsuedoRange();
 
     // Print out the result
-    System.out.println("The pseudo-range from satellite ID #" + input + " to the receiver is "+ range + " meters.");
-  }
+    System.out.println("The pseudo-range from satellite ID #" + input +
+      " to the receiver is "+ range + " meters.");
+  } // begin main()
 }

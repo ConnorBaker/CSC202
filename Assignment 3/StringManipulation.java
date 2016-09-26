@@ -1,6 +1,6 @@
 /*
 *  Author: Connor Baker
-*  Version: 0.4a
+*  Version: 0.4b
 *  Created: September 21, 2016
 *  Last Updated: September 26, 2016
 *
@@ -118,19 +118,14 @@ public class StringManipulation {
 
   // Method to calculate the number of dollar signs in a string
   public int getNumberOfDollarSigns() {
-    if (locationOfFirstDollarSign != 0) {
-      for (int i = locationOfFirstDollarSign-1; i < inputstringlength; i++) {
+      for (int i = 0; i < inputstringlength; i++) {
         // Starting at the index of the first dollar sign, look for more
         if (inputstring.charAt(i) == '$') {
           numberOfDollarSigns++; // Increment each time we find one
         }
       }
       return numberOfDollarSigns;
-    } else {
-      numberOfDollarSigns = 0;
-      return numberOfDollarSigns;
     }
-  }
 
   // Method to turn the first lowercase a into an uppercase one
   public void lowercaseToUppercaseA() {

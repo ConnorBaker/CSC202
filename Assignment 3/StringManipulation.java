@@ -1,6 +1,6 @@
 /*
 *  Author: Connor Baker
-*  Version: 0.2a
+*  Version: 0.3a
 *  Created: September 21, 2016
 *  Last Updated: September 25, 2016
 *
@@ -11,6 +11,14 @@
 *  numberOfDigits, numberOfLetters, and numberOfSpecialCharacters. I can't
 *  think of an example where it wouldn't be that (outside of Java's methods not
 *  detecting/seeing some types of characters as one of them)
+*
+*  Summary of problem specification:
+*  Functionality:
+*  Explanation of components:
+*  Assumptions made:
+*  Project name:
+*  References used:
+*
 *
 *  TODO: Create a variable stringlength to remove the need for calling .length()
 *  TODO: Finish adding in comments
@@ -25,37 +33,34 @@ import java.io.InputStreamReader;
 public class StringManipulation {
   // Initialize all of the object attributes
   StringBuffer inputstring;
+  int inputstringlength;
   int numberOfLetters;
   int numberOfDigits;
   int numberOfSpecialCharacters;
   int numberOfNonWhitespaceCharacters;
-
-  // Create a default constructor
-  StringManipulation() { // begin no-arg StringManipulation()
-    inputstring = inputstring.append("Hey lol what'$ up[a] 123456 i'm so tired ugh!");
-    numberOfLetters = 25;
-    numberOfDigits = 6;
-    numberOfSpecialCharacters = 6;
-    numberOfNonWhitespaceCharacters = numberOfLetters + numberOfDigits
-                                      + numberOfSpecialCharacters;
-  } // end no-arg StringManipulation()
+  int locationOfFirstLowercaseA;
+  int locationOfFirstDollarSign;
+  int numberOfDollarSigns;
 
   // Create an argumented constructor
   StringManipulation(StringBuffer passedstring) { // begin arg'd StringManipulation()
     inputstring = passedstring;
-    numberOfLetters = getNumberOfLetters(inputstring.length());
-    numberOfDigits = getNumberOfDigits(inputstring.length());
-    numberOfSpecialCharacters =
-      getNumberOfSpecialCharacters(inputstring.length());
+    inputstringlength = inputstring.length();
+    numberOfLetters = getNumberOfLetters();
+    numberOfDigits = getNumberOfDigits();
+    numberOfSpecialCharacters = getNumberOfSpecialCharacters();
     numberOfNonWhitespaceCharacters = numberOfLetters + numberOfDigits
                                       + numberOfSpecialCharacters;
+    locationOfFirstLowercaseA = (inputstring.indexOf("a")+1);
+    locationOfFirstDollarSign = ((inputstring.indexOf("$", 10)+1));
+    numberOfDollarSigns = getNumberOfDollarSigns();
   } // end arg'd StringManipulation()
 
   // Create method to calculate the number of letters in a string
-  public int getNumberOfLetters(int stringlength) { // begin getNumberOfLetters()
+  public int getNumberOfLetters() { // begin getNumberOfLetters()
     // Initialize our variable to hold numberOfLetters
     int num = 0;
-    for (int i = 0; i < stringlength; i++) {
+    for (int i = 0; i < inputstringlength; i++) {
       // For the length of the string, check if each
       if (Character.isLetter(inputstring.charAt(i))) {
         num++;
@@ -70,9 +75,9 @@ public class StringManipulation {
   } // end printNumberOfLetters()
 
   // Create method to calculate the number of digits in a string
-  public int getNumberOfDigits(int stringlength) { // begin getNumberOfDigits()
+  public int getNumberOfDigits() { // begin getNumberOfDigits()
     int num = 0;
-    for (int i = 0; i < stringlength; i++) {
+    for (int i = 0; i < inputstringlength; i++) {
       if (Character.isDigit(inputstring.charAt(i))) {
         num++;
       }
@@ -86,9 +91,9 @@ public class StringManipulation {
   } // end printNumberOfDigits()
 
   // Create method to calculate the number of special characters in a string
-  public int getNumberOfSpecialCharacters(int stringlength) { // begin getNumberOfSpecialCharacters()
+  public int getNumberOfSpecialCharacters() { // begin getNumberOfSpecialCharacters()
     int num = 0;
-    for (int i = 0; i < stringlength; i++) {
+    for (int i = 0; i < inputstringlength; i++) {
       if (!(Character.isLetterOrDigit(inputstring.charAt(i))) &&
       !(Character.isWhitespace(inputstring.charAt(i)))) {
         num++;
@@ -107,24 +112,58 @@ public class StringManipulation {
       + " non-whitespace characters in the string.");
   } // eng printNumberOfNonWhitespaceCharacters()
 
-  public void printIndexOfCharA() {
-    System.out.println("The first 'a' is character number " + (inputstring.indexOf("a")+1));
+  public void printLocationOfCharA() {
+    System.out.println("The first 'a' is character number "
+      + locationOfFirstLowercaseA);
+    System.out.println("The other locations are at character number(s): ");
+    for (int i = locationOfFirstLowercaseA; i < inputstringlength; i++) {
+      if (inputstring.charAt(i) == 'a') {
+        System.out.print(i + " ");
+      }
+    }
+    System.out.println();
   }
 
-  public void littleToBigA() {
-    inputstring.replace(inputstring.indexOf("a")+1, inputstring.indexOf("a")+1, "A");
+  public void lowercaseToUppercaseA() {
+    inputstring.replace(locationOfFirstLowercaseA,
+                        locationOfFirstLowercaseA, "A");
+  }
+
+  public void printlocationOfFirstDollarSigns() {
+     System.out.println("The first '$' is at character number "
+      + locationOfFirstDollarSign);
+  }
+
+  public int getNumberOfDollarSigns() {
+     for (int i = locationOfFirstDollarSign-1; i < inputstringlength; i++) {
+       if (inputstring.charAt(i) == '$') {
+         numberOfDollarSigns++;
+       }
+     }
+     return numberOfDollarSigns;
+  }
+
+  public void printNumberOfDollarSigns() {
+    System.out.println("There are " + numberOfDollarSigns + " '$'.");
+  }
+
+  public void printNumberOfCharachters() {
+    System.out.println("There are " + inputstringlength + " characters.");
   }
 
   public static void main(String args[]) { // begin main()
     StringBuffer stringtopass = new StringBuffer("Hey lol what'$ up[a] 123456 i'm so tired ugh!");
     System.out.println(stringtopass);
     StringManipulation newObject = new StringManipulation(stringtopass);
+    newObject.printNumberOfCharachters();
+    newObject.printNumberOfNonWhitespaceCharacters();
     newObject.printNumberOfLetters();
     newObject.printNumberOfDigits();
     newObject.printNumberOfSpecialCharacters();
-    newObject.printNumberOfNonWhitespaceCharacters();
-    newObject.printIndexOfCharA();
-    newObject.littleToBigA();
+    newObject.printLocationOfCharA();
+    newObject.lowercaseToUppercaseA();
+    newObject.printlocationOfFirstDollarSigns();
+    newObject.printNumberOfDollarSigns();
     System.out.println(stringtopass);
   } // end main()
 }

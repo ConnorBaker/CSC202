@@ -2,7 +2,7 @@
 *  Project name: StringManipulationPart2.java
 *
 *  Author: Connor Baker
-*  Version: 0.3a
+*  Version: 0.4a
 *  Created: September 26, 2016
 *  Last Updated: October 3, 2016
 *
@@ -23,7 +23,7 @@
 *  Meets problem specification.
 *
 *  Explanation of components:
-*  None currently.
+*  See comments.
 *
 *  Assumptions made:
 *  Java EA 9 didn't allow me to write anything that isn't backwards compliant
@@ -54,19 +54,21 @@ public class StringManipulationPart2 {
   // Swap all dollarsigns with octothorpes
   public void replaceDollarSignsWithOctothorpes() {
     System.out.println("Removing $ and replacing with #.");
+    // Loop through looking for dollarsigns and swapping them out
     for (int i = 0; i < inputstring.length(); i++) {
       if (inputstring.charAt(i) == '$') {
         inputstring.replace(i, i+1,"#");
       }
     }
-    System.out.println(inputstring);
+    System.out.println(inputstring); // Print back to console at every point
   }
 
-  // Method to delete all speical characters except for octothorpes, whitepsaces
-  // and periods (which we use later).
+  // Method to delete all speical characters except for whitepsaces and periods
+  // (which we use later).
   public void deleteAllOtherSpecialCharacters() {
     System.out.println("Deleting special characters except for periods,"
       + " and whitespaces.");
+    // Deleting changes the length of the string so we start at the right
     for (int i = (inputstring.length()-1); i > -1; i--) {
       if (!(Character.isLetterOrDigit(inputstring.charAt(i))) &&
           !(Character.isWhitespace(inputstring.charAt(i))) &&
@@ -74,7 +76,7 @@ public class StringManipulationPart2 {
         inputstring.deleteCharAt(i);
       }
     }
-    System.out.println(inputstring);
+    System.out.println(inputstring); // Print back to console at every point
   }
 
   // Method to turn the first lowercase a into an uppercase one
@@ -82,12 +84,15 @@ public class StringManipulationPart2 {
     System.out.println("Capitilizing the first letter of every word in the"
       + " first sentence.");
     int i = 0;
+    // Create sentinel value to watch for
     while (!(inputstring.charAt(i) == '.')) {
       if (Character.isLetter(inputstring.charAt(i))) {
         if (i == 0) {
           inputstring.setCharAt(i,
             Character.toUpperCase(inputstring.charAt(i)));
         } else {
+          // All new words must have a whitespace before them. We do this
+          // inside an if statement so that we don't go out of bounds.
           if (Character.isWhitespace(inputstring.charAt(i-1))) {
             inputstring.setCharAt(i,
               Character.toUpperCase(inputstring.charAt(i)));
@@ -96,13 +101,19 @@ public class StringManipulationPart2 {
       }
       i++;
     }
-    System.out.println(inputstring);
+    System.out.println(inputstring); // Print back to console at every point
   }
 
   public void lowercaseFirstLine() {
     System.out.println("Making all letters in the first sentence (except that"
       + " of the first word) lowercase.");
     int i = 0;
+    // Skip over the first letter.
+    while (!Character.isLetter(inputstring.charAt(i))) {
+      i++;
+    }
+    i =+ 1;
+    // Make all others in the first sentence lowercase
     while (!(inputstring.charAt(i) == '.')) {
       if (Character.isLetter(inputstring.charAt(i))) {
         if (i == 0) {
@@ -117,21 +128,21 @@ public class StringManipulationPart2 {
       }
       i++;
     }
-    System.out.println(inputstring);
+    System.out.println(inputstring); // Print back to console at every point
   }
 
   // Append author name in uppercase to end of file
   public void appendAuthorName() {
     System.out.println("Appending the author's name.");
     inputstring.append("CONNOR BAKER");
-    System.out.println(inputstring);
+    System.out.println(inputstring); // Print back to console at every point
   }
 
 // Append user's second input to end of file
   public StringBuffer appendSecondUserInput(StringBuffer userinput2) {
     System.out.println("Appending the user's second input.");
     inputstring.append(userinput2);
-    System.out.println(inputstring);
+    System.out.println(inputstring); // Print back to console at every point
     return null;
   }
 
@@ -142,7 +153,7 @@ public class StringManipulationPart2 {
     int x = 12; // Length of my name
     int y = userinput3.length(); // Length of user's name
     System.out.println("The difference between the author's name and the user's"
-      + " name is: " + (y - x));
+      + " name is: " + (y - x)); // Print back to console at every point
     return null;
   }
 
@@ -162,7 +173,7 @@ public class StringManipulationPart2 {
     // Create our object using the user's input
     StringManipulationPart2 newObject = new StringManipulationPart2(userinput);
 
-    // Do stuff to the object
+    // Begin processing on the object
     newObject.replaceDollarSignsWithOctothorpes();
     newObject.deleteAllOtherSpecialCharacters();
     newObject.capitalizeFirstLetterOfEveryWord();
@@ -177,7 +188,7 @@ public class StringManipulationPart2 {
     // Print the user's input back out to them again
     System.out.println("You just entered: \n" + inputstring2);
 
-    // Continue doing stuff to the object
+    // Continue processing on the object
     newObject.appendSecondUserInput(inputstring2);
 
     // Prompt user for input for the last time

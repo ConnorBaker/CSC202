@@ -2,7 +2,7 @@
 *  Project name: Assignment5.java
 *
 *  Author: Connor Baker
-*  Version: 0.2a
+*  Version: 0.3a
 *  Created: October 22, 2016
 *  Last Updated: October 23, 2016
 *
@@ -71,19 +71,21 @@ public class Assignment5 {
   }
 
   public void PrintArrays(int indexInitial, int indexFinal) {
+    System.out.print("Entry\t");
     System.out.print("Last\t");
     System.out.print("First\t");
     System.out.print("Employment\t");
-    System.out.print("ID#\t");
+    System.out.print("ID Number\t");
     System.out.print("Age\t");
-    System.out.print("Salary \t \n");
+    System.out.print("Salary\n");
     for (int i = indexInitial; i < indexFinal; i++) {
+      System.out.print((i+1) + "\t");
       System.out.print(lastName[i] + "\t");
       System.out.print(firstName[i] + "\t");
       System.out.print(employmentStatus[i] + "\t");
-      System.out.print(identificationNumber[i] + "\t");
+      System.out.print(identificationNumber[i] + "\t\t");
       System.out.print(age[i] + "\t");
-      System.out.print(salary[i] + "\t \n");
+      System.out.print(salary[i] + "\n");
     }
   }
 
@@ -137,7 +139,9 @@ public class Assignment5 {
     BufferedWriter bw = new BufferedWriter(fw);
     PrintWriter pw = new PrintWriter(bw);
 
-    Assignment5 dbs3 = new Assignment5(0,2);
+    Assignment5 dbs3 = new Assignment5(0, 6);
+    dbs3.FillArrays(6, 9);
+    dbs3.PrintArrays(0, 9);
 
     pw.println("File is no longer empty.");
     pw.close();

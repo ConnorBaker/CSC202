@@ -2,7 +2,7 @@
 *  Project name: Assignment5.java
 *
 *  Author: Connor Baker
-*  Version: 0.3a
+*  Version: 0.4a
 *  Created: October 22, 2016
 *  Last Updated: October 23, 2016
 *
@@ -45,7 +45,7 @@ public class Assignment5 {
   // Create an arrays to hold user-inputted records
   String lastName[] = new String[10];
   String firstName[] = new String[10];
-  String employmentStatus[] = new String[10];
+  boolean employmentStatus[] = new boolean[10];
   int identificationNumber[] = new int[10];
   int age[] = new int[10];
   double salary[] = new double[10];
@@ -53,10 +53,15 @@ public class Assignment5 {
   // Create a scanner to grab user input
   Scanner grabInput = new Scanner(System.in);
 
+  // Create a String holding the database's filename
+  String filename = "dbs3.txt";
+
+  // Create a boolean telling us whether the file exists
+  boolean appendMode;
+
   // Create a default constructor to hold the database
   Assignment5(int indexInitial, int indexFinal) {
     FillArrays(indexInitial, indexFinal);
-    PrintArrays(indexInitial, indexFinal);
   }
 
   public void FillArrays(int indexInitial, int indexFinal) {
@@ -71,22 +76,60 @@ public class Assignment5 {
   }
 
   public void PrintArrays(int indexInitial, int indexFinal) {
-    System.out.print("Entry\t");
     System.out.print("Last\t");
     System.out.print("First\t");
-    System.out.print("Employment\t");
-    System.out.print("ID Number\t");
+    System.out.print("FTE\t"); // Full Time Employment
+    System.out.print("ID #\t");
     System.out.print("Age\t");
-    System.out.print("Salary\n");
+    System.out.print("Salary");
+    System.out.println();
     for (int i = indexInitial; i < indexFinal; i++) {
-      System.out.print((i+1) + "\t");
       System.out.print(lastName[i] + "\t");
       System.out.print(firstName[i] + "\t");
       System.out.print(employmentStatus[i] + "\t");
       System.out.print(identificationNumber[i] + "\t\t");
       System.out.print(age[i] + "\t");
-      System.out.print(salary[i] + "\n");
+      System.out.print(salary[i]);
+      System.out.println();
     }
+  }
+
+  public void PrintArraysToFile(int indexInitial, int indexFinal) throws IOException {
+    // Create a String holding the database's filename
+    String filename = "dbs3.txt";
+
+    // Check whether the file exists, and whether to use append mode
+    appendMode = DoesFileExist();
+    System.out.println(appendMode);
+
+    // Create the database
+    FileWriter fw = new FileWriter(filename, appendMode);
+    BufferedWriter bw = new BufferedWriter(fw);
+    PrintWriter pw = new PrintWriter(bw);
+
+    // Write header if initial write
+    if (appendMode == false) {
+      pw.print("Last\t");
+      pw.print("First\t");
+      pw.print("FTE\t"); // Full Time Employment
+      pw.print("ID #\t");
+      pw.print("Age\t");
+      pw.print("Salary");
+      pw.println();
+    }
+    for (int i = indexInitial; i < indexFinal; i++) {
+      pw.print(lastName[i] + "\t");
+      pw.print(firstName[i] + "\t");
+      pw.print(employmentStatus[i] + "\t");
+      pw.print(identificationNumber[i] + "\t");
+      pw.print(age[i] + "\t");
+      pw.println(salary[i]);
+    }
+    // Close output streams
+    // pw.close();
+    bw.flush();
+    bw.close();
+    fw.close();
   }
 
   public void IdentificationNumber(int index) {
@@ -111,7 +154,7 @@ public class Assignment5 {
 
   public void EmploymentStatus(int index) {
     System.out.println("Please input employee's employment status: ");
-    employmentStatus[index] = grabInput.nextLine();
+    employmentStatus[index] = Boolean.parseBoolean(grabInput.nextLine());
   }
 
   public void Salary(int index) {
@@ -119,32 +162,26 @@ public class Assignment5 {
     salary[index] = Double.parseDouble(grabInput.nextLine());
   }
 
-  public static void main(String args[]) throws IOException {
-    // Create a String holding the database's filename
-    String filename = "dbs3.txt";
-
+  public boolean DoesFileExist() {
     // Check if the file already exists
     File tempFile = new File(filename);
     boolean fileExists = tempFile.isFile();
 
-    // Print whether the file exists
-    if (fileExists == false) {
-      System.out.println(filename + " did not exist, and has been created.");
-    } else {
-      System.out.println(filename + " already exists. Using append mode.");
-    }
+    // Return the boolean
+    return fileExists;
+  }
 
-    // Create the database
-    FileWriter fw = new FileWriter(filename, fileExists);
-    BufferedWriter bw = new BufferedWriter(fw);
-    PrintWriter pw = new PrintWriter(bw);
-
+  public static void main(String args[]) throws IOException {
+    // Create the object and populate with initial records
     Assignment5 dbs3 = new Assignment5(0, 6);
+    dbs3.PrintArrays(0, 6);
+    dbs3.PrintArraysToFile(0, 6);
+
+    // Add more records to the database
     dbs3.FillArrays(6, 9);
     dbs3.PrintArrays(0, 9);
+    dbs3.PrintArraysToFile(6, 9);
 
-    pw.println("File is no longer empty.");
-    pw.close();
     System.out.println("File created.");
   }
 }

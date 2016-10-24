@@ -2,7 +2,7 @@
 *  Project name: EmployeeRecord.java
 *
 *  Author: Connor Baker
-*  Version: 0.5c
+*  Version: 0.6a
 *  Created: October 22, 2016
 *  Last Updated: October 24, 2016
 *
@@ -73,7 +73,56 @@ public class EmployeeRecord {
     this.salary = salary;
   }
 
+  // Create a new method that creates a new EmployeeRecord object
+  public EmployeeRecord createNewEmployeeRecord() {
+    return new EmployeeRecord(getLastName(), getFirstName(),
+        getEmploymentStatus(), getAge(), getID(), getSalary());
+  }
+
+  // Method to grab user-inputted last name
+  public String getLastName() {
+    System.out.println("Please input employee's last name: ");
+    String lastName = grabInput.nextLine();
+    return lastName;
+  }
+
+  // Method to grab user-inputted first name
+  public String getFirstName() {
+    System.out.println("Please input employee's first name: ");
+    String firstName = grabInput.nextLine();
+    return firstName;
+  }
+
+  // Method to grab user-inputted age
+  public int getAge() {
+    System.out.println("Please input employee's age: ");
+    int age = Integer.parseInt(grabInput.nextLine());
+    return age;
+  }
+
+  // Method to grab user-inputted employment status
+  public boolean getEmploymentStatus() {
+    System.out.println("Please input employee's employment status: ");
+    boolean employmentStatus = Boolean.parseBoolean(grabInput.nextLine());
+    return employmentStatus;
+  }
+
+  // Method to grab user-inputted ID #
+  public int getID() {
+    System.out.println("Please input employee's ID#: ");
+    int identificationNumber = Integer.parseInt(grabInput.nextLine());
+    return identificationNumber;
+  }
+
+  // Method to grab user-inputted salary
+  public double getSalary() {
+    System.out.println("Please input employee's salary: ");
+    double salary = Double.parseDouble(grabInput.nextLine());
+    return salary;
+  }
+
   public static void main(String args[]) {
-    ArrayList<EmployeeRecord>;
+    ArrayList<EmployeeRecord> arrayList = new ArrayList<>();
+    arrayList.add(new EmployeeRecord(createNewEmployeeRecord()));
   }
 }

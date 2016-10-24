@@ -1,0 +1,9 @@
+Smith Martha true 37 13123 40956.86
+Smith John true 39 13124 40811.08
+Gould Frank true 48 23101 46208.02
+Fierce Jenny false 27 49031 1137.49
+Jacobs Mark true 32 188288 39475.00
+Memes Dank false 20 191919 0.00
+Meow Cat false 7 1023201 0.00
+Lord Binary false 100 1010101 10303.12
+Baker Connor false 19 6767133 2040.23

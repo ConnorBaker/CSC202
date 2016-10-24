@@ -283,7 +283,6 @@ public class EmployeeRecord {
     // Repopulate our ArrayList
     for (int i = 0; i < countLines(); i++) {
       records.add(parseEmployeeRecord(i));
-      System.out.println(i);
     }
 
     // Give everyone a raise so they don't call OSHA!

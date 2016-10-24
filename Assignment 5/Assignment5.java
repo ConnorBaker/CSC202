@@ -84,12 +84,10 @@ public class Assignment5 {
     // Create objects used to read from file
     FileReader fr = new FileReader(filename);
     BufferedReader br = new BufferedReader(fr);
-    StringBuffer inputString;
 
     // Display the content of the file
     for (int i = indexInitial; i < indexFinal; i++) {
-      inputString = new StringBuffer(br.readLine());
-      System.out.println(inputString);
+      System.out.println(br.readLine());
     }
     // Close input streams when done
     br.close();
@@ -98,10 +96,9 @@ public class Assignment5 {
 
   // Method to print user-inputted records to file (accepts arguments)
   public void printArraysToFile(int indexInitial, int indexFinal)
-    throws IOException {
+      throws IOException {
     // Check whether the file exists, and whether to use append mode
     appendMode = doesFileExist();
-    System.out.println(appendMode);
 
     // Create the database
     FileWriter fw = new FileWriter(filename, appendMode);
@@ -171,6 +168,17 @@ public class Assignment5 {
     salary[index] = Double.parseDouble(grabInput.nextLine());
   }
 
+  // Method to give everyone a raise so that they don't leave
+  public void giveThemRaises(double raise) throws FileNotFoundException,
+      IOException {
+    // Create objects used to read from file
+    FileReader fr = new FileReader(filename);
+    BufferedReader br = new BufferedReader(fr);
+    StringTokenizer st = new StringTokenizer(br.readLine(),
+      " \t");
+    
+
+  }
   // Method to determine whether to use append with FileWriter
   public boolean doesFileExist() {
     // Check if the file already exists

@@ -2,7 +2,7 @@
 *  Project name: EmployeeRecord.java
 *
 *  Author: Connor Baker
-*  Version: 0.8a
+*  Version: 0.9a
 *  Created: October 22, 2016
 *  Last Updated: October 24, 2016
 *
@@ -17,7 +17,8 @@
 *  classes. Finally, give everyone a 2% raise, and print to the terminal again.
 *
 *  Functionality:
-*  Being expanded to meet problem specification.
+*  Currently meets problem specification, except for the condition of using
+*  seven wrapper classes.
 *
 *  Explanation of components:
 *  See comments.
@@ -27,7 +28,7 @@
 *  with the current version.
 *
 *  References used:
-*  https://docs.oracle.com/javase/8/docs/
+*  http://download.java.net/java/jdk9/docs/api/
 *  http://stackoverflow.com/questions/13102045/scanner-is-skipping-nextline
 *    -after-using-next-nextint-or-other-nextfoo
 *  The ever-illuminating IllegalArgument of internet chatroom legends.
@@ -61,6 +62,7 @@ public class EmployeeRecord {
 
   // Create a boolean telling us whether the file exists
   static boolean appendMode;
+  static boolean overwrite;
 
   // Create an argumented constructor to hold employee information
   EmployeeRecord(String lastName, String firstName,
@@ -127,17 +129,26 @@ public class EmployeeRecord {
     // Check if the file already exists
     File tempFile = new File(filename);
     boolean fileExists = tempFile.isFile();
+
     // Return the boolean
     return fileExists;
   }
 
   // Method to read EmployeeRecord from file
-  public static EmployeeRecord parseEmployeeRecord()
+  public static EmployeeRecord parseEmployeeRecord(int i)
       throws FileNotFoundException, IOException {
-    // Create InputStream and StringTokenizer
+    // Create InputStream
     FileReader fr = new FileReader(filename);
     BufferedReader br = new BufferedReader(fr);
+
+    // Number of lines to skip
+    for (int k = 0; k < i; k++) {
+      br.readLine();
+    }
+
+    // Create the StringTokenizer
     StringTokenizer st = new StringTokenizer(br.readLine());
+
     // Grab information from the records
     String lastName = st.nextToken();
     String firstName = st.nextToken();
@@ -145,11 +156,14 @@ public class EmployeeRecord {
     int age = Integer.parseInt(st.nextToken());
     int identificationNumber = Integer.parseInt(st.nextToken());
     double salary = Double.parseDouble(st.nextToken());
+
     // Close InputStream
     br.close();
     fr.close();
+
     // Return the new EmployeeRecord to our ArrayList
-    return new EmployeeRecord(lastName, firstName, employmentStatus, age, identificationNumber, salary);
+    return new EmployeeRecord(lastName, firstName, employmentStatus,
+        age, identificationNumber, salary);
   }
 
   // Method to send EmployeeRecord to a String
@@ -160,21 +174,31 @@ public class EmployeeRecord {
 
   // Method to print user-inputted records to file
   public static void printEmployeeRecordToFile(ArrayList<EmployeeRecord>
-      record) throws IOException {
+      record, boolean overwrite) throws IOException {
     // Check whether the file exists
-    appendMode = doesFileExist();
+    if (overwrite == false) {
+      appendMode = doesFileExist();
+    } else {
+      appendMode = false;
+    }
+
     // Create OutputStream
     FileWriter fw = new FileWriter(filename, appendMode);
     BufferedWriter bw = new BufferedWriter(fw);
     PrintWriter pw = new PrintWriter(bw);
+
     //Populate the database
     for (EmployeeRecord iterator : record) {
       pw.println(iterator.printEmployeeRecord());
     }
+
     // Close output streams
     bw.flush();
     bw.close();
     fw.close();
+
+    // Who doesn't like padding?
+    System.out.println();
   }
 
   // Method to print user-inputted records to screen
@@ -183,15 +207,21 @@ public class EmployeeRecord {
     // Create InputStream
     FileReader fr = new FileReader(filename);
     BufferedReader br = new BufferedReader(fr);
+
     // Create String to use for testing
     String line;
+
     // Test for EOF while printing
     while ((line = br.readLine()) != null) {
       System.out.println(line);
     }
+
     // Close InputStream
     br.close();
     fr.close();
+
+    // Who doesn't like padding?
+    System.out.println();
   }
 
   // Method to count number of lines in a file
@@ -202,41 +232,66 @@ public class EmployeeRecord {
     BufferedReader br = new BufferedReader(fr);
     String line;
     int i = 0;
+
     // Test for EOF while printing
     while ((line = br.readLine()) != null) {
       i++;
     }
+
     // Close InputStream
     br.close();
     fr.close();
     return i;
   }
 
+  // Give everyone a 2% pay bump so they don't leave the company
+  public static void giveThemAllRaises(ArrayList<EmployeeRecord>
+      record) {
+    for (EmployeeRecord iterator : record) {
+      iterator.salary *= 1.02;
+    }
+  }
+
   public static void main(String args[]) throws IOException {
     // Create an ArrayList to hold employee records
     ArrayList<EmployeeRecord> records = new ArrayList<>();
+
     // Populate the ArrayList with employee records
     for (int i = 0; i < 6; i++) {
       records.add(createNewEmployeeRecord());
     }
+
     // Print the ArrayList to screen and file
-    printEmployeeRecordToFile(records);
+    printEmployeeRecordToFile(records, (overwrite = false));
     printEmployeeRecordToScreen();
+
     // Empty our ArrayList
     records.clear();
+
     // Populate the ArrayList with even more employee records
     for (int i = 0; i < 3; i++) {
       records.add(createNewEmployeeRecord());
     }
+
     // Print the ArrayList to screen and file
-    printEmployeeRecordToFile(records);
+    printEmployeeRecordToFile(records, (overwrite = false));
     printEmployeeRecordToScreen();
+
     // Empty our ArrayList
     records.clear();
+
     // Repopulate our ArrayList
     for (int i = 0; i < countLines(); i++) {
-      records.add(parseEmployeeRecord());
+      records.add(parseEmployeeRecord(i));
       System.out.println(i);
     }
+
+    // Give everyone a raise so they don't call OSHA!
+    giveThemAllRaises(records);
+    printEmployeeRecordToFile(records, (overwrite = true));
+    printEmployeeRecordToScreen();
+
+    // Empty our ArrayList
+    records.clear();
   }
 }

@@ -2,7 +2,7 @@
 *  Project name: Assignment5.java
 *
 *  Author: Connor Baker
-*  Version: 0.4a
+*  Version: 0.5a
 *  Created: October 22, 2016
 *  Last Updated: October 23, 2016
 *
@@ -34,9 +34,12 @@
 
 // Import necessary packages
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.PrintWriter;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -75,26 +78,21 @@ public class Assignment5 {
     }
   }
 
-  public void PrintArrays(int indexInitial, int indexFinal) {
-    System.out.print("Last\t");
-    System.out.print("First\t");
-    System.out.print("FTE\t"); // Full Time Employment
-    System.out.print("ID #\t");
-    System.out.print("Age\t");
-    System.out.print("Salary");
-    System.out.println();
+  public void PrintFromFile(int indexInitial, int indexFinal)
+    throws FileNotFoundException, IOException {
+    // Create objects used to read from file
+    FileReader fr = new FileReader(filename);
+    BufferedReader br = new BufferedReader(fr);
+    StringBuffer inputString;
+
     for (int i = indexInitial; i < indexFinal; i++) {
-      System.out.print(lastName[i] + "\t");
-      System.out.print(firstName[i] + "\t");
-      System.out.print(employmentStatus[i] + "\t");
-      System.out.print(identificationNumber[i] + "\t\t");
-      System.out.print(age[i] + "\t");
-      System.out.print(salary[i]);
-      System.out.println();
+      inputString = new StringBuffer(br.readLine());
+      System.out.println(inputString);
     }
   }
 
-  public void PrintArraysToFile(int indexInitial, int indexFinal) throws IOException {
+  public void PrintArraysToFile(int indexInitial, int indexFinal)
+    throws IOException {
     // Create a String holding the database's filename
     String filename = "dbs3.txt";
 
@@ -111,18 +109,18 @@ public class Assignment5 {
     if (appendMode == false) {
       pw.print("Last\t");
       pw.print("First\t");
+      pw.print("Age\t");
       pw.print("FTE\t"); // Full Time Employment
       pw.print("ID #\t");
-      pw.print("Age\t");
       pw.print("Salary");
       pw.println();
     }
     for (int i = indexInitial; i < indexFinal; i++) {
       pw.print(lastName[i] + "\t");
       pw.print(firstName[i] + "\t");
+      pw.print(age[i] + "\t");
       pw.print(employmentStatus[i] + "\t");
       pw.print(identificationNumber[i] + "\t");
-      pw.print(age[i] + "\t");
       pw.println(salary[i]);
     }
     // Close output streams
@@ -130,11 +128,6 @@ public class Assignment5 {
     bw.flush();
     bw.close();
     fw.close();
-  }
-
-  public void IdentificationNumber(int index) {
-    System.out.println("Please input employee's ID#: ");
-    identificationNumber[index] = Integer.parseInt(grabInput.nextLine());
   }
 
   public void LastName(int index) {
@@ -157,6 +150,11 @@ public class Assignment5 {
     employmentStatus[index] = Boolean.parseBoolean(grabInput.nextLine());
   }
 
+  public void IdentificationNumber(int index) {
+    System.out.println("Please input employee's ID#: ");
+    identificationNumber[index] = Integer.parseInt(grabInput.nextLine());
+  }
+
   public void Salary(int index) {
     System.out.println("Please input employee's salary: ");
     salary[index] = Double.parseDouble(grabInput.nextLine());
@@ -174,14 +172,12 @@ public class Assignment5 {
   public static void main(String args[]) throws IOException {
     // Create the object and populate with initial records
     Assignment5 dbs3 = new Assignment5(0, 6);
-    dbs3.PrintArrays(0, 6);
     dbs3.PrintArraysToFile(0, 6);
 
     // Add more records to the database
     dbs3.FillArrays(6, 9);
-    dbs3.PrintArrays(0, 9);
     dbs3.PrintArraysToFile(6, 9);
 
-    System.out.println("File created.");
+    dbs3.PrintFromFile(0, 6);
   }
 }

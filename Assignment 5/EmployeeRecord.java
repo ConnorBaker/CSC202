@@ -2,7 +2,7 @@
 *  Project name: EmployeeRecord.java
 *
 *  Author: Connor Baker
-*  Version: 0.7b
+*  Version: 0.8a
 *  Created: October 22, 2016
 *  Last Updated: October 24, 2016
 *
@@ -44,6 +44,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class EmployeeRecord {
   // Initialize some primitives
@@ -130,25 +131,43 @@ public class EmployeeRecord {
     return fileExists;
   }
 
-  // public static EmployeeRecord parseEmployeeRecord(String line) {
-  //   // Implement StringTokenizer
-  //   return EmployeeRecord;
-  // }
+  // Method to read EmployeeRecord from file
+  public static EmployeeRecord parseEmployeeRecord()
+      throws FileNotFoundException, IOException {
+    // Create InputStream and StringTokenizer
+    FileReader fr = new FileReader(filename);
+    BufferedReader br = new BufferedReader(fr);
+    StringTokenizer st = new StringTokenizer(br.readLine());
+    // Grab information from the records
+    String lastName = st.nextToken();
+    String firstName = st.nextToken();
+    boolean employmentStatus = Boolean.parseBoolean(st.nextToken());
+    int age = Integer.parseInt(st.nextToken());
+    int identificationNumber = Integer.parseInt(st.nextToken());
+    double salary = Double.parseDouble(st.nextToken());
+    // Close InputStream
+    br.close();
+    fr.close();
+    // Return the new EmployeeRecord to our ArrayList
+    return new EmployeeRecord(lastName, firstName, employmentStatus, age, identificationNumber, salary);
+  }
 
+  // Method to send EmployeeRecord to a String
   public String printEmployeeRecord() {
-    return String.format("%s\t%s\t%d\t%b\t%d\t%.2f", lastName,
-      firstName, age, employmentStatus, identificationNumber, salary);
+    return String.format("%s %s %b %d %d %.2f", lastName,
+      firstName, employmentStatus, age, identificationNumber, salary);
   }
 
   // Method to print user-inputted records to file
   public static void printEmployeeRecordToFile(ArrayList<EmployeeRecord>
       record) throws IOException {
-    // Check whether the file exists, and whether to use append mode
+    // Check whether the file exists
     appendMode = doesFileExist();
-    // Create the database
+    // Create OutputStream
     FileWriter fw = new FileWriter(filename, appendMode);
     BufferedWriter bw = new BufferedWriter(fw);
     PrintWriter pw = new PrintWriter(bw);
+    //Populate the database
     for (EmployeeRecord iterator : record) {
       pw.println(iterator.printEmployeeRecord());
     }
@@ -161,40 +180,63 @@ public class EmployeeRecord {
   // Method to print user-inputted records to screen
   public static void printEmployeeRecordToScreen()
       throws FileNotFoundException, IOException {
+    // Create InputStream
     FileReader fr = new FileReader(filename);
     BufferedReader br = new BufferedReader(fr);
+    // Create String to use for testing
     String line;
+    // Test for EOF while printing
     while ((line = br.readLine()) != null) {
       System.out.println(line);
     }
+    // Close InputStream
     br.close();
     fr.close();
+  }
+
+  // Method to count number of lines in a file
+  public static int countLines()
+      throws FileNotFoundException, IOException {
+    // Create InputStream
+    FileReader fr = new FileReader(filename);
+    BufferedReader br = new BufferedReader(fr);
+    String line;
+    int i = 0;
+    // Test for EOF while printing
+    while ((line = br.readLine()) != null) {
+      i++;
+    }
+    // Close InputStream
+    br.close();
+    fr.close();
+    return i;
   }
 
   public static void main(String args[]) throws IOException {
     // Create an ArrayList to hold employee records
     ArrayList<EmployeeRecord> records = new ArrayList<>();
-
     // Populate the ArrayList with employee records
     for (int i = 0; i < 6; i++) {
       records.add(createNewEmployeeRecord());
     }
-
     // Print the ArrayList to screen and file
     printEmployeeRecordToFile(records);
     printEmployeeRecordToScreen();
-
     // Empty our ArrayList
     records.clear();
-
     // Populate the ArrayList with even more employee records
     for (int i = 0; i < 3; i++) {
       records.add(createNewEmployeeRecord());
     }
-
     // Print the ArrayList to screen and file
     printEmployeeRecordToFile(records);
     printEmployeeRecordToScreen();
-
+    // Empty our ArrayList
+    records.clear();
+    // Repopulate our ArrayList
+    for (int i = 0; i < countLines(); i++) {
+      records.add(parseEmployeeRecord());
+      System.out.println(i);
+    }
   }
 }

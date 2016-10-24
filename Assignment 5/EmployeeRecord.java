@@ -2,7 +2,7 @@
 *  Project name: EmployeeRecord.java
 *
 *  Author: Connor Baker
-*  Version: 0.6a
+*  Version: 0.7a
 *  Created: October 22, 2016
 *  Last Updated: October 24, 2016
 *
@@ -53,13 +53,13 @@ public class EmployeeRecord {
   double salary;
 
   // Create a scanner to grab user input
-  Scanner grabInput = new Scanner(System.in);
+  static Scanner grabInput = new Scanner(System.in);
 
   // Create a String holding the database's filename
-  String filename = "dbs3.txt";
+  static String filename = "dbs3.txt";
 
   // Create a boolean telling us whether the file exists
-  boolean appendMode;
+  static boolean appendMode;
 
   // Create an argumented constructor to hold employee information
   EmployeeRecord(String lastName, String firstName,
@@ -74,55 +74,96 @@ public class EmployeeRecord {
   }
 
   // Create a new method that creates a new EmployeeRecord object
-  public EmployeeRecord createNewEmployeeRecord() {
+  public static EmployeeRecord createNewEmployeeRecord() {
     return new EmployeeRecord(getLastName(), getFirstName(),
         getEmploymentStatus(), getAge(), getID(), getSalary());
   }
 
   // Method to grab user-inputted last name
-  public String getLastName() {
+  public static String getLastName() {
     System.out.println("Please input employee's last name: ");
     String lastName = grabInput.nextLine();
     return lastName;
   }
 
   // Method to grab user-inputted first name
-  public String getFirstName() {
+  public static String getFirstName() {
     System.out.println("Please input employee's first name: ");
     String firstName = grabInput.nextLine();
     return firstName;
   }
 
-  // Method to grab user-inputted age
-  public int getAge() {
-    System.out.println("Please input employee's age: ");
-    int age = Integer.parseInt(grabInput.nextLine());
-    return age;
-  }
-
   // Method to grab user-inputted employment status
-  public boolean getEmploymentStatus() {
+  public static boolean getEmploymentStatus() {
     System.out.println("Please input employee's employment status: ");
     boolean employmentStatus = Boolean.parseBoolean(grabInput.nextLine());
     return employmentStatus;
   }
 
+  // Method to grab user-inputted age
+  public static int getAge() {
+    System.out.println("Please input employee's age: ");
+    int age = Integer.parseInt(grabInput.nextLine());
+    return age;
+  }
+
   // Method to grab user-inputted ID #
-  public int getID() {
+  public static int getID() {
     System.out.println("Please input employee's ID#: ");
     int identificationNumber = Integer.parseInt(grabInput.nextLine());
     return identificationNumber;
   }
 
   // Method to grab user-inputted salary
-  public double getSalary() {
+  public static double getSalary() {
     System.out.println("Please input employee's salary: ");
     double salary = Double.parseDouble(grabInput.nextLine());
     return salary;
   }
 
-  public static void main(String args[]) {
-    ArrayList<EmployeeRecord> arrayList = new ArrayList<>();
-    arrayList.add(new EmployeeRecord(createNewEmployeeRecord()));
+  // Method to determine whether to use append with FileWriter
+  public static boolean doesFileExist() {
+    // Check if the file already exists
+    File tempFile = new File(filename);
+    boolean fileExists = tempFile.isFile();
+    // Return the boolean
+    return fileExists;
+  }
+
+  public String printEmployeeRecord() {
+    return String.format("%s\t%s\t%d\t%b\t%d\t%.2f", lastName,
+      firstName, age, employmentStatus, identificationNumber, salary);
+  }
+
+  // Method to print user-inputted records to file
+  public static void printEmployeeRecordToFile(ArrayList<EmployeeRecord>
+      record) throws IOException {
+    // Check whether the file exists, and whether to use append mode
+    appendMode = doesFileExist();
+    // Create the database
+    FileWriter fw = new FileWriter(filename, appendMode);
+    BufferedWriter bw = new BufferedWriter(fw);
+    PrintWriter pw = new PrintWriter(bw);
+    for (EmployeeRecord iterator : record) {
+      pw.println(iterator.printEmployeeRecord());
+    }
+    // Close output streams
+    bw.flush();
+    bw.close();
+    fw.close();
+  }
+
+  // Method to print user-inputted records to screen
+  public static void printEmployeeRecordToScreen(ArrayList<EmployeeRecord>  record) {
+    for (EmployeeRecord iterator : record) {
+      System.out.println(iterator.printEmployeeRecord());
+    }
+  }
+
+  public static void main(String args[]) throws IOException {
+    ArrayList<EmployeeRecord> records = new ArrayList<>();
+    records.add(createNewEmployeeRecord());
+    printEmployeeRecordToScreen(records);
+    printEmployeeRecordToFile(records);
   }
 }

@@ -2,7 +2,7 @@
 *  Project name: Assignment5.java
 *
 *  Author: Connor Baker
-*  Version: 0.5b
+*  Version: 0.5c
 *  Created: October 22, 2016
 *  Last Updated: October 24, 2016
 *
@@ -66,6 +66,7 @@ public class Assignment5 {
     fillArrays(indexInitial, indexFinal);
   }
 
+  // Create a method to call
   public void fillArrays(int indexInitial, int indexFinal) {
     for (int i = indexInitial; i < indexFinal; i++) {
     identificationNumber(i);
@@ -77,6 +78,7 @@ public class Assignment5 {
     }
   }
 
+  // Method to print contents of file to terminal (accepts arguments)
   public void printFromFile(int indexInitial, int indexFinal)
     throws FileNotFoundException, IOException {
     // Create objects used to read from file
@@ -94,6 +96,7 @@ public class Assignment5 {
     fr.close();
   }
 
+  // Method to print user-inputted records to file (accepts arguments)
   public void printArraysToFile(int indexInitial, int indexFinal)
     throws IOException {
     // Check whether the file exists, and whether to use append mode
@@ -115,7 +118,9 @@ public class Assignment5 {
       pw.print("Salary");
       pw.println();
     }
+
     for (int i = indexInitial; i < indexFinal; i++) {
+      // Loop through all records, one row at a time
       pw.print(lastName[i] + "\t");
       pw.print(firstName[i] + "\t");
       pw.print(age[i] + "\t");
@@ -130,36 +135,43 @@ public class Assignment5 {
     fw.close();
   }
 
+  // Method to grab user-inputted last name
   public void lastName(int index) {
     System.out.println("Please input employee's last name: ");
     lastName[index] = grabInput.nextLine();
   }
 
+  // Method to grab user-inputted first name
   public void firstName(int index) {
     System.out.println("Please input employee's first name: ");
     firstName[index] = grabInput.nextLine();
   }
 
+  // Method to grab user-inputted age
   public void age(int index) {
     System.out.println("Please input employee's age: ");
     age[index] = Integer.parseInt(grabInput.nextLine());
   }
 
+  // Method to grab user-inputted employment status
   public void employmentStatus(int index) {
     System.out.println("Please input employee's employment status: ");
     employmentStatus[index] = Boolean.parseBoolean(grabInput.nextLine());
   }
 
+  // Method to grab user-inputted ID #
   public void identificationNumber(int index) {
     System.out.println("Please input employee's ID#: ");
     identificationNumber[index] = Integer.parseInt(grabInput.nextLine());
   }
 
+  // Method to grab user-inputted salary
   public void salary(int index) {
     System.out.println("Please input employee's salary: ");
     salary[index] = Double.parseDouble(grabInput.nextLine());
   }
 
+  // Method to determine whether to use append with FileWriter
   public boolean doesFileExist() {
     // Check if the file already exists
     File tempFile = new File(filename);

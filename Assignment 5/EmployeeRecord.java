@@ -2,7 +2,7 @@
 *  Project name: EmployeeRecord.java
 *
 *  Author: Connor Baker
-*  Version: 0.7a
+*  Version: 0.7b
 *  Created: October 22, 2016
 *  Last Updated: October 24, 2016
 *
@@ -130,6 +130,11 @@ public class EmployeeRecord {
     return fileExists;
   }
 
+  // public static EmployeeRecord parseEmployeeRecord(String line) {
+  //   // Implement StringTokenizer
+  //   return EmployeeRecord;
+  // }
+
   public String printEmployeeRecord() {
     return String.format("%s\t%s\t%d\t%b\t%d\t%.2f", lastName,
       firstName, age, employmentStatus, identificationNumber, salary);
@@ -154,16 +159,42 @@ public class EmployeeRecord {
   }
 
   // Method to print user-inputted records to screen
-  public static void printEmployeeRecordToScreen(ArrayList<EmployeeRecord>  record) {
-    for (EmployeeRecord iterator : record) {
-      System.out.println(iterator.printEmployeeRecord());
+  public static void printEmployeeRecordToScreen()
+      throws FileNotFoundException, IOException {
+    FileReader fr = new FileReader(filename);
+    BufferedReader br = new BufferedReader(fr);
+    String line;
+    while ((line = br.readLine()) != null) {
+      System.out.println(line);
     }
+    br.close();
+    fr.close();
   }
 
   public static void main(String args[]) throws IOException {
+    // Create an ArrayList to hold employee records
     ArrayList<EmployeeRecord> records = new ArrayList<>();
-    records.add(createNewEmployeeRecord());
-    printEmployeeRecordToScreen(records);
+
+    // Populate the ArrayList with employee records
+    for (int i = 0; i < 6; i++) {
+      records.add(createNewEmployeeRecord());
+    }
+
+    // Print the ArrayList to screen and file
     printEmployeeRecordToFile(records);
+    printEmployeeRecordToScreen();
+
+    // Empty our ArrayList
+    records.clear();
+
+    // Populate the ArrayList with even more employee records
+    for (int i = 0; i < 3; i++) {
+      records.add(createNewEmployeeRecord());
+    }
+
+    // Print the ArrayList to screen and file
+    printEmployeeRecordToFile(records);
+    printEmployeeRecordToScreen();
+
   }
 }

@@ -2,9 +2,9 @@
 *  Project name: Assignment5.java
 *
 *  Author: Connor Baker
-*  Version: 0.5a
+*  Version: 0.5b
 *  Created: October 22, 2016
-*  Last Updated: October 23, 2016
+*  Last Updated: October 24, 2016
 *
 *  Summary of problem specification:
 *  Creates a file named dbs3.txt using FileWriter, with input sent via
@@ -41,7 +41,6 @@ import java.io.BufferedWriter;
 import java.io.PrintWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Assignment5 {
@@ -64,40 +63,41 @@ public class Assignment5 {
 
   // Create a default constructor to hold the database
   Assignment5(int indexInitial, int indexFinal) {
-    FillArrays(indexInitial, indexFinal);
+    fillArrays(indexInitial, indexFinal);
   }
 
-  public void FillArrays(int indexInitial, int indexFinal) {
+  public void fillArrays(int indexInitial, int indexFinal) {
     for (int i = indexInitial; i < indexFinal; i++) {
-    IdentificationNumber(i);
-    LastName(i);
-    FirstName(i);
-    Age(i);
-    EmploymentStatus(i);
-    Salary(i);
+    identificationNumber(i);
+    lastName(i);
+    firstName(i);
+    age(i);
+    employmentStatus(i);
+    salary(i);
     }
   }
 
-  public void PrintFromFile(int indexInitial, int indexFinal)
+  public void printFromFile(int indexInitial, int indexFinal)
     throws FileNotFoundException, IOException {
     // Create objects used to read from file
     FileReader fr = new FileReader(filename);
     BufferedReader br = new BufferedReader(fr);
     StringBuffer inputString;
 
+    // Display the content of the file
     for (int i = indexInitial; i < indexFinal; i++) {
       inputString = new StringBuffer(br.readLine());
       System.out.println(inputString);
     }
+    // Close input streams when done
+    br.close();
+    fr.close();
   }
 
-  public void PrintArraysToFile(int indexInitial, int indexFinal)
+  public void printArraysToFile(int indexInitial, int indexFinal)
     throws IOException {
-    // Create a String holding the database's filename
-    String filename = "dbs3.txt";
-
     // Check whether the file exists, and whether to use append mode
-    appendMode = DoesFileExist();
+    appendMode = doesFileExist();
     System.out.println(appendMode);
 
     // Create the database
@@ -130,37 +130,37 @@ public class Assignment5 {
     fw.close();
   }
 
-  public void LastName(int index) {
+  public void lastName(int index) {
     System.out.println("Please input employee's last name: ");
     lastName[index] = grabInput.nextLine();
   }
 
-  public void FirstName(int index) {
+  public void firstName(int index) {
     System.out.println("Please input employee's first name: ");
     firstName[index] = grabInput.nextLine();
   }
 
-  public void Age(int index) {
+  public void age(int index) {
     System.out.println("Please input employee's age: ");
     age[index] = Integer.parseInt(grabInput.nextLine());
   }
 
-  public void EmploymentStatus(int index) {
+  public void employmentStatus(int index) {
     System.out.println("Please input employee's employment status: ");
     employmentStatus[index] = Boolean.parseBoolean(grabInput.nextLine());
   }
 
-  public void IdentificationNumber(int index) {
+  public void identificationNumber(int index) {
     System.out.println("Please input employee's ID#: ");
     identificationNumber[index] = Integer.parseInt(grabInput.nextLine());
   }
 
-  public void Salary(int index) {
+  public void salary(int index) {
     System.out.println("Please input employee's salary: ");
     salary[index] = Double.parseDouble(grabInput.nextLine());
   }
 
-  public boolean DoesFileExist() {
+  public boolean doesFileExist() {
     // Check if the file already exists
     File tempFile = new File(filename);
     boolean fileExists = tempFile.isFile();
@@ -172,12 +172,12 @@ public class Assignment5 {
   public static void main(String args[]) throws IOException {
     // Create the object and populate with initial records
     Assignment5 dbs3 = new Assignment5(0, 6);
-    dbs3.PrintArraysToFile(0, 6);
+    dbs3.printArraysToFile(0, 6);
+    dbs3.printFromFile(0, 6);
 
     // Add more records to the database
-    dbs3.FillArrays(6, 9);
-    dbs3.PrintArraysToFile(6, 9);
-
-    dbs3.PrintFromFile(0, 6);
+    dbs3.fillArrays(6, 9);
+    dbs3.printArraysToFile(6, 9);
+    dbs3.printFromFile(0, 9);
   }
 }

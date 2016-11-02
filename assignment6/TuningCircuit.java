@@ -1,5 +1,14 @@
-// Import necessary packages
+/*
+*  Package Name: assignment6
+*  File Name: TuningCircuit.java
+*
+*  Author: Connor Baker
+*  Version: 0.2a
+*  Created: October 31, 2016
+*  Last Updated: November 2, 2016
+*/
 
+// Declare our package
 package assignment6;
 
 public class TuningCircuit {
@@ -10,20 +19,25 @@ public class TuningCircuit {
     frequency = 16700000;
     cMin = 0.000000000015;
     cMax = 0.000000000365;
-    capacitance = getCapacitance(cMin, cMax);
+    getCapacitance();
+    getInductance();
+    getfMin();
+    getfMax();
   }
 
-  public double getCapacitance(double cMin, double cMax) {
-    double capacitance;
-    this.capacitance = Math.sqrt(this.cMin * this.cMax);
-    return this.capacitance;
+  public void getCapacitance() {
+    capacitance = Math.sqrt(cMin * cMax);
   }
 
-  // public void getfMin() {
-  //
-  // }
-  //
-  // public void getfMin() {
-  //
-  // }
+  public void getInductance() {
+    inductance = (((4*Math.PI*Math.PI)/(frequency*frequency))/capacitance);
+  }
+
+  public void getfMin() {
+    fMin = ((2*Math.PI)/Math.sqrt(inductance*cMax));
+  }
+
+  public void getfMax() {
+    fMax = ((2*Math.PI)/Math.sqrt(inductance*cMin));
+  }
 }

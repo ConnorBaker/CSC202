@@ -13,7 +13,6 @@
 *  16.7MHZ. Read all the variables, compute the value of L (inductance) for any
 *  given frequency. Then, compute the the new given value
 *
-*
 *  Functionality:
 *  Currently meets problem specification, except for the condition of using
 *  seven wrapper classes.
@@ -29,31 +28,11 @@
 *  http://download.java.net/java/jdk9/docs/api/
 */
 
-// Import necessary packages
+package assignment6;
 
-public class TuningCircuits {
+public class Main {
   public static void main(String args[]) {
-    double fMin = 0;
-    double fMax = 0;
-    double inductance = 0;
-    int f = 0;
-
-    final double capacitance = Math.sqrt(5475);
-
-    for (int i = 1; i < 10; i++) {
-      fMin = (Math.PI)/Math.sqrt(i*365);
-      fMax = (Math.PI)/Math.sqrt(i*15);
-      System.out.println("fMin is "+fMin);
-      System.out.println("fMax is "+fMax);
-      double j = fMin;
-      while (j < fMax) {
-        inductance = Math.pow((2*Math.PI/j), 2)/capacitance;
-        System.out.println("fMin is "+fMin);
-        System.out.println("fMax is "+fMax);
-        System.out.println("inductance is "+inductance);
-        System.out.println("f is "+j);
-        j += 0.5;
-      }
-    }
+    TuningCircuit circuit = new TuningCircuit();
+    System.out.println(circuit.capacitance);
   }
 }

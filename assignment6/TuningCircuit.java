@@ -3,7 +3,7 @@
 package assignment6;
 
 public class TuningCircuit {
-
+  // cMin & cMax, fMin & fMax are capacitance and frequency bounds, respectively
   double inductance, capacitance, cMin, cMax, frequency, fMin, fMax;
 
   public TuningCircuit() {

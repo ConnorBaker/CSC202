@@ -2,23 +2,30 @@
 *  Project name: TuningCircuits.java
 *
 *  Author: Connor Baker
-*  Version: 0.1a
+*  Version: 0.1b
 *  Created: October 31, 2016
-*  Last Updated: October 31, 2016
+*  Last Updated: November 2, 2016
 *
 *  Summary of problem specification:
-*  Write a program in java of a tuning circuit for a frequency range of fMin to
-*  fMax. Must use a random access file. A variable capacitor is used, with cMin
-*  to cMax (15pf to 365pf in 15pf intervals). A typical tuning frequency is
-*  16.7MHZ. Read all the variables, compute the value of L (inductance) for any
-*  given frequency. Then, compute the the new given value
+*  Using a standard tuning frequency of 16.7MHZ, find the inducance of a
+*  circuit using formulae given in class (see formulae section). After find the
+*  inductance, input it into the formula given to find frequency minimum and
+*  frequency maximum, recording the values of both. Then, increment the
+*  capacitance by 15 picofarad, recording the new value of frequency minimum
+*  for each increment, until we meet frequency maximum, writing all these
+*  values to a random access file.
 *
 *  Functionality:
-*  Currently meets problem specification, except for the condition of using
-*  seven wrapper classes.
+*  Working on it.
 *
 *  Explanation of components:
 *  See comments.
+*
+*  Formulae used:
+*  inductance = ((2pi/frequency)^2)/capacitance
+*  capacitance = sqrt(capacitanceMaximum*capacitanceMinimum)
+*  frequencyMinimum = (2pi)/sqrt(inductance*capacitanceMaximum)
+*  frequencyMaximum = (2pi)/sqrt(inductance*capacitanceMinimum)
 *
 *  Assumptions made:
 *  Java EA 9 didn't allow me to write anything that isn't backwards compliant

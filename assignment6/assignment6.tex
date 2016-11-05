@@ -1,12 +1,12 @@
 % Author: Connor Baker
 % Date Created: November 3, 2016
 % Last Edited: November 3, 2016
-% Version: 0.1b
+% Version: 0.1c
 
 \documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
-\usepackage[left=1in,right=1in,top=1in,bottom=1in]{geometry}
+\usepackage[left=1.5in,right=1.5in,top=1.5in,bottom=1.5in]{geometry}
 
 \begin{document}
 
@@ -25,43 +25,53 @@
 
 \newpage % New page
 
-\section*{Summary of Problem Specification}
-    Using a standard tuning frequency of 16.7MHZ (our initial condition), find the inductance of a circuit using the formula given below. After finding \textit{L}, use the value to calculate \textit{F\textsubscript{min}} and \textit{F\textsubscript{max}}. Then, calculate new values of \textit{F\textsubscript{max}} by incrementing \textit{C\textsubscript{min}} by 15 picofarad until we surpass \textit{C\textsubscript{max}}, writing the values larger than 16.7MHZ to a random access file. If our largest \textit{F\textsubscript{max}} is larger than 16.7MHZ, increment \textit{L} by 2\% and store the new \textit{L} in a new record. Then, using our new \textit{L}, repeat the same steps as above, storing all our new values of \textit{F\textsubscript{max}} in the new record.
 
-    \par % New paragraph
-    Each time we edit or do not edit the file, print out to console why. For example, if our \textit{F\textsubscript{max}} is larger than 16.7MHZ and we edit the file to include that new value, we should print to console that we have done so.
+
+\section*{Summary of Problem Specification}
+Using a standard tuning frequency of 16.7MHZ (our initial condition), find the inductance of a circuit using the formula given below. After finding \textit{L}, use the value to calculate \textit{F\textsubscript{min}} and \textit{F\textsubscript{max}}. Then, calculate new values of \textit{F\textsubscript{max}} by incrementing \textit{C\textsubscript{min}} by 15 picofarad until we surpass \textit{C\textsubscript{max}}, writing the values larger than 16.7MHZ to a random access file. If our largest \textit{F\textsubscript{max}} is larger than 16.7MHZ, increment \textit{L} by 2\% and store the new \textit{L} in a new record. Then, using our new \textit{L}, repeat the same steps as above, storing all our new values of \textit{F\textsubscript{max}} in the new record.
+
+\par % New paragraph
+Each time we edit or do not edit the file, print out to console why. For example, if our \textit{F\textsubscript{max}} is larger than 16.7MHZ and we edit the file to include that new value, we should print to console that we have done so.
+
+
+\section*{Assumptions}
+I use a pre-release version of Java 9. It is my assumption that the underlying changes in the language were nothing that would allow me to write something incompatible with the immediate previous release.
+
 
 \section*{Formulae}
-    Inductance is denoted with \textit{L} and measured in henrys.
-    Capacitance is denoted with \textit{C} and measured in farads.
-    Capacitance Minimum is denoted with \textit{C\textsubscript{min}}.
-    Capacitance Minimum is denoted with \textit{C\textsubscript{max}}.
-    Frequency is denoted with \textit{F} and measured in hertz.
-    Frequency Minimum is denoted with \textit{F\textsubscript{min}}.
-    Frequency Minimum is denoted with \textit{F\textsubscript{max}}.
+Inductance is denoted with \textit{L} and measured in henrys.
+Capacitance is denoted with \textit{C} and measured in farads.
+Capacitance Minimum is denoted with \textit{C\textsubscript{min}}.
+Capacitance Minimum is denoted with \textit{C\textsubscript{max}}.
+Frequency is denoted with \textit{F} and measured in hertz.
+Frequency Minimum is denoted with \textit{F\textsubscript{min}}.
+Frequency Minimum is denoted with \textit{F\textsubscript{max}}.
 
     \par % New line without indent
+\begin{equation}
+\textit{L} = \frac{(\frac{2\pi}{\textit{F}})^2}{\textit{C}}
+\end{equation}
 
-    \begin{equation}
-        \textit{L} = \frac{(\frac{2\pi}{\textit{F}})^2}{\textit{C}}
-    \end{equation}
+\begin{equation}
+\textit{C} = \sqrt{\textit{C\textsubscript{min}}*\textit{C\textsubscript{max}}}
+\end{equation}
 
-    \begin{equation}
-        \textit{C} = \sqrt{\textit{C\textsubscript{min}}*\textit{C\textsubscript{max}}}
-    \end{equation}
+\begin{equation}
+\textit{F\textsubscript{min}} = \frac{2\pi}{\sqrt{\textit{L}*\textit{C\textsubscript{max}}}}
+\end{equation}
 
-    \begin{equation}
-        \textit{F\textsubscript{min}} = \frac{2\pi}{\sqrt{\textit{L}*\textit{C\textsubscript{max}}}}
-    \end{equation}
-
-    \begin{equation}
-        \textit{F\textsubscript{max}} = \frac{2\pi}{\sqrt{\textit{L}*\textit{C\textsubscript{min}}}}
-    \end{equation}
+\begin{equation}
+\textit{F\textsubscript{max}} = \frac{2\pi}{\sqrt{\textit{L}*\textit{C\textsubscript{min}}}}
+\end{equation}
 
 
 \section*{Notes}
-    Equations (1--4) relate everything in terms of base units. That means we must convert \textit{F} from megahertz to hertz (multiply by $10^6$), and \textit{C} from picofarad to farad (multiply by $10^{-12}$).
+ Equations (1--4) relate everything in terms of base units. That means we must convert \textit{F} from megahertz to hertz (multiply by $10^6$), and \textit{C} from picofarad to farad (multiply by $10^{-12}$).
 
-    \par Additionally, one can note that due to the structure of our formula for \textit{F\textsubscript{max}}, our values will shrink as we increment \textit{C\textsubscript{min}} (since we begin to divide by increasingly large numbers). This means that our first calculated  \textit{F\textsubscript{max}} will be our largest. If we were looking for just the largest value, we would not calculate any other but the first, and save CPU cycles. However, we must calculate all \textit{F\textsubscript{max}} larger than our initial value of 16.7MHZ and store it in the random access file.
+    \par % New line without indent
+Additionally, one can note that due to the structure of our formula for \textit{F\textsubscript{max}}, our values will shrink as we increment \textit{C\textsubscript{min}} (since we begin to divide by increasingly large numbers). This means that our first calculated  \textit{F\textsubscript{max}} will be our largest. If we were looking for just the largest value, we would not calculate any other but the first, and save CPU cycles. However, we must calculate all \textit{F\textsubscript{max}} larger than our initial value of 16.7MHZ and store it in the random access file.
+
+\section*{References}
+http://download.java.net/java/jdk9/docs/api/
 
 \end{document}

@@ -3,7 +3,7 @@
 *  File Name: TuningCircuit.java
 *
 *  Author: Connor Baker
-*  Version: 0.4a
+*  Version: 0.5a
 *  Created: October 31, 2016
 *  Last Updated: November 6, 2016
 */
@@ -21,12 +21,17 @@ public class TuningCircuit { // begin class TuningCircuit
   double inductance, capacitance, cMin, cMax, standardFrequency, fMin, fMax;
 
   // Variables which we use frequently should be pre-computed
+  double cMinInitial;
   final double fourPiSquared = 4*Math.PI*Math.PI;
   final double twoPi = 2*Math.PI;
 
   // Set up objects to grab input from the user
   InputStreamReader inputStreamReader = new InputStreamReader(System.in);
   BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+  // @Override public String toString() {
+  //   return String.format("inductance=%g, capacitance=%g, cMin=%g, cMax=%g, standardFrequency=%g, fMin=%g, fMax=%g", inductance, capacitance, cMin, cMax, standardFrequency, fMin, fMax);
+  // }
 
   // Default constructor for our object
   public TuningCircuit() throws IOException {
@@ -48,7 +53,8 @@ public class TuningCircuit { // begin class TuningCircuit
   // Our method to request the lower bound of capacitance from the user
   public void promptUserForCapacitanceMinimum() throws IOException {
     System.out.println("Input the lower bound of capacitance in farad:");
-    cMin = Double.parseDouble(bufferedReader.readLine());
+    cMinInitial = Double.parseDouble(bufferedReader.readLine());
+    cMin = cMinInitial;
   }
 
   // Our method to request the upper bound of capacitance from the user

@@ -1,7 +1,7 @@
 % Author: Connor Baker
 % Date Created: November 3, 2016
 % Last Edited: November 5, 2016
-% Version: 0.2a
+% Version: 0.3a
 
 \documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
@@ -18,7 +18,7 @@
 \let \newpage \relax
     \title{Documentation: assignment6}
     \author{Connor Baker}
-    \date{November 6, 2016}
+    \date{November 6, 2016\\Version 0.3a}
 \maketitle
 \let \newpage \snewpage
 \vfill
@@ -40,11 +40,15 @@
 \section{Summary of Problem Specification}
 \end{center}
 \subsection{Abstract}
-Using a standard tuning frequency of 16.7MHZ (our initial condition), find the inductance of a circuit using the formula given below. After finding \textit{L}, use the value to calculate \textit{F\textsubscript{min}} and \textit{F\textsubscript{max}}. Then, calculate new values of \textit{F\textsubscript{max}} by incrementing \textit{C\textsubscript{min}} by 15 picofarad until we surpass \textit{C\textsubscript{max}}, writing the values larger than 16.7MHZ to a random access file. If our largest \textit{F\textsubscript{max}} is larger than 16.7MHZ, increment \textit{L} by 2\% and store the new \textit{L} in a new record. Then, using our new \textit{L}, repeat the same steps as above, storing all our new values of \textit{F\textsubscript{max}} in the new record.
+Using a standard tuning frequency inputted by the user, as well as a range of values for capacitance, we calculate possible frequencies greater than the user inputted standard tuning frequency, writing the values to a random access, byte-based file.
+\par % New paragraph
+We begin by grabbing user input, and then calculate capacitance using the formulae given in Section 2.We then find the inductance (\textit{L}) using the standard tuning frequency. After that, we calculate our possible range of values for frequency (\textit{F\textsubscript{min}} and \textit{F\textsubscript{max}}), comparing each to the standard tuning frequency, writing only those that are greater to file. At this point, we calculate new values of \textit{F\textsubscript{max}} by incrementing \textit{C\textsubscript{min}} by 15 picofarad, again comparing and writing only values larger than the standard tuning frequency to file. We do this until \textit{C\textsubscript{min}} surpasses \textit{C\textsubscript{max}}. When this happens, we increment \textit{L} by 2\%, reset \textit{C\textsubscript{min}}, and again calculate values of \textit{F\textsubscript{min}} and \textit{F\textsubscript{max}} using the same process described above.
 \par % New paragraph
 Each time we edit or do not edit the file, print out to console why. For example, if our \textit{F\textsubscript{max}} is larger than 16.7MHZ and we edit the file to include that new value, we should print to console that we have done so.
+\par % New paragraph
+The program halts when the largest value of \textit{F\textsubscript{max}} is smaller than the standard tuning frequency. It should be noted that (conveniently) the first calculated value of \textit{F\textsubscript{max}} is the greatest (for our purposes at least), as it is strictly monotonic decreasing in nature, given a strictly monotonic increasing \textit{L} and \textit{C\textsubscript{min}}, which is exactly what we have.
 \subsection{Assumptions}
-I use a pre-release version of Java 9. It is my assumption that the underlying changes in the language were nothing that would allow me to write something incompatible with the immediate previous release.
+I use a pre-release version of Java 9. It is my assumption that the underlying changes in the language were nothing such that it would allow me to write something incompatible with the immediate previous release.
 
 
 
@@ -55,17 +59,14 @@ I use a pre-release version of Java 9. It is my assumption that the underlying c
 \begin{center}
 \section{Formulae}
 \end{center}
-Inductance is denoted with \textit{L} and measured in henrys.
 Capacitance is denoted with \textit{C} and measured in farads.
 Capacitance Minimum is denoted with \textit{C\textsubscript{min}}.
 Capacitance Minimum is denoted with \textit{C\textsubscript{max}}.
 Frequency is denoted with \textit{F} and measured in hertz.
 Frequency Minimum is denoted with \textit{F\textsubscript{min}}.
 Frequency Minimum is denoted with \textit{F\textsubscript{max}}.
+Inductance is denoted with \textit{L} and measured in henrys.
 \par % New paragraph
-\begin{equation}
-\textit{L} = \frac{(\frac{2\pi}{\textit{F}})^2}{\textit{C}}
-\end{equation}
 \begin{equation}
 \textit{C} = \sqrt{\textit{C\textsubscript{min}}*\textit{C\textsubscript{max}}}
 \end{equation}
@@ -74,6 +75,9 @@ Frequency Minimum is denoted with \textit{F\textsubscript{max}}.
 \end{equation}
 \begin{equation}
 \textit{F\textsubscript{max}} = \frac{2\pi}{\sqrt{\textit{L}*\textit{C\textsubscript{min}}}}
+\end{equation}
+\begin{equation}
+\textit{L} = \frac{(\frac{2\pi}{\textit{F}})^2}{\textit{C}}
 \end{equation}
 
 
@@ -99,7 +103,7 @@ Frequency Minimum is denoted with \textit{F\textsubscript{max}}.
 \end{center}
 Equations (1--4) relate everything in terms of base units. That means we must convert \textit{F} from megahertz to hertz (multiply by $10^6$), and \textit{C} from picofarad to farad (multiply by $10^{-12}$).
 \par % New line without indent
-Additionally, one can note that due to the structure of our formula for \textit{F\textsubscript{max}}, our values will shrink as we increment \textit{C\textsubscript{min}} (since we begin to divide by increasingly large numbers). This means that our first calculated  \textit{F\textsubscript{max}} will be our largest. If we were looking for just the largest value, we would not calculate any other but the first, and save CPU cycles. However, we must calculate all \textit{F\textsubscript{max}} larger than our initial value of 16.7MHZ and store it in the random access file.
+Additionally, one can note that due to the structure of our formula for \textit{F\textsubscript{max}}, our values will shrink as we increment \textit{C\textsubscript{min}} (since we begin to divide by increasingly large numbers). This means that our first calculated \textit{F\textsubscript{max}} will be our largest. If we were looking for just the largest value, we would not calculate any other but the first, and save CPU cycles. However, we must calculate all \textit{F\textsubscript{max}} larger than our initial value of 16.7MHZ and store it in the random access file.
 
 
 

@@ -6,6 +6,7 @@
 \documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
+\usepackage{enumitem}
 \usepackage[left=1.5in,right=1.5in,top=1.5in,bottom=1.5in]{geometry}
 
 \begin{document}
@@ -18,7 +19,7 @@
 \let \newpage \relax
     \title{Documentation: assignment6}
     \author{Connor Baker}
-    \date{November 6, 2016\\Version 0.3a}
+    \date{November 6, 2016\\Version 0.4a}
 \maketitle
 \let \newpage \snewpage
 \vfill
@@ -89,8 +90,66 @@ Inductance is denoted with \textit{L} and measured in henrys.
 \begin{center}
 \section{Explanation of Components}
 \end{center}
+
 \subsection{Main.class}
+Main.class contains the main() method.
+\subsubsection{The main() method}
+The main() method consists of three main parts: the body, outer while loop, and inner while loop.
+
+\subparagraph{The body}
+\begin{itemize}[leftmargin=1.5em]
+\item[] The body of the method creates initializes the object we operate on (a component of TuningCircuit.class and covered in the corresponding subsection), as well as the random access byte-based file the program writes all the doubles to.
+\end{itemize}
+
+\subparagraph{The outer while loop}
+\begin{itemize}[leftmargin=1.5em]
+\item[] The outer while loop has three duties:
+\begin{enumerate}
+\item To check for a condition that signals the termination of the program 
+\item To perform multiple iterations over the inner while loop
+\item To increment the value of \textit{L} and reset \textit{C\textsubscript{min}} to the initial value input by the user every time the inner while loop terminates.
+\end{enumerate}
+\item[] The first duty is met via a simple if() statement. If the value of \textit{F\textsubscript{max}} is less than the user inputted standard tuning frequency, we can halt calculations because every value calculated after that point for the current or larger \textit{L} and any given \textit{C\textsubscript{min}} will be smaller as well.
+\item[] The second duty is met as this component of the main() method is a while loop.
+\item[] The third duty is met by performing operations on the object using methods found in TuningCircuit.class.
+\end{itemize}
+
+\subparagraph{The inner while loop}
+\begin{itemize}[leftmargin=1.5em]
+\item[] The inner while loop has three duties:
+\begin{enumerate}    
+\item To calculate values of frequencies larger than the standard tuning frequency inputted by the user given a certain capacitance and inductance and print to file/console
+\item To increment \textit{C\textsubscript{min}} by 15 picofarad
+\item To check for a condition that signals us to break out of the inner while loop
+\end{enumerate}
+\item[] The first duty is met by calling methods located in TuningCircuit.class.
+\item[] The second duty is met by using the compound assignment operator +=.
+\item[] The third duty is met in the form of a if() statement that checks for values of  \textit{F\textsubscript{max}} that are smaller than the standard tuning frequency. When this occurs, we exit the inner while loop.
+\end{itemize}
+
+
 \subsection{TuningCircuit.class}
+\subsubsection{The TuningCircuit() constructor}
+The TuningCircuit() constructor calls several methods to get values for the variables used in the program. It calls (in order):
+\begin{enumerate}
+\item promptUserForStandardFrequency()
+\item promptUserForCapacitanceMinimum()
+\item promptUserForCapacitanceMaximum()
+\item calculateCapacitance()
+\item calculateInductance()
+\item calculatefMin()
+\item calculatefMax()
+\end{enumerate}
+These methods are detailed below.
+
+\subsubsection{The promptUserForStandardFrequency() method}
+\subsubsection{The promptUserForCapacitanceMinimum() method}
+\subsubsection{The promptUserForCapacitanceMaximum() method}
+\subsubsection{The calculateCapacitance() method}
+\subsubsection{The calculateInductance() method}
+\subsubsection{The calculatefMin() method}
+\subsubsection{The calculatefMax() method}
+
 
 
 

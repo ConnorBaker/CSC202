@@ -1,7 +1,7 @@
 % Author: Connor Baker
 % Date Created: November 3, 2016
 % Last Edited: November 5, 2016
-% Version: 0.1c
+% Version: 0.2a
 
 \documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
@@ -11,34 +11,50 @@
 \begin{document}
 
 % Creates a title page with content centered vertically/horizontally
-\null  % Empty line
-\nointerlineskip  % No skip for prev line
+\null
+\nointerlineskip 
 \vfill
 \let \snewpage \newpage
 \let \newpage \relax
     \title{Documentation: assignment6}
     \author{Connor Baker}
-    \date{November 2, 2016}
+    \date{November 6, 2016}
 \maketitle
 \let \newpage \snewpage
 \vfill
+
+
+
+\newpage % New page
+
+
+%Creates a table of contents with dotted lines
+\makeatletter
+\renewcommand*\l@section{\@dottedtocline{1}{0em}{1.5em}}
+\makeatother
+
+\tableofcontents
+\clearpage
+
+\begin{center}
+\section{Summary of Problem Specification}
+\end{center}
+\subsection{Abstract}
+Using a standard tuning frequency of 16.7MHZ (our initial condition), find the inductance of a circuit using the formula given below. After finding \textit{L}, use the value to calculate \textit{F\textsubscript{min}} and \textit{F\textsubscript{max}}. Then, calculate new values of \textit{F\textsubscript{max}} by incrementing \textit{C\textsubscript{min}} by 15 picofarad until we surpass \textit{C\textsubscript{max}}, writing the values larger than 16.7MHZ to a random access file. If our largest \textit{F\textsubscript{max}} is larger than 16.7MHZ, increment \textit{L} by 2\% and store the new \textit{L} in a new record. Then, using our new \textit{L}, repeat the same steps as above, storing all our new values of \textit{F\textsubscript{max}} in the new record.
+\par % New paragraph
+Each time we edit or do not edit the file, print out to console why. For example, if our \textit{F\textsubscript{max}} is larger than 16.7MHZ and we edit the file to include that new value, we should print to console that we have done so.
+\subsection{Assumptions}
+I use a pre-release version of Java 9. It is my assumption that the underlying changes in the language were nothing that would allow me to write something incompatible with the immediate previous release.
+
+
 
 \newpage % New page
 
 
 
-\section*{Summary of Problem Specification}
-Using a standard tuning frequency of 16.7MHZ (our initial condition), find the inductance of a circuit using the formula given below. After finding \textit{L}, use the value to calculate \textit{F\textsubscript{min}} and \textit{F\textsubscript{max}}. Then, calculate new values of \textit{F\textsubscript{max}} by incrementing \textit{C\textsubscript{min}} by 15 picofarad until we surpass \textit{C\textsubscript{max}}, writing the values larger than 16.7MHZ to a random access file. If our largest \textit{F\textsubscript{max}} is larger than 16.7MHZ, increment \textit{L} by 2\% and store the new \textit{L} in a new record. Then, using our new \textit{L}, repeat the same steps as above, storing all our new values of \textit{F\textsubscript{max}} in the new record.
-
-\par % New paragraph
-Each time we edit or do not edit the file, print out to console why. For example, if our \textit{F\textsubscript{max}} is larger than 16.7MHZ and we edit the file to include that new value, we should print to console that we have done so.
-
-
-\section*{Assumptions}
-I use a pre-release version of Java 9. It is my assumption that the underlying changes in the language were nothing that would allow me to write something incompatible with the immediate previous release.
-
-
-\section*{Formulae}
+\begin{center}
+\section{Formulae}
+\end{center}
 Inductance is denoted with \textit{L} and measured in henrys.
 Capacitance is denoted with \textit{C} and measured in farads.
 Capacitance Minimum is denoted with \textit{C\textsubscript{min}}.
@@ -46,32 +62,53 @@ Capacitance Minimum is denoted with \textit{C\textsubscript{max}}.
 Frequency is denoted with \textit{F} and measured in hertz.
 Frequency Minimum is denoted with \textit{F\textsubscript{min}}.
 Frequency Minimum is denoted with \textit{F\textsubscript{max}}.
-
-    \par % New line without indent
+\par % New paragraph
 \begin{equation}
 \textit{L} = \frac{(\frac{2\pi}{\textit{F}})^2}{\textit{C}}
 \end{equation}
-
 \begin{equation}
 \textit{C} = \sqrt{\textit{C\textsubscript{min}}*\textit{C\textsubscript{max}}}
 \end{equation}
-
 \begin{equation}
 \textit{F\textsubscript{min}} = \frac{2\pi}{\sqrt{\textit{L}*\textit{C\textsubscript{max}}}}
 \end{equation}
-
 \begin{equation}
 \textit{F\textsubscript{max}} = \frac{2\pi}{\sqrt{\textit{L}*\textit{C\textsubscript{min}}}}
 \end{equation}
 
 
-\section*{Notes}
- Equations (1--4) relate everything in terms of base units. That means we must convert \textit{F} from megahertz to hertz (multiply by $10^6$), and \textit{C} from picofarad to farad (multiply by $10^{-12}$).
 
-    \par % New line without indent
+\newpage % New page
+
+
+
+\begin{center}
+\section{Explanation of Components}
+\end{center}
+\subsection{Main.class}
+\subsection{TuningCircuit.class}
+
+
+
+\newpage % New page
+
+
+
+\begin{center}
+\section{Notes}
+\end{center}
+Equations (1--4) relate everything in terms of base units. That means we must convert \textit{F} from megahertz to hertz (multiply by $10^6$), and \textit{C} from picofarad to farad (multiply by $10^{-12}$).
+\par % New line without indent
 Additionally, one can note that due to the structure of our formula for \textit{F\textsubscript{max}}, our values will shrink as we increment \textit{C\textsubscript{min}} (since we begin to divide by increasingly large numbers). This means that our first calculated  \textit{F\textsubscript{max}} will be our largest. If we were looking for just the largest value, we would not calculate any other but the first, and save CPU cycles. However, we must calculate all \textit{F\textsubscript{max}} larger than our initial value of 16.7MHZ and store it in the random access file.
 
-\section*{References}
+
+
+\newpage % New page
+
+
+\begin{center}
+\section{References}
+\end{center}
 http://download.java.net/java/jdk9/docs/api/
 
 \end{document}

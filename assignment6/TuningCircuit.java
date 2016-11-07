@@ -3,9 +3,9 @@
 *  File Name: TuningCircuit.java
 *
 *  Author: Connor Baker
-*  Version: 0.5a
+*  Version: 0.5b
 *  Created: October 31, 2016
-*  Last Updated: November 6, 2016
+*  Last Updated: November 7, 2016
 */
 
 // Declare our package
@@ -29,8 +29,11 @@ public class TuningCircuit { // begin class TuningCircuit
   InputStreamReader inputStreamReader = new InputStreamReader(System.in);
   BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
+  // Method to print exactly what the currently variables are
   // @Override public String toString() {
-  //   return String.format("inductance=%g, capacitance=%g, cMin=%g, cMax=%g, standardFrequency=%g, fMin=%g, fMax=%g", inductance, capacitance, cMin, cMax, standardFrequency, fMin, fMax);
+  //   return String.format("inductance=%g, capacitance=%g, cMin=%g, cMax=%g,"
+  //       + " standardFrequency=%g, fMin=%g, fMax=%g", inductance, capacitance,
+  //       cMin, cMax, standardFrequency, fMin, fMax);
   // }
 
   // Default constructor for our object

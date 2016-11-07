@@ -3,7 +3,7 @@
 *  File Name: Main.java
 *
 *  Author: Connor Baker
-*  Version: 0.5a
+*  Version: 0.5b
 *  Created: October 31, 2016
 *  Last Updated: November 6, 2016
 */
@@ -25,6 +25,8 @@ public class Main { // begin class Main
     // Create our output stream
     File outputFile = new File("frequency.bin");
     RandomAccessFile raf = new RandomAccessFile(outputFile, "rw");
+    // Print out to conosle the name of the file created
+    System.out.println("File frequency.bin has been created.");
 
     // Run processing on our object
     while (true) { // begin outer while
@@ -40,6 +42,8 @@ public class Main { // begin class Main
         *  capacitance minimum are strictly monotonic increasing functions,
         *  which they are).
         */
+        System.out.println("We have written all possible frequency greater"
+            + " than " + circuit.standardFrequency + " hertz. Halting.");
         break;
       } // end if
 
@@ -48,15 +52,17 @@ public class Main { // begin class Main
         // If fMax is less than 16.7MHZ terminate the program
         if (circuit.fMax > circuit.standardFrequency) { // begin if
           // Print the new value of fMax to screen
-          System.out.println("new fMax is " + circuit.fMax + " hertz. Add to"
+          System.out.println("New fMax is " + circuit.fMax + " hertz. Add to"
               + " file.");
           // Print the new value of fMax to file
           raf.writeDouble(circuit.fMax);
         } else {
           // Reset the cMin of our object and halt
-          System.out.println("new fMax is " + circuit.fMax + " hertz. Don't add
-              to file because it is smaller than " + circuit.standardFrequency
-              + " hertz. Halt calculations and increment inductance by 2%.");
+          System.out.println("new fMax is " + circuit.fMax + " hertz. Don't add"
+              + " to file because it is smaller than "
+              + circuit.standardFrequency
+              + " hertz. Increment inductance by 2%"
+              + " and begin calculations.");
           break;
         } // end if
 
@@ -71,6 +77,12 @@ public class Main { // begin class Main
       circuit.inductance *= 1.02;
       circuit.cMin = circuit.cMinInitial;
       circuit.calculatefMax();
+
+      // Print the new value of fMax to screen
+      System.out.println("New inductance is " + circuit.inductance + " henrys."
+          + " Add to file.");
+      // Print the new value of inductance to file
+      raf.writeDouble(circuit.inductance);
     } // end outer while
 
     // Close our file

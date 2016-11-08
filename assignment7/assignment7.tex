@@ -1,7 +1,7 @@
 % Author: Connor Baker
 % Date Created: November 3, 2016
-% Last Edited: November 7, 2016
-% Version: 0.1a
+% Last Edited: November 8, 2016
+% Version: 0.1b
 
 \documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
@@ -16,9 +16,9 @@
 \vfill
 \let \snewpage \newpage
 \let \newpage \relax
-    \title{Documentation: assignment7}
+    \title{assignment7}
     \author{Connor Baker}
-    \date{November 7, 2016\\Version 0.1a}
+    \date{November 8, 2016\\Version 0.1b}
 \maketitle
 \let \newpage \snewpage
 \vfill
@@ -56,9 +56,9 @@ The formuale to calculate the element address of a two dimensional array were gi
 where \textit{i} is the number of the row entry (zero indexed), \textit{j} is the number of the row entry (zero indexed), \textit{n\textsubscript{bytes}} is the number of bytes that the data type allocates (our example uses \textit{double}, thus our \textit{n\textsubscript{bytes}} will be eight), and \textit{col\textsubscript{size}} is the number of entries in a column (stated a different way, the number of rows).
 \subparagraph{Converting to Hexadecimal}
 \begin{itemize}[leftmargin=1.5em]
-\item[] When I'm forced to deal with converting between bases, I typically result to using an iterative form of division. I divide the number I want to convert from by the given base, take the result of the division, and begin to divide again. This process terminates when the dividend becomes smaller than the divisor (in this case, the base). At each step, it is important to note of the remainder. An example follows:
+\item[] When I to deal with converting between bases, I typically result to using an iterative form of division. I divide the number I want to convert from by the given base, take the result of the division, and begin to divide again. This process terminates when the dividend becomes smaller than the divisor (in this case, the base). At each step, it is important to note of the remainder (as that is what actually helps us to create the new number!). An example follows:
 \begin{enumerate}
-\item[] \textit{Convert 2675 from base 10 to base 16}
+\item[] \textit{Convert 26799 from base 10 to base 16}
 \item 26799/16 = 1674 with remainder 15 (this is our least significant bit)
 \item 1674/16 = 104 with remainder 10
 \item 104/16 = 6 with remainder 8

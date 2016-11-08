@@ -1,0 +1,116 @@
+% Author: Connor Baker
+% Date Created: November 3, 2016
+% Last Edited: November 7, 2016
+% Version: 0.1a
+
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage[left=1.5in,right=1.5in,top=1.5in,bottom=1.5in]{geometry}
+
+\begin{document}
+% Creates a title page with content centered vertically/horizontally
+\null
+\nointerlineskip 
+\vfill
+\let \snewpage \newpage
+\let \newpage \relax
+    \title{Documentation: assignment7}
+    \author{Connor Baker}
+    \date{November 7, 2016\\Version 0.1a}
+\maketitle
+\let \newpage \snewpage
+\vfill
+\thispagestyle{empty}
+
+
+
+\newpage % New page
+
+
+
+% Create the table of contents formatted with dotted lines and roman page numbering
+\makeatletter
+\pagenumbering{roman}
+\renewcommand*\l@section{\@dottedtocline{1}{0em}{1.5em}}
+\makeatother
+\tableofcontents
+
+% End the table of contents and reset page numbering to arabic
+\clearpage
+\pagenumbering{arabic}
+
+% Create the Summary of Problem Specification section
+\begin{center}
+\section{Summary of Problem Specification}
+\end{center}
+\subsection{Abstract}
+To find the location of an element of a two dimensional array of type \textit{double} in memory, given the base address of the array.
+\subsection{Formulae}
+The formuale to calculate the element address of a two dimensional array were given in class were:
+\begin{enumerate}
+\item Element Address = Base Address + Offset
+\item Offest = \textit{j}(\textit{n\textsubscript{bytes}}) + \textit{i}(\textit{n\textsubscript{bytes}}*\textit{col\textsubscript{size}})
+\end{enumerate}
+where \textit{i} is the number of the row entry (zero indexed), \textit{j} is the number of the row entry (zero indexed), \textit{n\textsubscript{bytes}} is the number of bytes that the data type allocates (our example uses \textit{double}, thus our \textit{n\textsubscript{bytes}} will be eight), and \textit{col\textsubscript{size}} is the number of entries in a column (stated a different way, the number of rows).
+\subparagraph{Converting to Hexadecimal}
+\begin{itemize}[leftmargin=1.5em]
+\item[] When I'm forced to deal with converting between bases, I typically result to using an iterative form of division. I divide the number I want to convert from by the given base, take the result of the division, and begin to divide again. This process terminates when the dividend becomes smaller than the divisor (in this case, the base). At each step, it is important to note of the remainder. An example follows:
+\begin{enumerate}
+\item[] \textit{Convert 2675 from base 10 to base 16}
+\item 26799/16 = 1674 with remainder 15 (this is our least significant bit)
+\item 1674/16 = 104 with remainder 10
+\item 104/16 = 6 with remainder 8
+\item 6/16 = 0 with remainder 6 (this is our most significant bit)
+\item 26799 = $6\times16^3$ + $8\times16^2$ + $10\times16^1$ + $15\times16^0$
+\item 26799 = 68AF\textsubscript{16}
+\end{enumerate}
+\end{itemize}
+
+
+
+\newpage % New page
+
+
+
+\begin{center}
+\section{Attacking the Problem}
+\end{center}
+\subsection{Example One}
+Given that our base address is (in hexadecimal) FFFAFDF, and that we have a two dimensional array declared as such:
+\begin{itemize}[leftmargin=1.5em]
+\item[] \textit{double} x = new \textit{double}[8][10]
+\end{itemize}
+Find the element address of \textit{double}[5][5].
+\subparagraph{The work}
+\begin{itemize}[leftmargin=1.5em]
+\item[] offset = 5*8 + 5(8*5)
+\item[] offset = 40 + 200
+\item[] offset = 240
+\subitem offset = 240 = $15\times16^1$ + $0\times16^0$
+\subitem offset = 240 = F0\textsubscript{16}
+\item[] element address = FFFAFDF\textsubscript{16} + 240
+\item[] element address = FFFAFDF\textsubscript{16} + F0\textsubscript{16}
+\item[] element address = FFFB0CF\textsubscript{16}
+\end{itemize}
+
+\subsection{Example Two}
+Given that our base address is (in hexadecimal) FFFAFDF, and that we have a two dimensional array declared as such:
+\begin{itemize}[leftmargin=1.5em]
+\item[] \textit{double} x = new \textit{double}[8][10]
+\end{itemize}
+Find the element address of \textit{double}[6][8].
+\subparagraph{The work}
+\begin{itemize}[leftmargin=1.5em]
+\item[] offset = 8*8 + 6(8*6)
+\item[] offset = 64 + 288
+\item[] offset = 352
+\subitem offset = 352 = $1\times16^2$ + $6\times16^1$ + $0\times16^0$
+\subitem offset = 160\textsubscript{16}
+\item[] element address = FFFAFDF\textsubscript{16} + 352
+\item[] element address = FFFAFDF\textsubscript{16} + 160\textsubscript{16}
+\item[] element address = FFFB13F\textsubscript{16}
+\end{itemize}
+
+\end{document}

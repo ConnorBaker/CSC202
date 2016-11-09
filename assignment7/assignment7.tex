@@ -1,7 +1,7 @@
 % Author: Connor Baker
 % Date Created: November 3, 2016
-% Last Edited: November 8, 2016
-% Version: 0.1b
+% Last Edited: November 9, 2016
+% Version: 0.2a
 
 \documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
@@ -18,7 +18,7 @@
 \let \newpage \relax
     \title{assignment7}
     \author{Connor Baker}
-    \date{November 8, 2016\\Version 0.1b}
+    \date{November 9, 2016\\Version 0.2a}
 \maketitle
 \let \newpage \snewpage
 \vfill
@@ -49,10 +49,12 @@
 To find the location of an element of a two dimensional array of type \textit{double} in memory, given the base address of the array.
 \subsection{Formulae}
 The formuale to calculate the element address of a two dimensional array were given in class were:
-\begin{enumerate}
-\item Element Address = Base Address + Offset
-\item Offest = \textit{j}(\textit{n\textsubscript{bytes}}) + \textit{i}(\textit{n\textsubscript{bytes}}*\textit{col\textsubscript{size}})
-\end{enumerate}
+\begin{equation}
+\text{Element Address} = \text{Base Address} + \text{Offset}
+\end{equation}
+\begin{equation}
+\text{Offset} = \textit{j}(\textit{n\textsubscript{bytes}}) + \textit{i}(\textit{n\textsubscript{bytes}}*\textit{col\textsubscript{size}})
+\end{equation}
 where \textit{i} is the number of the row entry (zero indexed), \textit{j} is the number of the row entry (zero indexed), \textit{n\textsubscript{bytes}} is the number of bytes that the data type allocates (our example uses \textit{double}, thus our \textit{n\textsubscript{bytes}} will be eight), and \textit{col\textsubscript{size}} is the number of entries in a column (stated a different way, the number of rows).
 \subparagraph{Converting to Hexadecimal}
 \begin{itemize}[leftmargin=1.5em]
@@ -85,12 +87,16 @@ Given that our base address is (in hexadecimal) FFFAFDF, and that we have a two 
 Find the element address of \textit{double}[5][5].
 \subparagraph{The work}
 \begin{itemize}[leftmargin=1.5em]
+\item[] We begin by calculating the offset using Equation (2).
 \item[] offset = 5*8 + 5(8*5)
 \item[] offset = 40 + 200
 \item[] offset = 240
-\subitem offset = 240 = $15\times16^1$ + $0\times16^0$
-\subitem offset = 240 = F0\textsubscript{16}
-\item[] element address = FFFAFDF\textsubscript{16} + 240
+\subitem 240/16 = 15 with a remainder of 0
+\subitem 15/16 = 0 with a remainder of 15
+\subitem 240 = $15\times16^1$ + $0\times16^0$
+\subitem 240 = F0\textsubscript{16}
+\item[] offset = F0\textsubscript{16}
+\item[] Now that we have the offset in hexadecimal, we use Equation (1) to find the element address.
 \item[] element address = FFFAFDF\textsubscript{16} + F0\textsubscript{16}
 \item[] element address = FFFB0CF\textsubscript{16}
 \end{itemize}
@@ -103,12 +109,17 @@ Given that our base address is (in hexadecimal) FFFAFDF, and that we have a two 
 Find the element address of \textit{double}[6][8].
 \subparagraph{The work}
 \begin{itemize}[leftmargin=1.5em]
+\item[] We begin by calculating the offset using Equation (2).
 \item[] offset = 8*8 + 6(8*6)
 \item[] offset = 64 + 288
 \item[] offset = 352
-\subitem offset = 352 = $1\times16^2$ + $6\times16^1$ + $0\times16^0$
-\subitem offset = 160\textsubscript{16}
-\item[] element address = FFFAFDF\textsubscript{16} + 352
+\subitem 352/16 = 22 with a remainder of 0
+\subitem 22/16 = 1 with a remainder of 6
+\subitem 1/16 = 0 with a remainder of 1
+\subitem 352 = $1\times16^2$ + $6\times16^1$ + $0\times16^0$
+\subitem 352 = 160\textsubscript{16}
+\item[] offset = 160\textsubscript{16}
+\item[] Now that we have the offset in hexadecimal, we use Equation (1) to find the element address.
 \item[] element address = FFFAFDF\textsubscript{16} + 160\textsubscript{16}
 \item[] element address = FFFB13F\textsubscript{16}
 \end{itemize}

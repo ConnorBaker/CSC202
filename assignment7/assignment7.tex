@@ -1,7 +1,7 @@
 % Author: Connor Baker
 % Date Created: November 3, 2016
 % Last Edited: November 9, 2016
-% Version: 0.2a
+% Version: 0.2b
 
 \documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
@@ -18,7 +18,7 @@
 \let \newpage \relax
     \title{assignment7}
     \author{Connor Baker}
-    \date{November 9, 2016\\Version 0.2a}
+    \date{November 9, 2016\\Version 0.2b}
 \maketitle
 \let \newpage \snewpage
 \vfill
@@ -55,10 +55,10 @@ The formuale to calculate the element address of a two dimensional array were gi
 \begin{equation}
 \text{Offset} = \textit{j}(\textit{n\textsubscript{bytes}}) + \textit{i}(\textit{n\textsubscript{bytes}}*\textit{col\textsubscript{size}})
 \end{equation}
-where \textit{i} is the number of the row entry (zero indexed), \textit{j} is the number of the row entry (zero indexed), \textit{n\textsubscript{bytes}} is the number of bytes that the data type allocates (our example uses \textit{double}, thus our \textit{n\textsubscript{bytes}} will be eight), and \textit{col\textsubscript{size}} is the number of entries in a column (stated a different way, the number of rows).
+where \textit{i} is the number of the row entry (zero indexed), \textit{j} is the number of the row entry (zero indexed), \textit{n\textsubscript{bytes}} is the number of bytes that the data type allocates (our example uses \textit{double}, thus our \textit{n\textsubscript{bytes}} will be eight), and \textit{col\textsubscript{size}} is the number of entries in a row (or, equivalently, the number of columns).
 \subparagraph{Converting to Hexadecimal}
 \begin{itemize}[leftmargin=1.5em]
-\item[] When I to deal with converting between bases, I typically result to using an iterative form of division. I divide the number I want to convert from by the given base, take the result of the division, and begin to divide again. This process terminates when the dividend becomes smaller than the divisor (in this case, the base). At each step, it is important to note of the remainder (as that is what actually helps us to create the new number!). An example follows:
+\item[] When I to deal with converting between bases, I typically result to using an iterative form of division. I divide the number I want to convert from by the given base, take the result of the division, and begin to divide again. This process terminates when the dividend becomes smaller than the divisor (in this case, the base). At each step, it is important to note of the remainder (as that is what actually helps us to create the new number). An example follows:
 \begin{enumerate}
 \item[] \textit{Convert 26799 from base 10 to base 16}
 \item 26799/16 = 1674 with remainder 15 (this is our least significant bit)
@@ -88,17 +88,18 @@ Find the element address of \textit{double}[5][5].
 \subparagraph{The work}
 \begin{itemize}[leftmargin=1.5em]
 \item[] We begin by calculating the offset using Equation (2).
-\item[] offset = 5*8 + 5(8*5)
-\item[] offset = 40 + 200
-\item[] offset = 240
-\subitem 240/16 = 15 with a remainder of 0
-\subitem 15/16 = 0 with a remainder of 15
-\subitem 240 = $15\times16^1$ + $0\times16^0$
-\subitem 240 = F0\textsubscript{16}
-\item[] offset = F0\textsubscript{16}
-\item[] Now that we have the offset in hexadecimal, we use Equation (1) to find the element address.
-\item[] element address = FFFAFDF\textsubscript{16} + F0\textsubscript{16}
-\item[] element address = FFFB0CF\textsubscript{16}
+\item[] offset = 5*8 + 5(8*10)
+\item[] offset = 40 + 400
+\item[] offset = 440
+\subitem 440/16 = 27 with a remainder of 8
+\subitem 27/16 = 1 with a remainder of 11
+\subitem 1/16 = 0 with a remainder of 1
+\subitem 440 = $1\times16^2$ + $11\times16^1$ + $8\times16^0$
+\subitem 440 = 1B8\textsubscript{16}
+\item[] offset = 1B8\textsubscript{16}
+\item[] Now that we have the offset in hexadecimal, we use Equation (1) to find the element address. Addition in base 16 is just like addition in base 10. Every time a sum goes over the radix, just take the ones place and carry the tens over to the next number.
+\item[] element address = FFFAFDF\textsubscript{16} + 1B8\textsubscript{16}
+\item[] element address = FFFB197\textsubscript{16}
 \end{itemize}
 
 \subsection{Example Two}
@@ -110,18 +111,18 @@ Find the element address of \textit{double}[6][8].
 \subparagraph{The work}
 \begin{itemize}[leftmargin=1.5em]
 \item[] We begin by calculating the offset using Equation (2).
-\item[] offset = 8*8 + 6(8*6)
-\item[] offset = 64 + 288
-\item[] offset = 352
-\subitem 352/16 = 22 with a remainder of 0
-\subitem 22/16 = 1 with a remainder of 6
-\subitem 1/16 = 0 with a remainder of 1
-\subitem 352 = $1\times16^2$ + $6\times16^1$ + $0\times16^0$
-\subitem 352 = 160\textsubscript{16}
-\item[] offset = 160\textsubscript{16}
-\item[] Now that we have the offset in hexadecimal, we use Equation (1) to find the element address.
-\item[] element address = FFFAFDF\textsubscript{16} + 160\textsubscript{16}
-\item[] element address = FFFB13F\textsubscript{16}
+\item[] offset = 8*8 + 6(8*10)
+\item[] offset = 64 + 480
+\item[] offset = 554
+\subitem 554/16 = 34 with a remainder of 10
+\subitem 34/16 = 2 with a remainder of 2
+\subitem 2/16 = 0 with a remainder of 2
+\subitem 554 = $2\times16^2$ + $2\times16^1$ + $10\times16^0$
+\subitem 554 = 22A\textsubscript{16}
+\item[] offset = 22A\textsubscript{16}
+\item[] Now that we have the offset in hexadecimal, we use Equation (1) to find the element address. Addition in base 16 is just like addition in base 10. Every time a sum goes over the radix, just take the ones place and carry the tens over to the next number.
+\item[] element address = FFFAFDF\textsubscript{16} + 22A\textsubscript{16}
+\item[] element address = FFFB209\textsubscript{16}
 \end{itemize}
 
 \end{document}

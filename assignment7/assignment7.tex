@@ -1,7 +1,7 @@
 % Author: Connor Baker
 % Date Created: November 3, 2016
 % Last Edited: November 9, 2016
-% Version: 0.2b
+% Version: 0.2c
 
 \documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
@@ -18,7 +18,7 @@
 \let \newpage \relax
     \title{assignment7}
     \author{Connor Baker}
-    \date{November 9, 2016\\Version 0.2b}
+    \date{November 9, 2016\\Version 0.2c}
 \maketitle
 \let \newpage \snewpage
 \vfill
@@ -113,16 +113,16 @@ Find the element address of \textit{double}[6][8].
 \item[] We begin by calculating the offset using Equation (2).
 \item[] offset = 8*8 + 6(8*10)
 \item[] offset = 64 + 480
-\item[] offset = 554
-\subitem 554/16 = 34 with a remainder of 10
+\item[] offset = 544
+\subitem 544/16 = 34 with a remainder of 0
 \subitem 34/16 = 2 with a remainder of 2
 \subitem 2/16 = 0 with a remainder of 2
-\subitem 554 = $2\times16^2$ + $2\times16^1$ + $10\times16^0$
-\subitem 554 = 22A\textsubscript{16}
-\item[] offset = 22A\textsubscript{16}
+\subitem 544 = $2\times16^2$ + $2\times16^1$ + $0\times16^0$
+\subitem 544 = 220\textsubscript{16}
+\item[] offset = 220\textsubscript{16}
 \item[] Now that we have the offset in hexadecimal, we use Equation (1) to find the element address. Addition in base 16 is just like addition in base 10. Every time a sum goes over the radix, just take the ones place and carry the tens over to the next number.
-\item[] element address = FFFAFDF\textsubscript{16} + 22A\textsubscript{16}
-\item[] element address = FFFB209\textsubscript{16}
+\item[] element address = FFFAFDF\textsubscript{16} + 220\textsubscript{16}
+\item[] element address = FFFB1FF\textsubscript{16}
 \end{itemize}
 
 \end{document}

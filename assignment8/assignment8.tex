@@ -1,0 +1,156 @@
+% Author: Connor Baker
+% Date Created: November 13, 2016
+% Last Edited: November 13, 2016
+% Version: 0.1a
+
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage[left=1.5in,right=1.5in,top=1.5in,bottom=1.5in]{geometry}
+
+\begin{document}
+% Creates a title page with content centered vertically/horizontally
+\null
+\nointerlineskip 
+\vfill
+\let \snewpage \newpage
+\let \newpage \relax
+    \title{assignment8}
+    \author{Connor Baker}
+    \date{November 13, 2016\\Version 0.1a}
+\maketitle
+\let \newpage \snewpage
+\vfill
+\thispagestyle{empty}
+
+
+
+\newpage % New page
+
+
+
+% Create the table of contents formatted with dotted lines and roman page numbering
+\makeatletter
+\pagenumbering{roman}
+\renewcommand*\l@section{\@dottedtocline{1}{0em}{1.5em}}
+\makeatother
+\tableofcontents
+
+% End the table of contents and reset page numbering to arabic
+\clearpage
+\pagenumbering{arabic}
+
+% Create the Summary of Problem Specification section
+\begin{center}
+\section{Summary of Problem Specification}
+\end{center}
+\subsection{Abstract}
+Finding the product of two given matrices, assuming that the order of columns matches the number of rows of a matrix (that is to say that their product is defined).
+\subsection{Algorithm}
+Matrix multiplication is most easily done by hand by using the row-column method. It operates as follows:
+\begin{enumerate}
+\item Take the first row of the leading matrix.
+\item Multiply each element with its counterpart in the second matrix's first column (first row element multiplied by the first column element, etc).
+\item Take the sum of the resultant values.
+\item This value is the first entry in the first row of the resultant matrix.
+\subitem It follows that had it been the result of the second row and first column that it would be in the second row, first column of the resultant matrix.
+\item Repeat this process by distributing the rows onto each column of the second matrix.
+\end{enumerate}
+
+
+
+\newpage % New page
+
+
+% Create the Attacking the Problem section
+\begin{center}
+\section{Attacking the Problem}
+\end{center}
+\subsection{Example One}
+Given the matrices \textit{A} and \textit{B} below, find \textit{AB}.
+\[
+A = 
+\begin{bmatrix}
+    1 & 3 & 5 \\
+    2 & 0 & 1 \\
+    4 & 2 & 3
+\end{bmatrix}
+\qquad % Put some space inbetween the matrices
+B = 
+\begin{bmatrix}
+    1 & 0 & 2 \\
+    2 & -3 & 1 \\
+    -1 & -2 & -3
+\end{bmatrix}
+\]
+We begin by distributing the first row of \textit{A} to the first column of \textit{B}.
+\[
+AB = 
+\begin{bmatrix}
+    1*1+3*2+5*(-1)  &  &  \\
+     &  &  \\
+     &  & 
+\end{bmatrix}
+\]
+\[
+AB = 
+\begin{bmatrix}
+    2  &  &  \\
+     &  &  \\
+     &  & 
+\end{bmatrix}
+\]
+This gives us the first entry of \textit{AB}. Next, we distribute the first row of \textit{A} to the second column of \textit{B}.
+\[
+AB = 
+\begin{bmatrix}
+    2  & 1*0+3*(-3)+5*(-2) &  \\
+     &  &  \\
+     &  & 
+\end{bmatrix}
+\]
+\[
+AB = 
+\begin{bmatrix}
+    2  & -19 &  \\
+     &  &  \\
+     &  & 
+\end{bmatrix}
+\]
+This gives us the second entry of \textit{AB}. Next, we distribute the first row of \textit{A} to the third column of \textit{B}.
+\[
+AB = 
+\begin{bmatrix}
+    2  & -19 & 1*2+3*1+5*(-3) \\
+     &  &  \\
+     &  & 
+\end{bmatrix}
+\]
+\[
+AB = 
+\begin{bmatrix}
+    2  & -19 & -10 \\
+     &  &  \\
+     &  & 
+\end{bmatrix}
+\]
+Now that we have the first row of the resultant matrix, we repeat the above steps of distribution onto the columns of the second matrix, but this time with the second row of \textit{A}. This gives us:
+\[
+AB = 
+\begin{bmatrix}
+    2  & -19 & -10 \\
+    1 & -2 & 1 \\
+     &  & 
+\end{bmatrix}
+\]
+Finally, distributing the last row of \textit{A} onto the columns of \textit{B} yields:
+\[
+AB = 
+\begin{bmatrix}
+    2  & -19 & -10 \\
+    1 & -2 & 1 \\
+    5 & -12 & 1
+\end{bmatrix}
+\]
+\end{document}

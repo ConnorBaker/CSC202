@@ -3,7 +3,7 @@
 *  File Name: Main.java
 *
 *  Author: Connor Baker, Rae Bouldin
-*  Version: 0.1b
+*  Version: 0.1c
 *  Created: November 14, 2016
 *  Last Updated: November 16, 2016
 */
@@ -28,5 +28,6 @@ public class Main { // begin class Main
     Matrix matrix2 = new Matrix();
     Matrix.sumOfArrays(matrix1.array, matrix2.array);
     Matrix.productOfArrays(matrix1.array, matrix2.array);
+    Matrix.transposeOfArray(matrix1.array);
   } // end main()
 } // end class Main

@@ -3,7 +3,7 @@
 *  File Name: Matrix.java
 *
 *  Author: Connor Baker, Rae Bouldin
-*  Version: 0.1b
+*  Version: 0.1c
 *  Created: November 14, 2016
 *  Last Updated: November 16, 2016
 */
@@ -70,6 +70,16 @@ public class Matrix { // begin class TuningCircuit
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 3; j++) {
         c[i][j] = a[i][0]*b[0][j] + a[i][1]*b[1][j] + a[i][2]*b[2][j];
+      }
+    }
+    System.out.println(Arrays.deepToString(c));
+  }
+
+  public static void transposeOfArray(int a[][]) {
+    int c[][] = new int[3][3];
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 3; j++) {
+        c[i][j] = a[j][i];
       }
     }
     System.out.println(Arrays.deepToString(c));

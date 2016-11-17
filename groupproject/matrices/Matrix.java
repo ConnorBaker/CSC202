@@ -3,7 +3,7 @@
 *  File Name: Matrix.java
 *
 *  Author: Connor Baker, Rae Bouldin
-*  Version: 0.1d
+*  Version: 0.1e
 *  Created: November 14, 2016
 *  Last Updated: November 16, 2016
 *
@@ -114,6 +114,17 @@ public class Matrix { // begin class TuningCircuit
     }
     // Print out the array
     System.out.println(Arrays.deepToString(c));
+  }
+
+  // Method to take the determinant of an array
+  public static void determinantOfArray(int a[][]) {
+    // Initialize our resultant array
+    int determinant;
+    determinant = a[0][0]*(a[1][1]*a[2][2]-a[1][2]*a[2][1])
+                  - a[0][1]*(a[1][0]*a[2][2]-a[1][2]*a[2][0])
+                  + a[0][2]*(a[1][0]*a[2][1]-a[1][1]*a[2][0]);
+    // Print out the array
+    System.out.println(determinant);
   }
 
 } // end class TuningCircuit

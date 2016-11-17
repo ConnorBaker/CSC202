@@ -3,9 +3,9 @@
 *  File Name: Main.java
 *
 *  Author: Connor Baker, Rae Bouldin
-*  Version: 0.1a
+*  Version: 0.1b
 *  Created: November 14, 2016
-*  Last Updated: November 14, 2016
+*  Last Updated: November 16, 2016
 */
 
 // Declare our package
@@ -26,7 +26,7 @@ public class Main { // begin class Main
     // Create our object
     Matrix matrix1 = new Matrix();
     Matrix matrix2 = new Matrix();
-    int c[][] = productOfArrays(matrix1, matrix2);
-
+    Matrix.sumOfArrays(matrix1.array, matrix2.array);
+    Matrix.productOfArrays(matrix1.array, matrix2.array);
   } // end main()
 } // end class Main

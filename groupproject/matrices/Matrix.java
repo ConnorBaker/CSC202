@@ -3,9 +3,9 @@
 *  File Name: Matrix.java
 *
 *  Author: Connor Baker, Rae Bouldin
-*  Version: 0.1a
+*  Version: 0.1b
 *  Created: November 14, 2016
-*  Last Updated: November 14, 2016
+*  Last Updated: November 16, 2016
 */
 
 // Declare our package
@@ -49,22 +49,30 @@ public class Matrix { // begin class TuningCircuit
       st = new StringTokenizer(br.readLine());
       for (int j = 0; j < array[i].length; j++) {
         array[i][j] = Integer.parseInt(st.nextToken());
-
-        // Print out information about the array so we can see what's happening
-        System.out.println(array[i][j]);
       }
+      System.out.println(Arrays.deepToString(array));
     }
   }
 
-  public int[][] productOfArrays(int a[][], int b[][]) {
+  public static void sumOfArrays(int a[][], int b[][]) {
     int c[][] = new int[3][3];
-    for (int i = 0; i < a.length; i++) {
-      for (int j = 0; j < a[i].length; j++) {
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 3; j++) {
         c[i][j] = a[i][j] + b[i][j];
       }
     }
     System.out.println(Arrays.deepToString(c));
-    return c[][];
+  }
+
+
+  public static void productOfArrays(int a[][], int b[][]) {
+    int c[][] = new int[3][3];
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 3; j++) {
+        c[i][j] = a[i][0]*b[0][j] + a[i][1]*b[1][j] + a[i][2]*b[2][j];
+      }
+    }
+    System.out.println(Arrays.deepToString(c));
   }
 
 } // end class TuningCircuit

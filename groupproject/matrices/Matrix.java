@@ -37,12 +37,16 @@ public class Matrix { // begin class TuningCircuit
   int array[][] = new int[3][3];
 
   // Set up objects to grab input from the user
-  File inputFile = new File(".\\matrices\\matrices.txt");
-  FileReader fr = new FileReader(inputFile);
-  BufferedReader br = new BufferedReader(fr);
+  File inputFile;
+  FileReader fr;
+  BufferedReader br;
 
   // Default constructor for our object
-  public Matrix() throws IOException {
+  public Matrix(String filename) throws IOException {
+    inputFile = new File(filename);
+    fr = new Filereader(inputFile);
+    br = new BufferedReader(fr);
+    
     readArrayFromFile();
   }
 

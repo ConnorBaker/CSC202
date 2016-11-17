@@ -1,0 +1,108 @@
+% Author: Connor Baker
+% Date Created: November 16, 2016
+% Last Edited: November 16, 2016
+% Version: 0.1a
+
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage[left=1.5in,right=1.5in,top=1.5in,bottom=1.5in]{geometry}
+
+\begin{document}
+% Creates a title page with content centered vertically/horizontally
+\null
+\nointerlineskip 
+\vfill
+\let \snewpage \newpage
+\let \newpage \relax
+    \title{groupproject}
+    \author{Connor Baker, Rae Bouldin}
+    \date{November 16, 2016\\Version 0.1a}
+\maketitle
+\let \newpage \snewpage
+\vfill
+\thispagestyle{empty}
+
+
+
+\newpage % New page
+
+
+
+% Create the table of contents formatted with dotted lines and roman page numbering
+\makeatletter
+\pagenumbering{roman}
+\renewcommand*\l@section{\@dottedtocline{1}{0em}{1.5em}}
+\makeatother
+\tableofcontents
+
+% End the table of contents and reset page numbering to arabic
+\clearpage
+\pagenumbering{arabic}
+
+% Create the Summary of Problem Specification section
+\begin{center}
+\section{Summary of Problem Specification}
+\end{center}
+\subsection{Abstract}
+Write a program that reads two $3\times3$ matrices from file and computes the sum and product of the two matrices. Then, find the transpose, cofactor matrix, and determinant of the two resultant matrices. Then, find the inverse of the first matrix, and multiply it by the the first column of the second matrix. Finally, compute the standard deviation of the diagonal elements of the two inputted matrices.
+All input and output should be stored in files.
+
+
+
+\newpage % New page
+
+
+
+% Create the Formulae section
+\begin{center}
+\section{Formulae}
+\end{center}
+
+
+
+\newpage % New page
+
+
+
+% Create the Explanation of Main Class section
+\begin{center}
+\section{Explanation of Main Class}
+\end{center}
+
+
+
+\newpage % New page
+
+
+
+% Create the Explanation of Matrix Class section
+\begin{center}
+\section{Explanation of Matrix Class}
+\end{center}
+
+
+
+\newpage % New page
+
+
+
+% Create the Notes section
+\begin{center}
+\section{Notes}
+\end{center}
+\subsection{Todo}
+
+
+
+\newpage % New page
+
+
+
+% Create the References section
+\begin{center}
+\section{References}
+\end{center}
+http://download.java.net/java/jdk9/docs/api/
+\end{document}

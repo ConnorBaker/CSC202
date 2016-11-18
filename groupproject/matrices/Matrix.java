@@ -3,9 +3,9 @@
 *  File Name: Matrix.java
 *
 *  Author: Connor Baker, Rae Bouldin
-*  Version: 0.1e
+*  Version: 0.1f
 *  Created: November 14, 2016
-*  Last Updated: November 16, 2016
+*  Last Updated: November 17, 2016
 *
 *  A note in general about the array processing methods:
 *  Instead of using array.length and array[i].length in all of the for loops,
@@ -36,29 +36,26 @@ public class Matrix { // begin class TuningCircuit
   // Create our array for processing
   int array[][] = new int[3][3];
 
-  // Set up objects to grab input from the user
+  // Set up objects to grab input from the file
   File inputFile;
   FileReader fr;
   BufferedReader br;
 
   // Default constructor for our object
-  public Matrix(String filename) throws IOException {
-    inputFile = new File(filename);
-    fr = new Filereader(inputFile);
+  public Matrix() throws IOException {
+    inputFile = new File(".\\matrices\\matrices.txt");
+    fr = new FileReader(inputFile);
     br = new BufferedReader(fr);
-    
     readArrayFromFile();
   }
 
-  /*
-  *  Currently I can't think of a use for an argumented constructor since we
-  *  read in from files. In what scenario would we need to have user input in
-  *  this program?
-  */
   // Argumented constructor for our object
-  // public Matrix(int array[][], int numOfRows, int numOfCols) throws IOException {
-  //
-  // }
+  public Matrix(String filename) throws IOException {
+    inputFile = new File(filename);
+    fr = new FileReader(inputFile);
+    br = new BufferedReader(fr);
+    readArrayFromFile();
+  }
 
   // Method to fill the array from file
   public void readArrayFromFile() throws IOException {

@@ -3,9 +3,9 @@
 *  File Name: Main.java
 *
 *  Author: Connor Baker, Rae Bouldin
-*  Version: 0.1d
+*  Version: 0.2a
 *  Created: November 14, 2016
-*  Last Updated: November 16, 2016
+*  Last Updated: November 19, 2016
 */
 
 // Declare our package
@@ -30,5 +30,6 @@ public class Main { // begin class Main
     Matrix.productOfArrays(matrix1.array, matrix2.array);
     Matrix.transposeOfArray(matrix1.array);
     Matrix.determinantOfArray(matrix1.array);
+    Matrix.cofactorOfArray(matrix1.array);
   } // end main()
 } // end class Main

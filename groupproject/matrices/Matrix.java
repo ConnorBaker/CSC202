@@ -3,9 +3,9 @@
 *  File Name: Matrix.java
 *
 *  Author: Connor Baker, Rae Bouldin
-*  Version: 0.1f
+*  Version: 0.2a
 *  Created: November 14, 2016
-*  Last Updated: November 17, 2016
+*  Last Updated: November 19, 2016
 *
 *  A note in general about the array processing methods:
 *  Instead of using array.length and array[i].length in all of the for loops,
@@ -34,25 +34,29 @@ import java.util.StringTokenizer;
 
 public class Matrix { // begin class TuningCircuit
   // Create our array for processing
-  int array[][] = new int[3][3];
+  static int array[][] = new int[3][3];
 
   // Set up objects to grab input from the file
-  File inputFile;
-  FileReader fr;
-  BufferedReader br;
+  static File file;
+  static FileReader fr;
+  static BufferedReader br;
+
+  // Set up objects to stream output to
+  static BufferedWriter bw;
+  static PrintWriter pw;
 
   // Default constructor for our object
   public Matrix() throws IOException {
-    inputFile = new File(".\\matrices\\matrices.txt");
-    fr = new FileReader(inputFile);
+    file = new File(".\\matrices\\matrices.txt");
+    fr = new FileReader(file);
     br = new BufferedReader(fr);
     readArrayFromFile();
   }
 
   // Argumented constructor for our object
   public Matrix(String filename) throws IOException {
-    inputFile = new File(filename);
-    fr = new FileReader(inputFile);
+    file = new File(filename);
+    fr = new FileReader(file);
     br = new BufferedReader(fr);
     readArrayFromFile();
   }
@@ -71,10 +75,12 @@ public class Matrix { // begin class TuningCircuit
       // Print out the array
       System.out.println(Arrays.deepToString(array));
     }
+    // br.flush();
+    br.close();
   }
 
   // Method to take the sum of two arrays
-  public static void sumOfArrays(int a[][], int b[][]) {
+  public static void sumOfArrays(int a[][], int b[][]) throws IOException {
     // Initialize our resultant array
     int c[][] = new int[3][3];
     for (int i = 0; i < 3; i++) {
@@ -85,6 +91,7 @@ public class Matrix { // begin class TuningCircuit
     }
     // Print out the array
     System.out.println(Arrays.deepToString(c));
+    printArrayToFile(c, ".\\matrices\\sumofmatrices.txt");
   }
 
   // Method to take the product of two arrays
@@ -119,13 +126,39 @@ public class Matrix { // begin class TuningCircuit
 
   // Method to take the determinant of an array
   public static void determinantOfArray(int a[][]) {
-    // Initialize our resultant array
+    // Initialize our determinant
     int determinant;
-    determinant = a[0][0]*(a[1][1]*a[2][2]-a[1][2]*a[2][1])
+    determinant =   a[0][0]*(a[1][1]*a[2][2]-a[1][2]*a[2][1])
                   - a[0][1]*(a[1][0]*a[2][2]-a[1][2]*a[2][0])
                   + a[0][2]*(a[1][0]*a[2][1]-a[1][1]*a[2][0]);
     // Print out the array
     System.out.println(determinant);
   }
 
+  public static void cofactorOfArray(int a[][]) throws IOException {
+    // Initialize our resultant array
+    int c[][] = new int[3][3];
+    c[0][0] = a[1][1]*a[2][2] - a[1][2]*a[2][1];
+    c[0][1] = -1*(a[1][0]*a[2][2] - a[1][2]*a[2][0]);
+    c[0][2] = a[1][0]*a[2][1] - a[1][1]*a[2][0];
+    c[1][0] = -1*(a[0][1]*a[2][2] - a[0][2]*a[2][1]);
+    c[1][1] = a[0][0]*a[2][2] - a[0][2]*a[2][0];
+    c[1][2] = -1*(a[0][0]*a[2][1] - a[0][1]*a[2][0]);
+    c[2][0] = a[0][1]*a[1][2] - a[0][2]*a[1][1];
+    c[2][1] = -1*(a[0][0]*a[1][2] - a[0][2]*a[1][0]);
+    c[2][2] = a[0][0]*a[1][1] - a[0][1]*a[1][0];
+    // Print out the array
+    printArrayToFile(c, ".\\matrices\\cofactormatrices.txt");
+  }
+
+  public static void printArrayToFile(int a[][], String filename) throws IOException {
+    FileWriter tmpFile = new FileWriter(filename);
+    BufferedWriter tempBW = new BufferedWriter(tmpFile);
+    PrintWriter tempPW = new PrintWriter(tempBW);
+    for (int i = 0; i < 3; i++) {
+      tempPW.println(a[i][0] + " " + a[i][1] + " " + a[i][2]);
+    }
+    tempPW.flush();
+    tempPW.close();
+  }
 } // end class TuningCircuit

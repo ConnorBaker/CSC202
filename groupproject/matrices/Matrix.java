@@ -3,7 +3,7 @@
 *  File Name: Matrix.java
 *
 *  Author: Connor Baker, Rae Bouldin
-*  Version: 0.2b
+*  Version: 0.2c
 *  Created: November 14, 2016
 *  Last Updated: November 19, 2016
 *
@@ -35,6 +35,9 @@ import java.util.StringTokenizer;
 public class Matrix { // begin class TuningCircuit
   // Create our matrix for processing
   static int matrix[][] = new int[3][3];
+  static int transpose[][] = new int[3][3];
+  static int cofactor[][] = new int[3][3];
+  static int determinant;
 
   // Set up objects to grab input from the file
   static File file;
@@ -116,13 +119,11 @@ public class Matrix { // begin class TuningCircuit
 
   // Method to take the transpose of a matrix
   public static void transposeOfMatrix(int a[][]) throws IOException {
-    // Initialize our resultant matrix
-    int c[][] = new int[3][3];
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 3; j++) {
         // Simply swapping the element's position yeilds the transpose
         // See documentation, section X.X.X for more information
-        c[i][j] = a[j][i];
+        transpose[i][j] = a[j][i];
       }
     }
     // Print out the matrix
@@ -136,16 +137,15 @@ public class Matrix { // begin class TuningCircuit
     // Initialize our resultant matrix
     // Calculates the cofactor matrix using a formula derived in the documentation
     // See documentation, section X.X.X for more information
-    int c[][] = new int[3][3];
-    c[0][0] = a[1][1]*a[2][2] - a[1][2]*a[2][1];
-    c[0][1] = -1*(a[1][0]*a[2][2] - a[1][2]*a[2][0]);
-    c[0][2] = a[1][0]*a[2][1] - a[1][1]*a[2][0];
-    c[1][0] = -1*(a[0][1]*a[2][2] - a[0][2]*a[2][1]);
-    c[1][1] = a[0][0]*a[2][2] - a[0][2]*a[2][0];
-    c[1][2] = -1*(a[0][0]*a[2][1] - a[0][1]*a[2][0]);
-    c[2][0] = a[0][1]*a[1][2] - a[0][2]*a[1][1];
-    c[2][1] = -1*(a[0][0]*a[1][2] - a[0][2]*a[1][0]);
-    c[2][2] = a[0][0]*a[1][1] - a[0][1]*a[1][0];
+    cofactor[0][0] = a[1][1]*a[2][2] - a[1][2]*a[2][1];
+    cofactor[0][1] = -1*(a[1][0]*a[2][2] - a[1][2]*a[2][0]);
+    cofactor[0][2] = a[1][0]*a[2][1] - a[1][1]*a[2][0];
+    cofactor[1][0] = -1*(a[0][1]*a[2][2] - a[0][2]*a[2][1]);
+    cofactor[1][1] = a[0][0]*a[2][2] - a[0][2]*a[2][0];
+    cofactor[1][2] = -1*(a[0][0]*a[2][1] - a[0][1]*a[2][0]);
+    cofactor[2][0] = a[0][1]*a[1][2] - a[0][2]*a[1][1];
+    cofactor[2][1] = -1*(a[0][0]*a[1][2] - a[0][2]*a[1][0]);
+    cofactor[2][2] = a[0][0]*a[1][1] - a[0][1]*a[1][0];
 
     // Print out the matrix
     System.out.println("The cofactor of the matrix is: ");
@@ -155,8 +155,6 @@ public class Matrix { // begin class TuningCircuit
 
   // Method to take the determinant of a matrix
   public static void determinantOfMatrix(int a[][]) throws IOException {
-    // Initialize our determinant
-    int determinant;
     determinant =   a[0][0]*(a[1][1]*a[2][2]-a[1][2]*a[2][1])
     - a[0][1]*(a[1][0]*a[2][2]-a[1][2]*a[2][0])
     + a[0][2]*(a[1][0]*a[2][1]-a[1][1]*a[2][0]);

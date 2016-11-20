@@ -31,16 +31,17 @@ public class Main { // begin class Main
     Matrix.sumOfMatrices(matrix1.matrix, matrix2.matrix);
     Matrix.productOfMatrices(matrix1.matrix, matrix2.matrix);
 
-    // Calculate the transpose, cofactor, and determinant of the sum matrix
+    // Calculate the transpose, cofactor, determinant, and inverse of the sum matrix
     Matrix matrix3 = new Matrix(".\\matrices\\sumofmatrices.txt");
     Matrix.transposeOfMatrix(matrix3.matrix);
     Matrix.cofactorOfMatrix(matrix3.matrix);
     Matrix.determinantOfMatrix(matrix3.matrix);
+    matrix3.inverseOfMatrix();
 
-    // Calculate the transpose, cofactor, and determinant of the product matrix
+    // Calculate the transpose, cofactor, determinant, and inverse of the product matrix
     Matrix matrix4 = new Matrix(".\\matrices\\productofmatrices.txt");
     Matrix.transposeOfMatrix(matrix4.matrix);
     Matrix.cofactorOfMatrix(matrix4.matrix);
     Matrix.determinantOfMatrix(matrix4.matrix);
-} // end main()
+  } // end main()
 } // end class Main

@@ -14,7 +14,7 @@
 *  referencing the size of the array (which in of itself requires passing the
 *  array to another method and having java tally the length) provides a
 *  meaningful speedup.
-*
+* 
 */
 
 // Declare our package
@@ -37,6 +37,7 @@ public class Matrix { // begin class TuningCircuit
   static int matrix[][] = new int[3][3];
   static int transpose[][] = new int[3][3];
   static int cofactor[][] = new int[3][3];
+  static double inverse[][] = new double[3][3];
   static int determinant;
 
   // Set up objects to grab input from the file
@@ -128,8 +129,8 @@ public class Matrix { // begin class TuningCircuit
     }
     // Print out the matrix
     System.out.println("The transpose of the matrix is: ");
-    printMatrixToConsole(c);
-    printMatrixToFile(c, ".\\matrices\\transposeofmatrix.txt");
+    printMatrixToConsole(transpose);
+    printMatrixToFile(transpose, ".\\matrices\\transposeofmatrix.txt");
   }
 
   // Method to take the cafactor matrix of a matrix
@@ -149,8 +150,8 @@ public class Matrix { // begin class TuningCircuit
 
     // Print out the matrix
     System.out.println("The cofactor of the matrix is: ");
-    printMatrixToConsole(c);
-    printMatrixToFile(c, ".\\matrices\\cofactormatrix.txt");
+    printMatrixToConsole(cofactor);
+    printMatrixToFile(cofactor, ".\\matrices\\cofactormatrix.txt");
   }
 
   // Method to take the determinant of a matrix
@@ -165,8 +166,25 @@ public class Matrix { // begin class TuningCircuit
     printIntegerToFile(determinant, ".\\matrices\\determinant.txt");
   }
 
+  public static void inverseOfMatrix() throws IOException {
+    transposeOfMatrix(cofactor);
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 3; j++) {
+        inverse[i][j] = (1/determinant)*transpose[i][j];
+      }
+    }
+    printMatrixToConsole(inverse);
+  }
+
   // Method to print a matrix to console
   public static void printMatrixToConsole(int a[][]) {
+    for (int i = 0; i < 3; i++) {
+      System.out.println(a[i][0] + " " + a[i][1] + " " + a[i][2]);
+    }
+  }
+
+  // Method to print a matrix to console
+  public static void printMatrixToConsole(double a[][]) {
     for (int i = 0; i < 3; i++) {
       System.out.println(a[i][0] + " " + a[i][1] + " " + a[i][2]);
     }

@@ -3,7 +3,7 @@
 *  File Name: Matrix.java
 *
 *  Author: Connor Baker, Rae Bouldin
-*  Version: 0.2c
+*  Version: 0.2d
 *  Created: November 14, 2016
 *  Last Updated: November 19, 2016
 *
@@ -14,7 +14,7 @@
 *  referencing the size of the array (which in of itself requires passing the
 *  array to another method and having java tally the length) provides a
 *  meaningful speedup.
-* 
+*
 */
 
 // Declare our package
@@ -77,6 +77,7 @@ public class Matrix { // begin class TuningCircuit
         matrix[i][j] = Integer.parseInt(st.nextToken());
       }
     }
+
     // Print out the matrix
     System.out.println("The matrix read from file is:");
     printMatrixToConsole(matrix);
@@ -95,6 +96,7 @@ public class Matrix { // begin class TuningCircuit
         c[i][j] = a[i][j] + b[i][j];
       }
     }
+
     // Print out the matrix
     System.out.println("The sum of the matrices is: ");
     printMatrixToConsole(c);
@@ -112,6 +114,7 @@ public class Matrix { // begin class TuningCircuit
         c[i][j] = a[i][0]*b[0][j] + a[i][1]*b[1][j] + a[i][2]*b[2][j];
       }
     }
+
     // Print out the matrix
     System.out.println("The product of the matrices is: ");
     printMatrixToConsole(c);
@@ -127,6 +130,7 @@ public class Matrix { // begin class TuningCircuit
         transpose[i][j] = a[j][i];
       }
     }
+
     // Print out the matrix
     System.out.println("The transpose of the matrix is: ");
     printMatrixToConsole(transpose);
@@ -157,8 +161,8 @@ public class Matrix { // begin class TuningCircuit
   // Method to take the determinant of a matrix
   public static void determinantOfMatrix(int a[][]) throws IOException {
     determinant =   a[0][0]*(a[1][1]*a[2][2]-a[1][2]*a[2][1])
-    - a[0][1]*(a[1][0]*a[2][2]-a[1][2]*a[2][0])
-    + a[0][2]*(a[1][0]*a[2][1]-a[1][1]*a[2][0]);
+                  - a[0][1]*(a[1][0]*a[2][2]-a[1][2]*a[2][0])
+                  + a[0][2]*(a[1][0]*a[2][1]-a[1][1]*a[2][0]);
 
     // Print out the matrix
     System.out.println("The determinant of the matrix is: ");
@@ -170,10 +174,14 @@ public class Matrix { // begin class TuningCircuit
     transposeOfMatrix(cofactor);
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 3; j++) {
-        inverse[i][j] = (1/determinant)*transpose[i][j];
+        inverse[i][j] = ((1.0/determinant)*transpose[i][j]);
       }
     }
+
+    // Print out the matrix
+    System.out.println("The inverse of the matrix is: ");
     printMatrixToConsole(inverse);
+    printMatrixToFile(inverse, ".\\matrices\\inversematrix.txt");
   }
 
   // Method to print a matrix to console
@@ -198,6 +206,21 @@ public class Matrix { // begin class TuningCircuit
     for (int i = 0; i < 3; i++) {
       tempPW.println(a[i][0] + " " + a[i][1] + " " + a[i][2]);
     }
+
+    // Close the output file streams
+    tempPW.flush();
+    tempPW.close();
+  }
+
+  // Method to print a matrix to file
+  public static void printMatrixToFile(double a[][], String filename) throws IOException {
+    FileWriter tmpFile = new FileWriter(filename);
+    BufferedWriter tempBW = new BufferedWriter(tmpFile);
+    PrintWriter tempPW = new PrintWriter(tempBW);
+    for (int i = 0; i < 3; i++) {
+      tempPW.println(a[i][0] + " " + a[i][1] + " " + a[i][2]);
+    }
+
     // Close the output file streams
     tempPW.flush();
     tempPW.close();

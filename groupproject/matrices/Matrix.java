@@ -3,7 +3,7 @@
 *  File Name: Matrix.java
 *
 *  Author: Connor Baker, Rae Bouldin
-*  Version: 0.2d
+*  Version: 0.3a
 *  Created: November 14, 2016
 *  Last Updated: November 19, 2016
 *
@@ -77,7 +77,6 @@ public class Matrix { // begin class TuningCircuit
         matrix[i][j] = Integer.parseInt(st.nextToken());
       }
     }
-
     // Print out the matrix
     System.out.println("The matrix read from file is:");
     printMatrixToConsole(matrix);
@@ -87,7 +86,7 @@ public class Matrix { // begin class TuningCircuit
   }
 
   // Method to take the sum of two matricess
-  public static void sumOfMatrices(int a[][], int b[][]) throws IOException {
+  public static void sumOfMatrices(int a[][], int b[][], String filename) throws IOException {
     // Initialize our resultant matrix
     int c[][] = new int[3][3];
     for (int i = 0; i < 3; i++) {
@@ -96,15 +95,12 @@ public class Matrix { // begin class TuningCircuit
         c[i][j] = a[i][j] + b[i][j];
       }
     }
-
     // Print out the matrix
-    System.out.println("The sum of the matrices is: ");
-    printMatrixToConsole(c);
-    printMatrixToFile(c, ".\\matrices\\sumofmatrices.txt");
+    print(c, "sum", filename);
   }
 
   // Method to take the product of two matrices
-  public static void productOfMatrices(int a[][], int b[][]) throws IOException {
+  public static void productOfMatrices(int a[][], int b[][], String filename) throws IOException {
     // Initialize our resultant matrix
     int c[][] = new int[3][3];
     for (int i = 0; i < 3; i++) {
@@ -114,15 +110,12 @@ public class Matrix { // begin class TuningCircuit
         c[i][j] = a[i][0]*b[0][j] + a[i][1]*b[1][j] + a[i][2]*b[2][j];
       }
     }
-
     // Print out the matrix
-    System.out.println("The product of the matrices is: ");
-    printMatrixToConsole(c);
-    printMatrixToFile(c, ".\\matrices\\productofmatrices.txt");
+    print(c, "product", filename);
   }
 
   // Method to take the transpose of a matrix
-  public static void transposeOfMatrix(int a[][]) throws IOException {
+  public static void transposeOfMatrix(int a[][]) {
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 3; j++) {
         // Simply swapping the element's position yeilds the transpose
@@ -130,15 +123,39 @@ public class Matrix { // begin class TuningCircuit
         transpose[i][j] = a[j][i];
       }
     }
+  }
 
+  // Method to take the transpose of a matrix
+  public static void transposeOfMatrix(int a[][], String filename) throws IOException {
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 3; j++) {
+        // Simply swapping the element's position yeilds the transpose
+        // See documentation, section X.X.X for more information
+        transpose[i][j] = a[j][i];
+      }
+    }
     // Print out the matrix
-    System.out.println("The transpose of the matrix is: ");
-    printMatrixToConsole(transpose);
-    printMatrixToFile(transpose, ".\\matrices\\transposeofmatrix.txt");
+    print(transpose, "transpose", filename);
   }
 
   // Method to take the cafactor matrix of a matrix
-  public static void cofactorOfMatrix(int a[][]) throws IOException {
+  public static void cofactorOfMatrix(int a[][]) {
+    // Initialize our resultant matrix
+    // Calculates the cofactor matrix using a formula derived in the documentation
+    // See documentation, section X.X.X for more information
+    cofactor[0][0] = a[1][1]*a[2][2] - a[1][2]*a[2][1];
+    cofactor[0][1] = -1*(a[1][0]*a[2][2] - a[1][2]*a[2][0]);
+    cofactor[0][2] = a[1][0]*a[2][1] - a[1][1]*a[2][0];
+    cofactor[1][0] = -1*(a[0][1]*a[2][2] - a[0][2]*a[2][1]);
+    cofactor[1][1] = a[0][0]*a[2][2] - a[0][2]*a[2][0];
+    cofactor[1][2] = -1*(a[0][0]*a[2][1] - a[0][1]*a[2][0]);
+    cofactor[2][0] = a[0][1]*a[1][2] - a[0][2]*a[1][1];
+    cofactor[2][1] = -1*(a[0][0]*a[1][2] - a[0][2]*a[1][0]);
+    cofactor[2][2] = a[0][0]*a[1][1] - a[0][1]*a[1][0];
+  }
+
+  // Method to take the cafactor matrix of a matrix
+  public static void cofactorOfMatrix(int a[][], String filename) throws IOException {
     // Initialize our resultant matrix
     // Calculates the cofactor matrix using a formula derived in the documentation
     // See documentation, section X.X.X for more information
@@ -153,35 +170,52 @@ public class Matrix { // begin class TuningCircuit
     cofactor[2][2] = a[0][0]*a[1][1] - a[0][1]*a[1][0];
 
     // Print out the matrix
-    System.out.println("The cofactor of the matrix is: ");
-    printMatrixToConsole(cofactor);
-    printMatrixToFile(cofactor, ".\\matrices\\cofactormatrix.txt");
+    print(cofactor, "cofactor", filename);
   }
 
   // Method to take the determinant of a matrix
-  public static void determinantOfMatrix(int a[][]) throws IOException {
+  public static void determinantOfMatrix(int a[][]) {
+    determinant =   a[0][0]*(a[1][1]*a[2][2]-a[1][2]*a[2][1])
+                  - a[0][1]*(a[1][0]*a[2][2]-a[1][2]*a[2][0])
+                  + a[0][2]*(a[1][0]*a[2][1]-a[1][1]*a[2][0]);
+  }
+
+  // Method to take the determinant of a matrix
+  public static void determinantOfMatrix(int a[][], String filename) throws IOException {
     determinant =   a[0][0]*(a[1][1]*a[2][2]-a[1][2]*a[2][1])
                   - a[0][1]*(a[1][0]*a[2][2]-a[1][2]*a[2][0])
                   + a[0][2]*(a[1][0]*a[2][1]-a[1][1]*a[2][0]);
 
     // Print out the matrix
-    System.out.println("The determinant of the matrix is: ");
-    System.out.println(determinant);
-    printIntegerToFile(determinant, ".\\matrices\\determinant.txt");
+    System.out.println("The determinant of the matrix is: " +determinant);
+    printIntegerToFile(determinant, filename);
   }
 
-  public static void inverseOfMatrix() throws IOException {
-    transposeOfMatrix(cofactor);
+  public static void inverseOfMatrix(String filename) throws IOException {
+    // transposeOfMatrix(cofactor);
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 3; j++) {
         inverse[i][j] = ((1.0/determinant)*transpose[i][j]);
       }
     }
-
     // Print out the matrix
-    System.out.println("The inverse of the matrix is: ");
-    printMatrixToConsole(inverse);
-    printMatrixToFile(inverse, ".\\matrices\\inversematrix.txt");
+    print(inverse, "inverse", filename);
+  }
+
+  //Method to print
+  public static void print(int a[][], String console, String filename) throws IOException {
+    // Print out the matrix
+    System.out.println("The "+console+" of the matrix is: ");
+    printMatrixToConsole(a);
+    printMatrixToFile(a, filename);
+  }
+
+  //Method to print
+  public static void print(double a[][], String console, String filename) throws IOException {
+    // Print out the matrix
+    System.out.println("The "+console+" of the matrix is: ");
+    printMatrixToConsole(a);
+    printMatrixToFile(a, filename);
   }
 
   // Method to print a matrix to console

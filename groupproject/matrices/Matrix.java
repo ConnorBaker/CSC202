@@ -3,9 +3,9 @@
 *  File Name: Matrix.java
 *
 *  Author: Connor Baker, Rae Bouldin
-*  Version: 0.3a
+*  Version: 0.3b
 *  Created: November 14, 2016
-*  Last Updated: November 19, 2016
+*  Last Updated: November 27, 2016
 *
 *  A note in general about the matrix processing methods:
 *  Instead of using matrix.length and matrix[i].length in all of the for loops,
@@ -191,6 +191,17 @@ public class Matrix { // begin class TuningCircuit
     printIntegerToFile(determinant, filename);
   }
 
+  // Calculates the inverse of a matrix
+  public static void inverseOfMatrix() throws IOException {
+    // transposeOfMatrix(cofactor);
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 3; j++) {
+        inverse[i][j] = ((1.0/determinant)*transpose[i][j]);
+      }
+    }
+  }
+
+  // Calculates the inverse of a matrix
   public static void inverseOfMatrix(String filename) throws IOException {
     // transposeOfMatrix(cofactor);
     for (int i = 0; i < 3; i++) {
@@ -202,7 +213,14 @@ public class Matrix { // begin class TuningCircuit
     print(inverse, "inverse", filename);
   }
 
-  //Method to print
+  // Method to print
+  public static void print(int a[][], String console) throws IOException {
+    // Print out the matrix
+    System.out.println("The "+console+" of the matrix is: ");
+    printMatrixToConsole(a);
+  }
+
+  // Method to print
   public static void print(int a[][], String console, String filename) throws IOException {
     // Print out the matrix
     System.out.println("The "+console+" of the matrix is: ");
@@ -210,7 +228,14 @@ public class Matrix { // begin class TuningCircuit
     printMatrixToFile(a, filename);
   }
 
-  //Method to print
+  // Method to print
+  public static void print(double a[][], String console) throws IOException {
+    // Print out the matrix
+    System.out.println("The "+console+" of the matrix is: ");
+    printMatrixToConsole(a);
+  }
+
+  // Method to print
   public static void print(double a[][], String console, String filename) throws IOException {
     // Print out the matrix
     System.out.println("The "+console+" of the matrix is: ");

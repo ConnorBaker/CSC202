@@ -7,6 +7,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{enumitem}
+\usepackage{minted}
 \usepackage[left=1.5in,right=1.5in,top=1.5in,bottom=1.5in]{geometry}
 
 \begin{document}
@@ -33,7 +34,6 @@
 % Create the table of contents formatted with dotted lines and roman page numbering
 \makeatletter
 \pagenumbering{roman}
-\renewcommand*\l@section{\@dottedtocline{1}{0em}{1.5em}}
 \makeatother
 \tableofcontents
 
@@ -92,8 +92,11 @@ All input and output should be stored in files.
 \begin{center}
 \section{Notes}
 \end{center}
-\subsection{Todo}
-
+\subsection{A Note About the Methods}
+Instead of using matrix.length and matrix[i].length in all of the for loops, I've decided to use the constant 3, because this project deals only with matrices of the third order. I believe that using a constant instead of referencing the size of the array (which in of itself requires passing the array to another method and having java tally the length) provides a meaningful speedup.
+\begin{minted}{java}
+public void static main(String args[])
+\end{minted}
 
 
 \newpage % New page

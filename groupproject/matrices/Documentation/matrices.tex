@@ -1,7 +1,7 @@
  % Author: Connor Baker
 % Date Created: November 16, 2016
 % Last Edited: November 28, 2016
-% Version: 0.5a
+% Version: 0.6a
 
 \documentclass[12pt]{article}
 % Import Packages
@@ -31,7 +31,7 @@
 \let \newpage \relax
     \title{groupproject: matrices}
     \author{Connor Baker\\Rae Bouldin}
-    \date{November 28, 2016\\Version 0.4a}
+    \date{November 28, 2016\\Version 0.6a}
 \maketitle
 \let \newpage \snewpage
 \vfill
@@ -60,6 +60,10 @@
 \subsection{Abstract}
 Write a program that reads two $3\times3$ matrices from file and computes the sum and product of the two matrices. Then, find the transpose, cofactor matrix, and determinant of the two resultant matrices. Then, find the inverse of the sum matrix, and multiply it by the the first column of the product matrix. Finally, compute the standard deviation of the diagonal elements of the two originally inputted matrices.
 All input and output should be stored in files.
+
+\subsection{Assumptions}
+The basic assumptions for this program are that no one is trying very hard to break the algorithms. Everything has been built around the knowledge that the methods will take in an perform processing on $3\times3$ matrices. Should this prove to be false, then the program will not work.
+\par It is also assumed the the matrices read from file are integers. If they are decimals, the program will not work.
 
 
 
@@ -100,7 +104,6 @@ A =
 \text{det($A$)} =
 a(ei-fh)-b(di-fg)+c(dh-eg)
 \end{equation}
-
 As such, we can calculate the determinant of a $3\times3$ matrix by expanding across the top row. This yields the approach implemented in \texttt{determinant()}, detailed in Section 4.4.
 
 \subsection{Transpose}
@@ -248,10 +251,10 @@ The inverse of a matrix $A$, denoted $A^{-1}$ can be calculated as follows:
 \begin{equation}
     A^{-1} = \frac{1}{\text{det($A$)}} * A^T
 \end{equation}
-Which is very doable using Equations (1) and (2). This approach is used in \texttt{inverse()}, detailed in Section 4.10.
+Which is very doable using Equations (1) and (2). This yields the approach implemented in \texttt{inverse()}, detailed in Section 4.10.
 
 \subsection{Standard Deviation (Sample Based)}
-Standard deviation (as is taught in the developmental math courses here at NOVA) is the square root of variance. It is calculated as follows (and implemented in \texttt{standardDeviation}, detailed in Section 4.11), with standard deviation denoted with sigma ($\sigma$), data points $x_i$, and the mean mu ($\mu$):
+Standard deviation (as is taught in the developmental math courses here at NOVA) is the square root of variance. It is calculated as follows (and implemented in \texttt{standardDeviation()}, detailed in Section 4.11), with standard deviation denoted with sigma ($\sigma$), data points $x_i$, and mean mu ($\mu$):
 \begin{equation*}
     \sigma = \sqrt{\text{variance}}
 \end{equation*}
@@ -354,16 +357,6 @@ Using Equation (6) from Section 2.6, this method calculates the inverse of a mat
 public double standardDeviation(Matrix second)
 \end{minted}
 Using Equation (7) from Section 2.7, this method calculates the standard deviation of the main diagonals of two columns. This method returns a \texttt{double}.
-
-\subsection{\texttt{print()}}
-\begin{minted}[breaklines]{java}
-public static void print(int a[][], String console) throws IOException
-public static void print(int a[][], String console, String filename) throws IOException
-public static void print(double a[][], String console) throws IOException
-public static void print(double a[][], String console, String filename) throws IOException
-\end{minted}
-The \texttt{print()} method is overloaded. It accepts two-dimensional arrays of either type \texttt{int} or \texttt{double}, and prints either to console, or console and file/a path passed in to the method.
-\par The \texttt{print()} method's purpose is limited to printing to console the type of operation that was performed, and then calling and passing the arguments on to either (or both) \texttt{printMatrixToConsole()} and \texttt{printMatrixToFile()}, described in detail below.
 
 \subsection{\texttt{printMatrixToConsole()}}
 \begin{minted}[breaklines]{java}

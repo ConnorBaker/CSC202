@@ -24,22 +24,22 @@ import java.io.IOException;
 public class Main { // begin class Main
   public static void main(String args[]) throws IOException { // begin main
     // Create our two initial matrices
-    Matrix matrix1 = new Matrix();
-    Matrix matrix2 = new Matrix(".\\matrices\\matrix2.txt");
+    Matrix matrix1 = new Matrix.readMatrixFromFile(".\\matrices\\matrix1.txt");
+    Matrix matrix2 = new readMatrixFromFile(".\\matrices\\matrix2.txt");
 
     // Calculate the standard deviation of the two inputted matrice's main diagonals
     Matrix.stdDeviation(matrix1.matrix, matrix2.matrix, ".\\matrices\\stdDeviation.txt");
 
     // Calculate the sum of the matrices
-    Matrix.sumOfMatrices(matrix1.matrix, matrix2.matrix,
-        ".\\matrices\\sumofmatrices.txt");
-
-    // Calculate the transpose, cofactor, determinant, and inverse of the sum matrix
-    Matrix matrix3 = new Matrix(".\\matrices\\sumofmatrices.txt");
-    Matrix.transposeOfMatrix(matrix3.matrix, ".\\matrices\\transposeofmatrix1.txt");
-    Matrix.cofactorOfMatrix(matrix3.matrix, ".\\matrices\\cofactormatrix1.txt");
-    Matrix.determinantOfMatrix(matrix3.matrix, ".\\matrices\\determinant1.txt");
-    matrix3.inverseOfMatrix(".\\matrices\\inversematrix1.txt");
+    // Matrix.sumOfMatrices(matrix1.matrix, matrix2.matrix,
+    //     ".\\matrices\\sumofmatrices.txt");
+    //
+    // // Calculate the transpose, cofactor, determinant, and inverse of the sum matrix
+    // Matrix matrix3 = new Matrix(".\\matrices\\sumofmatrices.txt");
+    // Matrix.transposeOfMatrix(matrix3.matrix, ".\\matrices\\transposeofmatrix1.txt");
+    // Matrix.cofactorOfMatrix(matrix3.matrix, ".\\matrices\\cofactormatrix1.txt");
+    // Matrix.determinantOfMatrix(matrix3.matrix, ".\\matrices\\determinant1.txt");
+    // matrix3.inverseOfMatrix(".\\matrices\\inversematrix1.txt");
     //
     // // Calculate the product of the matrices
     // Matrix.productOfMatrices(matrix1.matrix, matrix2.matrix,

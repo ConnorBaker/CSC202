@@ -32,41 +32,40 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class Matrix { // begin class TuningCircuit
+public class Matrix {
   // Create our matrix for processing
-  int matrix[][] = new int[3][3];
-  int transpose[][] = new int[3][3];
-  int cofactor[][] = new int[3][3];
-  double inverse[][] = new double[3][3];
-  int determinant;
-
-  // Set up objects to grab input from the file
-  File file;
-  FileReader fr;
-  BufferedReader br;
-
-  // Set up objects to stream output to
-  BufferedWriter bw;
-  PrintWriter pw;
+  double matrix[][];
 
   // Default constructor for our object
-  public Matrix() throws IOException {
-    file = new File(".\\matrices\\matrix1.txt");
-    fr = new FileReader(file);
-    br = new BufferedReader(fr);
-    readMatrixFromFile();
+  public Matrix() {
+    // Call the argumented constructor
+    this(new double[3][3]);
   }
 
-  // Argumented constructor for our object
-  public Matrix(String filename) throws IOException {
-    file = new File(filename);
-    fr = new FileReader(file);
-    br = new BufferedReader(fr);
-    readMatrixFromFile();
+  // Default constructor for our object
+  public Matrix(double matrix[][]) {
+    this.matrix = matrix;
+  }
+
+  // Method to create a copy of a matrix
+  public Matrix copy() {
+    double matrix[][] = new double[3][3];
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 3; j++) {
+        mat[i][j] = matrix[i][j];
+      }
+    }
+    return new Matrix(matrix);
   }
 
   // Method to fill the matrix from file
-  public void readMatrixFromFile() throws IOException {
+  public static Matrix readMatrixFromFile(String filename) throws IOException {
+    // Initialize our matrix
+    double matrix[][] = new double[3][3];
+
+    // Initialize input stream
+    BufferedReader br = new BufferedReader(new FileReader(new File(filename)));
+
     // Initialize our StringTokenizer
     StringTokenizer st;
     for (int i = 0; i < 3; i++) {
@@ -83,144 +82,112 @@ public class Matrix { // begin class TuningCircuit
 
     // Close buffered reader
     br.close();
+
+    // Return our new matrix
+    return new Matrix(matrix);
   }
 
   // Method to take the determinant of a matrix
-  public void determinantOfMatrix(int a[][]) {
-    determinant =   a[0][0]*(a[1][1]*a[2][2]-a[1][2]*a[2][1])
-                  - a[0][1]*(a[1][0]*a[2][2]-a[1][2]*a[2][0])
-                  + a[0][2]*(a[1][0]*a[2][1]-a[1][1]*a[2][0]);
-  }
-
-  // Method to take the determinant of a matrix
-  public void determinantOfMatrix(int a[][], String filename) throws IOException {
-    determinant =   a[0][0]*(a[1][1]*a[2][2]-a[1][2]*a[2][1])
-                  - a[0][1]*(a[1][0]*a[2][2]-a[1][2]*a[2][0])
-                  + a[0][2]*(a[1][0]*a[2][1]-a[1][1]*a[2][0]);
-
-    // Print out the matrix
-    System.out.println("The determinant of the matrix is: " +determinant);
-    printNumberToFile(determinant, filename);
+  public double determinantOfMatrix() {
+    return  matrix[0][0]*(matrix[1][1]*matrix[2][2]-a[1][2]*matrix[2][1])
+          - matrix[0][1]*(matrix[1][0]*matrix[2][2]-matrix[1][2]*matrix[2][0])
+          + matrix[0][2]*(matrix[1][0]*matrix[2][1]-matrix[1][1]*matrix[2][0]);
   }
 
   // Method to take the transpose of a matrix
-  public void transposeOfMatrix(int a[][]) {
+  public Matrix transposeOfMatrix() {
+    // Create our resultant matrix
+    Matrix transpose = new Matrix();
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 3; j++) {
         // Simply swapping the element's position yeilds the transpose
         // See documentation, section X.X.X for more information
-        transpose[i][j] = a[j][i];
+        transpose.matrix[i][j] = matrix[j][i];
       }
     }
-  }
 
-  // Method to take the transpose of a matrix
-  public void transposeOfMatrix(int a[][], String filename) throws IOException {
-    for (int i = 0; i < 3; i++) {
-      for (int j = 0; j < 3; j++) {
-        // Simply swapping the element's position yeilds the transpose
-        // See documentation, section X.X.X for more information
-        transpose[i][j] = a[j][i];
-      }
-    }
-    // Print out the matrix
-    print(transpose, "transpose", filename);
+    // Return the new matrix
+    return transpose;
   }
 
   // Method to take the cafactor matrix of a matrix
-  public void cofactorOfMatrix(int a[][]) {
+  public Matrix cofactorOfMatrix() {
     // Initialize our resultant matrix
+    Matrix cofactor = new Matrix();
     // Calculates the cofactor matrix using a formula derived in the documentation
     // See documentation, section X.X.X for more information
-    cofactor[0][0] = a[1][1]*a[2][2] - a[1][2]*a[2][1];
-    cofactor[0][1] = -1*(a[1][0]*a[2][2] - a[1][2]*a[2][0]);
-    cofactor[0][2] = a[1][0]*a[2][1] - a[1][1]*a[2][0];
-    cofactor[1][0] = -1*(a[0][1]*a[2][2] - a[0][2]*a[2][1]);
-    cofactor[1][1] = a[0][0]*a[2][2] - a[0][2]*a[2][0];
-    cofactor[1][2] = -1*(a[0][0]*a[2][1] - a[0][1]*a[2][0]);
-    cofactor[2][0] = a[0][1]*a[1][2] - a[0][2]*a[1][1];
-    cofactor[2][1] = -1*(a[0][0]*a[1][2] - a[0][2]*a[1][0]);
-    cofactor[2][2] = a[0][0]*a[1][1] - a[0][1]*a[1][0];
-  }
+    cofactor.matrix[0][0] =     matrix[1][1]*matrix[2][2] - matrix[1][2]*matrix[2][1];
+    cofactor.matrix[0][1] = -1*(matrix[1][0]*matrix[2][2] - matrix[1][2]*matrix[2][0]);
+    cofactor.matrix[0][2] =     matrix[1][0]*matrix[2][1] - matrix[1][1]*matrix[2][0];
+    cofactor.matrix[1][0] = -1*(matrix[0][1]*matrix[2][2] - matrix[0][2]*matrix[2][1]);
+    cofactor.matrix[1][1] =     matrix[0][0]*matrix[2][2] - matrix[0][2]*matrix[2][0];
+    cofactor.matrix[1][2] = -1*(matrix[0][0]*matrix[2][1] - matrix[0][1]*matrix[2][0]);
+    cofactor.matrix[2][0] =     matrix[0][1]*matrix[1][2] - matrix[0][2]*matrix[1][1];
+    cofactor.matrix[2][1] = -1*(matrix[0][0]*matrix[1][2] - matrix[0][2]*matrix[1][0]);
+    cofactor.matrix[2][2] =     matrix[0][0]*matrix[1][1] - matrix[0][1]*matrix[1][0];
 
-  // Method to take the cafactor matrix of a matrix
-  public void cofactorOfMatrix(int a[][], String filename) throws IOException {
-    // Initialize our resultant matrix
-    // Calculates the cofactor matrix using a formula derived in the documentation
-    // See documentation, section X.X.X for more information
-    cofactor[0][0] = a[1][1]*a[2][2] - a[1][2]*a[2][1];
-    cofactor[0][1] = -1*(a[1][0]*a[2][2] - a[1][2]*a[2][0]);
-    cofactor[0][2] = a[1][0]*a[2][1] - a[1][1]*a[2][0];
-    cofactor[1][0] = -1*(a[0][1]*a[2][2] - a[0][2]*a[2][1]);
-    cofactor[1][1] = a[0][0]*a[2][2] - a[0][2]*a[2][0];
-    cofactor[1][2] = -1*(a[0][0]*a[2][1] - a[0][1]*a[2][0]);
-    cofactor[2][0] = a[0][1]*a[1][2] - a[0][2]*a[1][1];
-    cofactor[2][1] = -1*(a[0][0]*a[1][2] - a[0][2]*a[1][0]);
-    cofactor[2][2] = a[0][0]*a[1][1] - a[0][1]*a[1][0];
-
-    // Print out the matrix
-    print(cofactor, "cofactor", filename);
+    // Return the new matrix
+    return cofactor;
   }
 
   // Calculates the inverse of a matrix
-  public void inverseOfMatrix() throws IOException {
-    // transposeOfMatrix(cofactor);
+  public Matrix inverseOfMatrix() {
+    // Call the other methods we need to make this work
+    Matrix inverse = new Matrix();
+    Matrix transpose = transpose();
+    double determinant = determinant();
+    //Calculate the inverse
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 3; j++) {
-        inverse[i][j] = ((1.0/determinant)*transpose[i][j]);
+        inverse.matrix[i][j] = ((1.0/determinant)*transpose.matrix[i][j]);
       }
     }
-  }
 
-  // Calculates the inverse of a matrix
-  public void inverseOfMatrix(String filename) throws IOException {
-    // transposeOfMatrix(cofactor);
-    for (int i = 0; i < 3; i++) {
-      for (int j = 0; j < 3; j++) {
-        inverse[i][j] = ((1.0/determinant)*transpose[i][j]);
-      }
-    }
-    // Print out the matrix
-    print(inverse, "inverse", filename);
+    // Return the new matrix
+    return inverse;
   }
 
   // Method to take the sum of two matricess
-  public static void sumOfMatrices(int a[][], int b[][], String filename) throws IOException {
+  public Matrix add(Matrix addend) {
     // Initialize our resultant matrix
-    int c[][] = new int[3][3];
+    Matrix sum = new Matrix();
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 3; j++) {
         // Sum the values of the elements of the two
-        c[i][j] = a[i][j] + b[i][j];
+        sum.matrix[i][j] = this.matrix[i][j] + addend.matrix[i][j];
       }
     }
-    // Print out the matrix
-    print(c, "sum", filename);
+
+    // Return the new matrix
+    return sum;
   }
 
   // Method to take the product of two matrices
-  public static void productOfMatrices(int a[][], int b[][], String filename) throws IOException {
+  public Matrix multiply(Matrix multiplicand) {
     // Initialize our resultant matrix
-    int c[][] = new int[3][3];
+    Matrix product = new Matrix();
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 3; j++) {
         // Calculates the product using  a formula derived in the documentation
         // See documentation, section X.X.X for more information
-        c[i][j] = a[i][0]*b[0][j] + a[i][1]*b[1][j] + a[i][2]*b[2][j];
+        product.matrix[i][j] = this.matrix[i][0]*multiplicand.matrix[0][j]
+                             + this.matrix[i][1]*multiplicand.matrix[1][j]
+                             + this.matrix[i][2]*multiplicand.matrix[2][j];
       }
     }
-    // Print out the matrix
-    print(c, "product", filename);
+
+    // Return the new matrix
+    return product;
   }
 
   // Method to find the sample standard deviation of the main diagonals
-  public static void stdDeviation(int a[][], int b[][], String filename) throws IOException {
+  public double standardDeviation(Matrix second) {
     // Initialize our mean
     double mean = 0;
     // Calculates the mean of the diagonals
     // See documentation, section X.X.X for more information
     for (int i = 0; i < 3; i++) {
-      mean += a[i][i] + b[i][i];
+      mean += this.matrix[i][i] + second.matrix[i][i];
     }
     // Divide the sum by the number of elements summed
     mean /= 6.0;
@@ -232,17 +199,14 @@ public class Matrix { // begin class TuningCircuit
     for (int i = 0; i < 3; i++) {
       // Calculates the mean of the diagonals
       // See documentation, section X.X.X for more information
-      variance += Math.pow(((a[i][i] - mean)), 2.0) + Math.pow(((b[i][i] - mean)), 2.0);
+      variance += Math.pow(((this.matrix[i][i] - mean)), 2.0) +
+                  Math.pow(((second.matrix[i][i] - mean)), 2.0);
     }
     // Divide the variance by the number of elements summed
     variance /= 5.0;
 
-    // Calculate the standard deviation of the elements
-    double stdDeviation = Math.sqrt(variance);
-
-    // Print out the standard deviation
-    System.out.println("The standard deviation of the main diagonals is: " +stdDeviation);
-    printNumberToFile(stdDeviation, filename);
+    // Return the standard deviation of the elements
+    return Math.sqrt(variance);
   }
 
   // Method to print
@@ -340,4 +304,4 @@ public class Matrix { // begin class TuningCircuit
     tempPW.flush();
     tempPW.close();
   }
-} // end class TuningCircuit
+} // end class

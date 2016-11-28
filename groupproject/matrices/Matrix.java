@@ -3,7 +3,7 @@
 *  File Name: Matrix.java
 *
 *  Author: Connor Baker, Rae Bouldin
-*  Version: 0.6b
+*  Version: 0.6c
 *  Created: November 14, 2016
 *  Last Updated: November 28, 2016
 *
@@ -37,17 +37,20 @@ public class Matrix {
   double matrix[][];
 
   // Default constructor for our object
+  // Detailed in Section 4.1
   public Matrix() {
     // Call the argumented constructor
     this(new double[3][3]);
   }
 
   // Default constructor for our object
+  // Detailed in Section 4.1
   public Matrix(double matrix[][]) {
     this.matrix = matrix;
   }
 
   // Method to create a copy of a matrix
+  // Detailed in Section 4.2
   public Matrix copy() {
     double matrix[][] = new double[3][3];
     for (int i = 0; i < 3; i++) {
@@ -59,6 +62,7 @@ public class Matrix {
   }
 
   // Method to fill the matrix from file
+  // Detailed in Section 4.3
   public static Matrix readMatrixFromFile(String filename) throws IOException {
     // Initialize our matrix
     Matrix tempMatrix = new Matrix();
@@ -85,6 +89,8 @@ public class Matrix {
   }
 
   // Method to take the determinant of a matrix
+  // Detailed in Section 4.4
+  // Algorithm described in Section 2.1
   public double determinant() {
     return  matrix[0][0]*(matrix[1][1]*matrix[2][2]-matrix[1][2]*matrix[2][1])
           - matrix[0][1]*(matrix[1][0]*matrix[2][2]-matrix[1][2]*matrix[2][0])
@@ -92,13 +98,14 @@ public class Matrix {
   }
 
   // Method to take the transpose of a matrix
+  // Detailed in Section 4.5
+  // Algorithm described in Section 2.2
   public Matrix transpose() {
     // Create our resultant matrix
     Matrix transpose = new Matrix();
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 3; j++) {
         // Simply swapping the element's position yeilds the transpose
-        // See documentation, section X.X.X for more information
         transpose.matrix[i][j] = matrix[j][i];
       }
     }
@@ -108,11 +115,11 @@ public class Matrix {
   }
 
   // Method to take the cafactor matrix of a matrix
+  // Detailed in Section 4.9
+  // Algorithm described in Section 2.5
   public Matrix cofactor() {
     // Initialize our resultant matrix
     Matrix cofactor = new Matrix();
-    // Calculates the cofactor matrix using a formula derived in the documentation
-    // See documentation, section X.X.X for more information
     cofactor.matrix[0][0] =     matrix[1][1]*matrix[2][2] - matrix[1][2]*matrix[2][1];
     cofactor.matrix[0][1] = -1*(matrix[1][0]*matrix[2][2] - matrix[1][2]*matrix[2][0]);
     cofactor.matrix[0][2] =     matrix[1][0]*matrix[2][1] - matrix[1][1]*matrix[2][0];
@@ -128,6 +135,8 @@ public class Matrix {
   }
 
   // Calculates the inverse of a matrix
+  // Detailed in Section 4.10
+  // Algorithm described in Section 2.6
   public Matrix inverse() {
     // Call the other methods we need to make this work
     Matrix inverse = new Matrix();
@@ -145,6 +154,8 @@ public class Matrix {
   }
 
   // Method to take the sum of two matricess
+  // Detailed in Section 4.6
+  // Algorithm described in Section 2.3
   public Matrix add(Matrix addend) {
     // Initialize our resultant matrix
     Matrix sum = new Matrix();
@@ -160,13 +171,13 @@ public class Matrix {
   }
 
   // Method to take the product of two matrices
+  // Detailed in Section 4.7
+  // Algorithm described in Section 2.4
   public Matrix multiply(Matrix multiplicand) {
     // Initialize our resultant matrix
     Matrix product = new Matrix();
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 3; j++) {
-        // Calculates the product using  a formula derived in the documentation
-        // See documentation, section X.X.X for more information
         product.matrix[i][j] = this.matrix[i][0]*multiplicand.matrix[0][j]
                              + this.matrix[i][1]*multiplicand.matrix[1][j]
                              + this.matrix[i][2]*multiplicand.matrix[2][j];
@@ -178,12 +189,12 @@ public class Matrix {
   }
 
   // Method to take the product of a matrix and a columnn vector
+  // Detailed in Section 4.8
+  // Algorithm described in Section 2.4
   public double[] multiplyByColumn(Matrix column) {
     // Initialize our resultant matrix
     double tempMatrix[] = new double[3];
     for (int i = 0; i < 3; i++) {
-      // Calculates the product using  a formula derived in the documentation
-      // See documentation, section X.X.X for more information
       tempMatrix[i] = this.matrix[i][0]*column.matrix[0][0]
                            + this.matrix[i][1]*column.matrix[1][0]
                            + this.matrix[i][2]*column.matrix[2][0];
@@ -193,36 +204,39 @@ public class Matrix {
     return tempMatrix;
   }
 
-  // Method to find the sample standard deviation of the main diagonals
+  // Method to find the sample standard deviation (population based) of the main diagonals
+  // Detailed in Section 4.11
+  // Algorithm described in Section 2.7
   public double standardDeviation(Matrix second) {
     // Initialize our mean
     double mean = 0;
+
     // Calculates the mean of the diagonals
-    // See documentation, section X.X.X for more information
     for (int i = 0; i < 3; i++) {
       mean += this.matrix[i][i] + second.matrix[i][i];
     }
+
     // Divide the sum by the number of elements summed
     mean /= 6.0;
 
     // Initialize our variance
     double variance = 0.0;
+
     // Calculates the variance of the elements of the diagonals
-    // See documentation, section X.X.X for more information
     for (int i = 0; i < 3; i++) {
       // Calculates the mean of the diagonals
-      // See documentation, section X.X.X for more information
       variance += Math.pow(((this.matrix[i][i] - mean)), 2.0) +
                   Math.pow(((second.matrix[i][i] - mean)), 2.0);
     }
     // Divide the variance by the number of elements summed
-    variance /= 5.0;
+    variance /= 6.0;
 
     // Return the standard deviation of the elements
     return Math.sqrt(variance);
   }
 
   // Method to print a matrix to console
+  // Detailed in Section 4.12
   public static void printMatrixToConsole(Matrix matrix) {
     for (int i = 0; i < 3; i++) {
       System.out.println(matrix.matrix[i][0] + " " + matrix.matrix[i][1] + " "
@@ -231,6 +245,7 @@ public class Matrix {
   }
 
   // Method to print a matrix to file
+  // Detailed in Section 4.13
   public static void printMatrixToFile(Matrix matrix, String filename)
       throws IOException {
     FileWriter tmpFile = new FileWriter(filename);
@@ -247,6 +262,7 @@ public class Matrix {
   }
 
   // Method to print a matrix to file
+  // Detailed in Section 4.13
   public static void printMatrixToFile(double matrix[], String filename)
       throws IOException {
     FileWriter tmpFile = new FileWriter(filename);
@@ -262,6 +278,7 @@ public class Matrix {
   }
 
   // Method to print an double to file
+  // Detailed in Section 4.14
   public static void printNumberToFile(double a, String filename) throws IOException {
     FileWriter tmpFile = new FileWriter(filename);
     BufferedWriter tempBW = new BufferedWriter(tmpFile);

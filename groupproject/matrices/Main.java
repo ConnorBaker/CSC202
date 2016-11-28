@@ -3,7 +3,7 @@
 *  File Name: Main.java
 *
 *  Author: Connor Baker, Rae Bouldin
-*  Version: 0.5a
+*  Version: 0.6a
 *  Created: November 14, 2016
 *  Last Updated: November 28, 2016
 */
@@ -52,7 +52,7 @@ public class Main { // begin class Main
     Matrix.printMatrixToFile(inverseOfSum,".\\matrices\\inverseofsum.txt");
 
     // Calculate the product of the matrices and print it to file
-    Matrix product = matrix1.add(matrix2);
+    Matrix product = matrix1.multiply(matrix2);
     Matrix.printMatrixToFile(product, ".\\matrices\\product.txt");
 
     // Calculate the transpose of the product and print it to file
@@ -67,6 +67,11 @@ public class Main { // begin class Main
     double determinantOfproduct = product.determinant();
     Matrix.printNumberToFile(determinantOfproduct,
         ".\\matrices\\determinantofproduct.txt");
+
+    // Calculate the product of the sum and the first column of the product
+  double sumTimesProductColumn[] = sum.multiplyByColumn(product);
+     Matrix.printMatrixToFile(sumTimesProductColumn,
+         ".\\matrices\\sumTimesProductColumn.txt");
 
     // Calculate the inverse of the product and print it to file
     Matrix inverseOfproduct = product.inverse();

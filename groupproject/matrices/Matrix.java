@@ -3,7 +3,7 @@
 *  File Name: Matrix.java
 *
 *  Author: Connor Baker, Rae Bouldin
-*  Version: 0.5a
+*  Version: 0.6a
 *  Created: November 14, 2016
 *  Last Updated: November 28, 2016
 *
@@ -177,6 +177,22 @@ public class Matrix {
     return product;
   }
 
+  // Method to take the product of a matrix and a columnn vector
+  public double[] multiplyByColumn(Matrix column) {
+    // Initialize our resultant matrix
+    double tempMatrix[] = new double[3];
+    for (int i = 0; i < 3; i++) {
+      // Calculates the product using  a formula derived in the documentation
+      // See documentation, section X.X.X for more information
+      tempMatrix[i] = this.matrix[i][0]*column.matrix[0][0]
+                           + this.matrix[i][1]*column.matrix[1][0]
+                           + this.matrix[i][2]*column.matrix[2][0];
+    }
+
+    // Return the new matrix
+    return tempMatrix;
+  }
+
   // Method to find the sample standard deviation of the main diagonals
   public double standardDeviation(Matrix second) {
     // Initialize our mean
@@ -220,6 +236,20 @@ public class Matrix {
     PrintWriter tempPW = new PrintWriter(tempBW);
     for (int i = 0; i < 3; i++) {
       tempPW.println(matrix.matrix[i][0] + " " + matrix.matrix[i][1] + " " + matrix.matrix[i][2]);
+    }
+
+    // Close the output file streams
+    tempPW.flush();
+    tempPW.close();
+  }
+
+  // Method to print a matrix to file
+  public static void printMatrixToFile(double matrix[], String filename) throws IOException {
+    FileWriter tmpFile = new FileWriter(filename);
+    BufferedWriter tempBW = new BufferedWriter(tmpFile);
+    PrintWriter tempPW = new PrintWriter(tempBW);
+    for (int i = 0; i < 3; i++) {
+      tempPW.println(matrix[i]);
     }
 
     // Close the output file streams

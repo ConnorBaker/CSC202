@@ -69,9 +69,9 @@ public class Main { // begin class Main
         ".\\matrices\\determinantofproduct.txt");
 
     // Calculate the product of the sum and the first column of the product
-  double sumTimesProductColumn[] = sum.multiplyByColumn(product);
-     Matrix.printMatrixToFile(sumTimesProductColumn,
-         ".\\matrices\\sumTimesProductColumn.txt");
+  double inverseOfSumTimesProductColumn[] = inverseOfSum.multiplyByColumn(product);
+     Matrix.printMatrixToFile(inverseOfSumTimesProductColumn,
+         ".\\matrices\\inverseOfSumTimesProductColumn.txt");
 
     // Calculate the inverse of the product and print it to file
     Matrix inverseOfproduct = product.inverse();

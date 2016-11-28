@@ -13,3 +13,4 @@ assignment7/assignment7.log
 *.log
 *.pygtex
 *.pygstyle
+*.tex_autosave

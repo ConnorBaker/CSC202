@@ -3,7 +3,7 @@
 *  File Name: Matrix.java
 *
 *  Author: Connor Baker, Rae Bouldin
-*  Version: 0.6a
+*  Version: 0.6b
 *  Created: November 14, 2016
 *  Last Updated: November 28, 2016
 *
@@ -225,17 +225,20 @@ public class Matrix {
   // Method to print a matrix to console
   public static void printMatrixToConsole(Matrix matrix) {
     for (int i = 0; i < 3; i++) {
-      System.out.println(matrix.matrix[i][0] + " " + matrix.matrix[i][1] + " " + matrix.matrix[i][2]);
+      System.out.println(matrix.matrix[i][0] + " " + matrix.matrix[i][1] + " "
+          + matrix.matrix[i][2]);
     }
   }
 
   // Method to print a matrix to file
-  public static void printMatrixToFile(Matrix matrix, String filename) throws IOException {
+  public static void printMatrixToFile(Matrix matrix, String filename)
+      throws IOException {
     FileWriter tmpFile = new FileWriter(filename);
     BufferedWriter tempBW = new BufferedWriter(tmpFile);
     PrintWriter tempPW = new PrintWriter(tempBW);
     for (int i = 0; i < 3; i++) {
-      tempPW.println(matrix.matrix[i][0] + " " + matrix.matrix[i][1] + " " + matrix.matrix[i][2]);
+      tempPW.println(matrix.matrix[i][0] + " " + matrix.matrix[i][1] + " "
+          + matrix.matrix[i][2]);
     }
 
     // Close the output file streams
@@ -244,7 +247,8 @@ public class Matrix {
   }
 
   // Method to print a matrix to file
-  public static void printMatrixToFile(double matrix[], String filename) throws IOException {
+  public static void printMatrixToFile(double matrix[], String filename)
+      throws IOException {
     FileWriter tmpFile = new FileWriter(filename);
     BufferedWriter tempBW = new BufferedWriter(tmpFile);
     PrintWriter tempPW = new PrintWriter(tempBW);

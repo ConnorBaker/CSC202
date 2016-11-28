@@ -1,13 +1,23 @@
-% Author: Connor Baker
+ % Author: Connor Baker
 % Date Created: November 16, 2016
-% Last Edited: November 16, 2016
-% Version: 0.1a
+% Last Edited: November 27, 2016
+% Version: 0.2a
 
 \documentclass[12pt]{article}
+% Import Packages
 \usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
 \usepackage{amsmath}
+\usepackage{mathtools}
 \usepackage{enumitem}
-\usepackage{minted}
+\usepackage{array}
+\usepackage{gensymb}
+\usepackage{caption}
+\usepackage{tocloft}
+\usepackage{graphicx}
+\graphicspath{{images/}}
+\usepackage[export]{adjustbox}
+\usepackage{subcaption}
 \usepackage[left=1.5in,right=1.5in,top=1.5in,bottom=1.5in]{geometry}
 
 \begin{document}
@@ -18,8 +28,8 @@
 \let \snewpage \newpage
 \let \newpage \relax
     \title{groupproject}
-    \author{Connor Baker, Rae Bouldin}
-    \date{November 16, 2016\\Version 0.1a}
+    \author{Connor Baker\\Rae Bouldin}
+    \date{November 27, 2016\\Version 0.2a}
 \maketitle
 \let \newpage \snewpage
 \vfill
@@ -59,6 +69,134 @@ All input and output should be stored in files.
 \begin{center}
 \section{Formulae}
 \end{center}
+\subsection{Determinant}
+The determinant of a $3\times3$ matrix is most readily computed by row reducing to a triangular matrix, and taking the product of the main diagonal. However, failing that, one can calculate the determinant by doing cofactor expansion. Though a horribly inefficient algorithm for larger matrices, it gets the job done. For a $3\times3$ matrix $A$, it's determinant, det($A$), can be computed using placeholder values as follows:
+\[
+A =
+\begin{bmatrix}
+    a & b & c \\
+    d & e & f \\
+    g & h & i
+\end{bmatrix}
+\]
+\begin{equation}
+\text{det($A$)} =
+  % First row of cofactor matrix
+  a\begin{vmatrix}
+  e & f\\
+  h & i
+  \end{vmatrix}  
+  -b\begin{vmatrix}
+  d & f\\
+  g & i
+  \end{vmatrix}  
+  +c\begin{vmatrix}
+  d & e\\
+  g & h
+  \end{vmatrix}\\\\
+\end{equation}
+As such, we can calculate the determinant of a $3\times3$ matrix by expanding across the top row. This yields the approach implemented in \texttt{determinantOfMatrix()}, detailed in Section X.X.X.
+
+\subsection{Transpose}
+Using the same approach as above, we can easily compute the transpose of a matrix. It involves creating a matrix filled with placeholder values, calculating the transpose matrix by hand, and tracking the positions of the elements in the matrix. For a $3\times3$ matrix $A$, let its transpose be $A^T$. Then:
+\[
+A =
+\begin{bmatrix}
+    a & b & c \\
+    d & e & f \\
+    g & h & i
+\end{bmatrix}
+\]
+\begin{equation}
+A^T =
+    \begin{bmatrix}
+    a & d & g \\
+    b & e & h \\
+    c & f & i
+\end{bmatrix}
+\end{equation}
+This yields the approach implemented in \texttt{transposeOfMatrix()}, detailed in Section X.X.X.
+
+\subsection{Matrix Addition}
+The approach used to create an algorithm for matrix addition is similar to that used above in finding the determinant. We again create matrices full of placeholder values, and track them as we perform the operation. For two $3\times3$ matrices $A$ and $B$, the process is as follows:
+\[
+A =
+\begin{bmatrix}
+    a & b & c \\
+    d & e & f \\
+    g & h & i
+\end{bmatrix}
+\qquad
+B = 
+\begin{bmatrix}
+    j & k & l \\
+    m & n & o \\
+    p & q & r
+\end{bmatrix}
+\]
+\begin{equation}
+    A+B = 
+    \begin{bmatrix}
+    a + j & b + k & c + l \\
+    d + m & e + n & f + o \\
+    g + p & h + q & i + r
+    \end{bmatrix}
+\end{equation}
+This yields the approach implemented in \texttt{sumOfMatrices()}, detailed in Section X.X.X.
+
+\subsection{Matrix Multiplication}
+The approach used to create an algorithm for matrix multiplication is similar to that used above in finding the determinant. We again create matrices full of placeholder values, and track them as we perform the operation. For two $3\times3$ matrices $A$ and $B$, the process is as follows:
+\[
+A =
+\begin{bmatrix}
+    a & b & c \\
+    d & e & f \\
+    g & h & i
+\end{bmatrix}
+\qquad
+B = 
+\begin{bmatrix}
+    j & k & l \\
+    m & n & o \\
+    p & q & r
+\end{bmatrix}
+\]
+\begin{equation}
+    AB = 
+    \begin{bmatrix}
+    a j + b m + c p & a k + b n + c q & a l + b o + c r \\
+    d j + e m + f p & d k + e n + f q & d l + e o + f r \\
+    g j + h m + i p & g k + h n + i q & g l + h o + i r
+    \end{bmatrix}
+\end{equation}
+This yields the approach implemented in \texttt{productOfMatrices()}, detailed in Section X.X.X.
+
+\subsection{Cofactor Matrix}
+The approach used to calculate the cofactor matrix is identical to what was done above. It involves creating a matrix filled with placeholder values, calculating the cofactor matrix by hand, and tracking the positions of the elements in the matrix. For a $3\times3$ matrix $C$, let its cofactor matrix be $C'$. Then:
+\[
+C =
+\begin{bmatrix}
+    a & b & c \\
+    d & e & f \\
+    g & h & i
+\end{bmatrix}
+\]
+\begin{equation}
+C' =
+    \begin{bmatrix}
+    e i - f h & f g - d i & d h - e g \\
+    c h - b i & a i - c g & b g - a h \\
+    b f - c e & c d - a f & a e - b d
+\end{bmatrix}
+\end{equation}
+This yields the approach implemented in \texttt{cofactorOfMatrix()}, detailed in Section X.X.X.
+
+\subsection{Inverse of a Matrix}
+The inverse of a matrix $A$, denoted $A^{-1}$ can be calculated as follows:
+\begin{equation}
+    A^{-1} = \frac{1}{\text{det($A$)}} * A^T
+\end{equation}
+Which is very doable using Equations (1) and (2). This approach is used in \texttt{inverseOfMatrix()}, detailed in Section X.X.X.
 
 
 
@@ -68,7 +206,7 @@ All input and output should be stored in files.
 
 % Create the Explanation of Main Class section
 \begin{center}
-\section{Explanation of Main Class}
+\section{\texttt{Main.class}}
 \end{center}
 
 
@@ -79,8 +217,20 @@ All input and output should be stored in files.
 
 % Create the Explanation of Matrix Class section
 \begin{center}
-\section{Explanation of Matrix Class}
+\section{\texttt{Matrix.class}}
 \end{center}
+\subsection{\texttt{Matrix()}}
+\subsection{\texttt{readMatrixFromFile()}}
+\subsection{\texttt{determinantOfMatrix()}}
+\subsection{\texttt{transposeOfMatrix()}}
+\subsection{\texttt{sumOfMatrices()}}
+\subsection{\texttt{productofMatrices()}}
+\subsection{\texttt{cofactorOfMatrix()}}
+\subsection{\texttt{inverseOfMatrix()}}
+\subsection{\texttt{print()}}
+\subsection{\texttt{printMatrixToConsole()}}
+\subsection{\texttt{printMatrixToFile()}}
+\subsection{\texttt{printIntegerToFile()}}
 
 
 
@@ -94,9 +244,8 @@ All input and output should be stored in files.
 \end{center}
 \subsection{A Note About the Methods}
 Instead of using matrix.length and matrix[i].length in all of the for loops, I've decided to use the constant 3, because this project deals only with matrices of the third order. I believe that using a constant instead of referencing the size of the array (which in of itself requires passing the array to another method and having java tally the length) provides a meaningful speedup.
-\begin{minted}{java}
-public void static main(String args[])
-\end{minted}
+
+
 
 
 \newpage % New page
@@ -105,7 +254,8 @@ public void static main(String args[])
 
 % Create the References section
 \begin{center}
-\section{References}
+\section*{References}
+\addcontentsline{toc}{section}{References}
 \end{center}
 http://download.java.net/java/jdk9/docs/api/
 \end{document}

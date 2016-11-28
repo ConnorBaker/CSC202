@@ -85,33 +85,22 @@ public class Matrix { // begin class TuningCircuit
     br.close();
   }
 
-  // Method to take the sum of two matricess
-  public static void sumOfMatrices(int a[][], int b[][], String filename) throws IOException {
-    // Initialize our resultant matrix
-    int c[][] = new int[3][3];
-    for (int i = 0; i < 3; i++) {
-      for (int j = 0; j < 3; j++) {
-        // Sum the values of the elements of the two
-        c[i][j] = a[i][j] + b[i][j];
-      }
-    }
-    // Print out the matrix
-    print(c, "sum", filename);
+  // Method to take the determinant of a matrix
+  public static void determinantOfMatrix(int a[][]) {
+    determinant =   a[0][0]*(a[1][1]*a[2][2]-a[1][2]*a[2][1])
+                  - a[0][1]*(a[1][0]*a[2][2]-a[1][2]*a[2][0])
+                  + a[0][2]*(a[1][0]*a[2][1]-a[1][1]*a[2][0]);
   }
 
-  // Method to take the product of two matrices
-  public static void productOfMatrices(int a[][], int b[][], String filename) throws IOException {
-    // Initialize our resultant matrix
-    int c[][] = new int[3][3];
-    for (int i = 0; i < 3; i++) {
-      for (int j = 0; j < 3; j++) {
-        // Calculates the product using  a formula derived in the documentation
-        // See documentation, section X.X.X for more information
-        c[i][j] = a[i][0]*b[0][j] + a[i][1]*b[1][j] + a[i][2]*b[2][j];
-      }
-    }
+  // Method to take the determinant of a matrix
+  public static void determinantOfMatrix(int a[][], String filename) throws IOException {
+    determinant =   a[0][0]*(a[1][1]*a[2][2]-a[1][2]*a[2][1])
+                  - a[0][1]*(a[1][0]*a[2][2]-a[1][2]*a[2][0])
+                  + a[0][2]*(a[1][0]*a[2][1]-a[1][1]*a[2][0]);
+
     // Print out the matrix
-    print(c, "product", filename);
+    System.out.println("The determinant of the matrix is: " +determinant);
+    printIntegerToFile(determinant, filename);
   }
 
   // Method to take the transpose of a matrix
@@ -173,24 +162,6 @@ public class Matrix { // begin class TuningCircuit
     print(cofactor, "cofactor", filename);
   }
 
-  // Method to take the determinant of a matrix
-  public static void determinantOfMatrix(int a[][]) {
-    determinant =   a[0][0]*(a[1][1]*a[2][2]-a[1][2]*a[2][1])
-                  - a[0][1]*(a[1][0]*a[2][2]-a[1][2]*a[2][0])
-                  + a[0][2]*(a[1][0]*a[2][1]-a[1][1]*a[2][0]);
-  }
-
-  // Method to take the determinant of a matrix
-  public static void determinantOfMatrix(int a[][], String filename) throws IOException {
-    determinant =   a[0][0]*(a[1][1]*a[2][2]-a[1][2]*a[2][1])
-                  - a[0][1]*(a[1][0]*a[2][2]-a[1][2]*a[2][0])
-                  + a[0][2]*(a[1][0]*a[2][1]-a[1][1]*a[2][0]);
-
-    // Print out the matrix
-    System.out.println("The determinant of the matrix is: " +determinant);
-    printIntegerToFile(determinant, filename);
-  }
-
   // Calculates the inverse of a matrix
   public static void inverseOfMatrix() throws IOException {
     // transposeOfMatrix(cofactor);
@@ -211,6 +182,35 @@ public class Matrix { // begin class TuningCircuit
     }
     // Print out the matrix
     print(inverse, "inverse", filename);
+  }
+
+  // Method to take the sum of two matricess
+  public static void sumOfMatrices(int a[][], int b[][], String filename) throws IOException {
+    // Initialize our resultant matrix
+    int c[][] = new int[3][3];
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 3; j++) {
+        // Sum the values of the elements of the two
+        c[i][j] = a[i][j] + b[i][j];
+      }
+    }
+    // Print out the matrix
+    print(c, "sum", filename);
+  }
+
+  // Method to take the product of two matrices
+  public static void productOfMatrices(int a[][], int b[][], String filename) throws IOException {
+    // Initialize our resultant matrix
+    int c[][] = new int[3][3];
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 3; j++) {
+        // Calculates the product using  a formula derived in the documentation
+        // See documentation, section X.X.X for more information
+        c[i][j] = a[i][0]*b[0][j] + a[i][1]*b[1][j] + a[i][2]*b[2][j];
+      }
+    }
+    // Print out the matrix
+    print(c, "product", filename);
   }
 
   // Method to print

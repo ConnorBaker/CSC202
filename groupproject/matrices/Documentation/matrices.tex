@@ -1,7 +1,7 @@
  % Author: Connor Baker
 % Date Created: November 16, 2016
 % Last Edited: November 27, 2016
-% Version: 0.2a
+% Version: 0.3a
 
 \documentclass[12pt]{article}
 % Import Packages
@@ -14,6 +14,8 @@
 \usepackage{gensymb}
 \usepackage{caption}
 \usepackage{tocloft}
+\usepackage{minted}
+%\usepackage[cache=false]{minted}
 \usepackage{graphicx}
 \graphicspath{{images/}}
 \usepackage[export]{adjustbox}
@@ -29,7 +31,7 @@
 \let \newpage \relax
     \title{groupproject}
     \author{Connor Baker\\Rae Bouldin}
-    \date{November 27, 2016\\Version 0.2a}
+    \date{November 27, 2016\\Version 0.3a}
 \maketitle
 \let \newpage \snewpage
 \vfill
@@ -79,9 +81,8 @@ A =
     g & h & i
 \end{bmatrix}
 \]
-\begin{equation}
+\begin{equation*}
 \text{det($A$)} =
-  % First row of cofactor matrix
   a\begin{vmatrix}
   e & f\\
   h & i
@@ -94,8 +95,13 @@ A =
   d & e\\
   g & h
   \end{vmatrix}\\\\
+\end{equation*}
+\begin{equation}
+\text{det($A$)} =
+a(ei-fh)-b(di-fg)+c(dh-eg)
 \end{equation}
-As such, we can calculate the determinant of a $3\times3$ matrix by expanding across the top row. This yields the approach implemented in \texttt{determinantOfMatrix()}, detailed in Section X.X.X.
+
+As such, we can calculate the determinant of a $3\times3$ matrix by expanding across the top row. This yields the approach implemented in \texttt{determinantOfMatrix()}, detailed in Section 4.3.
 
 \subsection{Transpose}
 Using the same approach as above, we can easily compute the transpose of a matrix. It involves creating a matrix filled with placeholder values, calculating the transpose matrix by hand, and tracking the positions of the elements in the matrix. For a $3\times3$ matrix $A$, let its transpose be $A^T$. Then:
@@ -115,7 +121,7 @@ A^T =
     c & f & i
 \end{bmatrix}
 \end{equation}
-This yields the approach implemented in \texttt{transposeOfMatrix()}, detailed in Section X.X.X.
+This yields the approach implemented in \texttt{transposeOfMatrix()}, detailed in Section 4.4.
 
 \subsection{Matrix Addition}
 The approach used to create an algorithm for matrix addition is similar to that used above in finding the determinant. We again create matrices full of placeholder values, and track them as we perform the operation. For two $3\times3$ matrices $A$ and $B$, the process is as follows:
@@ -142,7 +148,7 @@ B =
     g + p & h + q & i + r
     \end{bmatrix}
 \end{equation}
-This yields the approach implemented in \texttt{sumOfMatrices()}, detailed in Section X.X.X.
+This yields the approach implemented in \texttt{sumOfMatrices()}, detailed in Section 4.5.
 
 \subsection{Matrix Multiplication}
 The approach used to create an algorithm for matrix multiplication is similar to that used above in finding the determinant. We again create matrices full of placeholder values, and track them as we perform the operation. For two $3\times3$ matrices $A$ and $B$, the process is as follows:
@@ -169,7 +175,7 @@ B =
     g j + h m + i p & g k + h n + i q & g l + h o + i r
     \end{bmatrix}
 \end{equation}
-This yields the approach implemented in \texttt{productOfMatrices()}, detailed in Section X.X.X.
+This yields the approach implemented in \texttt{productOfMatrices()}, detailed in Section 4.6.
 
 \subsection{Cofactor Matrix}
 The approach used to calculate the cofactor matrix is identical to what was done above. It involves creating a matrix filled with placeholder values, calculating the cofactor matrix by hand, and tracking the positions of the elements in the matrix. For a $3\times3$ matrix $C$, let its cofactor matrix be $C'$. Then:
@@ -189,14 +195,14 @@ C' =
     b f - c e & c d - a f & a e - b d
 \end{bmatrix}
 \end{equation}
-This yields the approach implemented in \texttt{cofactorOfMatrix()}, detailed in Section X.X.X.
+This yields the approach implemented in \texttt{cofactorOfMatrix()}, detailed in Section 4.7.
 
 \subsection{Inverse of a Matrix}
 The inverse of a matrix $A$, denoted $A^{-1}$ can be calculated as follows:
 \begin{equation}
     A^{-1} = \frac{1}{\text{det($A$)}} * A^T
 \end{equation}
-Which is very doable using Equations (1) and (2). This approach is used in \texttt{inverseOfMatrix()}, detailed in Section X.X.X.
+Which is very doable using Equations (1) and (2). This approach is used in \texttt{inverseOfMatrix()}, detailed in Section 4.8.
 
 
 
@@ -219,18 +225,89 @@ Which is very doable using Equations (1) and (2). This approach is used in \text
 \begin{center}
 \section{\texttt{Matrix.class}}
 \end{center}
+
 \subsection{\texttt{Matrix()}}
+\begin{minted}{java}
+public Matrix() throws IOException
+public Matrix(String filename) throws IOException
+\end{minted}
+\texttt{Matrix()} is the constructor. It is overloaded. The no-arg constructor reads from the default file of \texttt{matrix1.txt}. The argumented constructor, \texttt{Matrix(String filename)} accepts a file name in the form of a string.
+\par Every \texttt{Matrix} object has four matrices (three two-dimensional arrays of type \texttt{int}, and one of type \texttt{double}, being the matrix read from file by \texttt{readMatrixFromFile()}, the transpose, the cofactor, and inverse matrices respectively). They also have an \texttt{int} that holds the determinant.
+\par Both the no-arg and argumented \texttt{Matrix()} constructor call \texttt{readMatrixFromFile()}, the only difference being that the argumented constructor passes in the location of the file to read the matrix from.
+
 \subsection{\texttt{readMatrixFromFile()}}
+\begin{minted}{java}
+public void readMatrixFromFile() throws IOException
+\end{minted}
+The method \texttt{readMatrixFromFile()} reads a two-dimensional array of integers from file. This method does not accept arguments. This method is called from the \texttt{Matrix()} constructor described above. The file to read from is passed in via the argumented \texttt{Matrix()} constructor.
+
 \subsection{\texttt{determinantOfMatrix()}}
+\begin{minted}[breaklines]{java}
+public static void determinantOfMatrix(int a[][])
+public static void determinantOfMatrix(int a[][], String filename) throws IOException
+\end{minted}
+Using Equation (1) from Section 2.1, this method calculates the determinant of a matrix. texttt{determinantOfMatrix()} is overloaded. Both methods accept a two-dimensional array of \texttt{int} as input, with the second of the two accepting a \texttt{String} holding the filename and or path to write the output matrix to. This is accomplished by calling the \texttt{print()} method.
+
 \subsection{\texttt{transposeOfMatrix()}}
+\begin{minted}[breaklines]{java}
+public static void transposeOfMatrix(int a[][])
+public static void transposeOfMatrix(int a[][], String filename) throws IOException
+\end{minted}
+Using Equation (2) from Section 2.2, this method calculates the transpose of a matrix. texttt{transposeOfMatrix()} is overloaded. Both methods accept a two-dimensional array of \texttt{int} as input, with the second of the two accepting a \texttt{String} holding the filename and or path to write the output matrix to. This is accomplished by calling the \texttt{print()} method.
+
 \subsection{\texttt{sumOfMatrices()}}
+\begin{minted}[breaklines]{java}
+public static void sumOfMatrices(int a[][], int b[][], String filename) throws IOException
+\end{minted}
+Using Equation (3) from Section 2.3, this method calculates the sum of two matrices. The sum is written to a file passed in through the method signature. This is accomplished by calling the \texttt{print()} method.
+
 \subsection{\texttt{productofMatrices()}}
+\begin{minted}[breaklines]{java}
+public static void productOfMatrices(int a[][], int b[][], String filename) throws IOException
+\end{minted}
+Using Equation (4) from Section 2.4, this method calculates the product of two matrices. The sum is written to a file passed in through the method signature. This is accomplished by calling the \texttt{print()} method.
+
 \subsection{\texttt{cofactorOfMatrix()}}
+\begin{minted}[breaklines]{java}
+public static void cofactorOfMatrix(int a[][])
+public static void cofactorOfMatrix(int a[][], String filename) throws IOException
+\end{minted}
+Using Equation (5) from Section 2.5, this method calculates the cofactor matrix of a matrix. texttt{cofactorOfMatrix()} is overloaded. Both methods accept a two-dimensional array of \texttt{int} as input, with the second of the two accepting a \texttt{String} holding the filename and or path to write the output matrix to. This is accomplished by calling the \texttt{print()} method.
+
 \subsection{\texttt{inverseOfMatrix()}}
+\begin{minted}[breaklines]{java}
+public static void inverseOfMatrix() throws IOException
+public static void inverseOfMatrix(String filename) throws IOException
+\end{minted}
+Using Equation (1) from Section 2.1, this method calculates the determinant of a matrix. texttt{determinantOfMatrix()} is overloaded. Both methods accept a two-dimensional array of \texttt{int} as input, with the second of the two accepting a \texttt{String} holding the filename and or path to write the output matrix to. This is accomplished by calling the \texttt{print()} method.
+
 \subsection{\texttt{print()}}
+\begin{minted}[breaklines]{java}
+public static void print(int a[][], String console) throws IOException
+public static void print(int a[][], String console, String filename) throws IOException
+public static void print(double a[][], String console) throws IOException
+public static void print(double a[][], String console, String filename) throws IOException
+\end{minted}
+The \texttt{print()} method is overloaded. It accepts two-dimensional arrays of either type \texttt{int} or \texttt{double}, and prints either to console, or console and file/a path passed in to the method.
+\par The \texttt{print()} methods call either (or both) \texttt{printMatrixToConsole()} and \texttt{printMatrixToFile()}, described in detail below.
+
 \subsection{\texttt{printMatrixToConsole()}}
+\begin{minted}[breaklines]{java}
+public static void printMatrixToConsole(int a[][])
+public static void printMatrixToConsole(double a[][])
+\end{minted}
+
 \subsection{\texttt{printMatrixToFile()}}
+\begin{minted}[breaklines]{java}
+public static void printMatrixToFile(int a[][], String filename) throws IOException
+public static void printMatrixToFile(double a[][], String filename) throws IOException
+\end{minted}
+
 \subsection{\texttt{printIntegerToFile()}}
+\begin{minted}[breaklines]{java}
+public static void printIntegerToFile(int a, String filename) throws IOException
+\end{minted}
+
 
 
 

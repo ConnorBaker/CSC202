@@ -1,7 +1,7 @@
  % Author: Connor Baker
 % Date Created: November 16, 2016
-% Last Edited: November 27, 2016
-% Version: 0.3a
+% Last Edited: November 28, 2016
+% Version: 0.4a
 
 \documentclass[12pt]{article}
 % Import Packages
@@ -31,7 +31,7 @@
 \let \newpage \relax
     \title{groupproject}
     \author{Connor Baker\\Rae Bouldin}
-    \date{November 27, 2016\\Version 0.3a}
+    \date{November 28, 2016\\Version 0.4a}
 \maketitle
 \let \newpage \snewpage
 \vfill
@@ -289,25 +289,27 @@ public static void print(double a[][], String console) throws IOException
 public static void print(double a[][], String console, String filename) throws IOException
 \end{minted}
 The \texttt{print()} method is overloaded. It accepts two-dimensional arrays of either type \texttt{int} or \texttt{double}, and prints either to console, or console and file/a path passed in to the method.
-\par The \texttt{print()} methods call either (or both) \texttt{printMatrixToConsole()} and \texttt{printMatrixToFile()}, described in detail below.
+\par The \texttt{print()} method's purpose is limited to printing to console the type of operation that was performed, and then calling and passing the arguments on to either (or both) \texttt{printMatrixToConsole()} and \texttt{printMatrixToFile()}, described in detail below.
 
 \subsection{\texttt{printMatrixToConsole()}}
 \begin{minted}[breaklines]{java}
 public static void printMatrixToConsole(int a[][])
 public static void printMatrixToConsole(double a[][])
 \end{minted}
+The \texttt{printMatrixToConsole()} method consists of a \texttt{for} loop and a \texttt{System.out.println} holding a row of our $3\times3$ matrix (the two-dimensional array). It uses the speedup trick described in Section 5.1.
 
 \subsection{\texttt{printMatrixToFile()}}
 \begin{minted}[breaklines]{java}
 public static void printMatrixToFile(int a[][], String filename) throws IOException
 public static void printMatrixToFile(double a[][], String filename) throws IOException
 \end{minted}
+The \texttt{printMatrixToFile()} method consists of output streams (a \texttt{FileWriter}, \texttt{BufferedWriter}, and a \texttt{PrintWriter}) \texttt{for} loop and a \texttt{System.out.println} holding a row of our $3\times3$ matrix (the two-dimensional array). It uses the speedup trick described in Section 5.1.
 
 \subsection{\texttt{printIntegerToFile()}}
 \begin{minted}[breaklines]{java}
 public static void printIntegerToFile(int a, String filename) throws IOException
 \end{minted}
-
+The \texttt{printMatrixToFile()} method consists of output streams (a \texttt{FileWriter}, \texttt{BufferedWriter}, and a \texttt{PrintWriter}) and simply prints to file the integer passed in through the method signature.
 
 
 
@@ -320,8 +322,7 @@ public static void printIntegerToFile(int a, String filename) throws IOException
 \section{Notes}
 \end{center}
 \subsection{A Note About the Methods}
-Instead of using matrix.length and matrix[i].length in all of the for loops, I've decided to use the constant 3, because this project deals only with matrices of the third order. I believe that using a constant instead of referencing the size of the array (which in of itself requires passing the array to another method and having java tally the length) provides a meaningful speedup.
-
+By tailoring our methods for the specific order of matrix that we operate on ($3\times3$), we eliminate the need for method calls (specifically \texttt{matrix.length}), as well as the need for nested \texttt{for} loops. In this case, we should observe a speedup of 900\% (as the compiler does not unroll loops, we are effectively doing one ninth of the iterations that we would normally do) in all methods that process arrays.
 
 
 

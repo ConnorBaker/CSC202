@@ -3,7 +3,7 @@
 *  File Name: Matrix.java
 *
 *  Author: Connor Baker, Rae Bouldin
-*  Version: 0.4a
+*  Version: 0.5a
 *  Created: November 14, 2016
 *  Last Updated: November 28, 2016
 *
@@ -52,7 +52,7 @@ public class Matrix {
     double matrix[][] = new double[3][3];
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 3; j++) {
-        mat[i][j] = matrix[i][j];
+        matrix[i][j] = this.matrix[i][j];
       }
     }
     return new Matrix(matrix);
@@ -61,7 +61,7 @@ public class Matrix {
   // Method to fill the matrix from file
   public static Matrix readMatrixFromFile(String filename) throws IOException {
     // Initialize our matrix
-    double matrix[][] = new double[3][3];
+    Matrix tempMatrix = new Matrix();
 
     // Initialize input stream
     BufferedReader br = new BufferedReader(new FileReader(new File(filename)));
@@ -73,29 +73,26 @@ public class Matrix {
       st = new StringTokenizer(br.readLine());
       for (int j = 0; j < 3; j++) {
         // Read the values of the matrix line by line
-        matrix[i][j] = Integer.parseInt(st.nextToken());
+        tempMatrix.matrix[i][j] = Integer.parseInt(st.nextToken());
       }
     }
-    // Print out the matrix
-    System.out.println("The matrix read from file is:");
-    printMatrixToConsole(matrix);
 
     // Close buffered reader
     br.close();
 
     // Return our new matrix
-    return new Matrix(matrix);
+    return tempMatrix;
   }
 
   // Method to take the determinant of a matrix
-  public double determinantOfMatrix() {
-    return  matrix[0][0]*(matrix[1][1]*matrix[2][2]-a[1][2]*matrix[2][1])
+  public double determinant() {
+    return  matrix[0][0]*(matrix[1][1]*matrix[2][2]-matrix[1][2]*matrix[2][1])
           - matrix[0][1]*(matrix[1][0]*matrix[2][2]-matrix[1][2]*matrix[2][0])
           + matrix[0][2]*(matrix[1][0]*matrix[2][1]-matrix[1][1]*matrix[2][0]);
   }
 
   // Method to take the transpose of a matrix
-  public Matrix transposeOfMatrix() {
+  public Matrix transpose() {
     // Create our resultant matrix
     Matrix transpose = new Matrix();
     for (int i = 0; i < 3; i++) {
@@ -111,7 +108,7 @@ public class Matrix {
   }
 
   // Method to take the cafactor matrix of a matrix
-  public Matrix cofactorOfMatrix() {
+  public Matrix cofactor() {
     // Initialize our resultant matrix
     Matrix cofactor = new Matrix();
     // Calculates the cofactor matrix using a formula derived in the documentation
@@ -131,7 +128,7 @@ public class Matrix {
   }
 
   // Calculates the inverse of a matrix
-  public Matrix inverseOfMatrix() {
+  public Matrix inverse() {
     // Call the other methods we need to make this work
     Matrix inverse = new Matrix();
     Matrix transpose = transpose();
@@ -209,84 +206,21 @@ public class Matrix {
     return Math.sqrt(variance);
   }
 
-  // Method to print
-  public static void print(int a[][], String console) throws IOException {
-    // Print out the matrix
-    System.out.println("The "+console+" of the matrix is: ");
-    printMatrixToConsole(a);
-  }
-
-  // Method to print
-  public static void print(int a[][], String console, String filename) throws IOException {
-    // Print out the matrix
-    System.out.println("The "+console+" of the matrix is: ");
-    printMatrixToConsole(a);
-    printMatrixToFile(a, filename);
-  }
-
-  // Method to print
-  public static void print(double a[][], String console) throws IOException {
-    // Print out the matrix
-    System.out.println("The "+console+" of the matrix is: ");
-    printMatrixToConsole(a);
-  }
-
-  // Method to print
-  public static void print(double a[][], String console, String filename) throws IOException {
-    // Print out the matrix
-    System.out.println("The "+console+" of the matrix is: ");
-    printMatrixToConsole(a);
-    printMatrixToFile(a, filename);
-  }
-
   // Method to print a matrix to console
-  public static void printMatrixToConsole(int a[][]) {
+  public static void printMatrixToConsole(Matrix matrix) {
     for (int i = 0; i < 3; i++) {
-      System.out.println(a[i][0] + " " + a[i][1] + " " + a[i][2]);
-    }
-  }
-
-  // Method to print a matrix to console
-  public static void printMatrixToConsole(double a[][]) {
-    for (int i = 0; i < 3; i++) {
-      System.out.println(a[i][0] + " " + a[i][1] + " " + a[i][2]);
+      System.out.println(matrix.matrix[i][0] + " " + matrix.matrix[i][1] + " " + matrix.matrix[i][2]);
     }
   }
 
   // Method to print a matrix to file
-  public static void printMatrixToFile(int a[][], String filename) throws IOException {
+  public static void printMatrixToFile(Matrix matrix, String filename) throws IOException {
     FileWriter tmpFile = new FileWriter(filename);
     BufferedWriter tempBW = new BufferedWriter(tmpFile);
     PrintWriter tempPW = new PrintWriter(tempBW);
     for (int i = 0; i < 3; i++) {
-      tempPW.println(a[i][0] + " " + a[i][1] + " " + a[i][2]);
+      tempPW.println(matrix.matrix[i][0] + " " + matrix.matrix[i][1] + " " + matrix.matrix[i][2]);
     }
-
-    // Close the output file streams
-    tempPW.flush();
-    tempPW.close();
-  }
-
-  // Method to print a matrix to file
-  public static void printMatrixToFile(double a[][], String filename) throws IOException {
-    FileWriter tmpFile = new FileWriter(filename);
-    BufferedWriter tempBW = new BufferedWriter(tmpFile);
-    PrintWriter tempPW = new PrintWriter(tempBW);
-    for (int i = 0; i < 3; i++) {
-      tempPW.println(a[i][0] + " " + a[i][1] + " " + a[i][2]);
-    }
-
-    // Close the output file streams
-    tempPW.flush();
-    tempPW.close();
-  }
-
-  // Method to print an integer to file
-  public static void printNumberToFile(int a, String filename) throws IOException {
-    FileWriter tmpFile = new FileWriter(filename);
-    BufferedWriter tempBW = new BufferedWriter(tmpFile);
-    PrintWriter tempPW = new PrintWriter(tempBW);
-    tempPW.println(a);
 
     // Close the output file streams
     tempPW.flush();

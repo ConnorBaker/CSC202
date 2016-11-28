@@ -3,7 +3,7 @@
 *  File Name: Main.java
 *
 *  Author: Connor Baker, Rae Bouldin
-*  Version: 0.4a
+*  Version: 0.5a
 *  Created: November 14, 2016
 *  Last Updated: November 28, 2016
 */
@@ -24,32 +24,52 @@ import java.io.IOException;
 public class Main { // begin class Main
   public static void main(String args[]) throws IOException { // begin main
     // Create our two initial matrices
-    Matrix matrix1 = new Matrix.readMatrixFromFile(".\\matrices\\matrix1.txt");
-    Matrix matrix2 = new readMatrixFromFile(".\\matrices\\matrix2.txt");
+    Matrix matrix1 = Matrix.readMatrixFromFile(".\\matrices\\matrix1.txt");
+    Matrix matrix2 = Matrix.readMatrixFromFile(".\\matrices\\matrix2.txt");
 
     // Calculate the standard deviation of the two inputted matrice's main diagonals
-    Matrix.stdDeviation(matrix1.matrix, matrix2.matrix, ".\\matrices\\stdDeviation.txt");
+    Matrix.printNumberToFile(matrix1.standardDeviation(matrix2),
+        ".\\matrices\\standardDeviation.txt");
 
-    // Calculate the sum of the matrices
-    // Matrix.sumOfMatrices(matrix1.matrix, matrix2.matrix,
-    //     ".\\matrices\\sumofmatrices.txt");
-    //
-    // // Calculate the transpose, cofactor, determinant, and inverse of the sum matrix
-    // Matrix matrix3 = new Matrix(".\\matrices\\sumofmatrices.txt");
-    // Matrix.transposeOfMatrix(matrix3.matrix, ".\\matrices\\transposeofmatrix1.txt");
-    // Matrix.cofactorOfMatrix(matrix3.matrix, ".\\matrices\\cofactormatrix1.txt");
-    // Matrix.determinantOfMatrix(matrix3.matrix, ".\\matrices\\determinant1.txt");
-    // matrix3.inverseOfMatrix(".\\matrices\\inversematrix1.txt");
-    //
-    // // Calculate the product of the matrices
-    // Matrix.productOfMatrices(matrix1.matrix, matrix2.matrix,
-    // ".\\matrices\\productofmatrices.txt");
-    //
-    // // Calculate the transpose, cofactor, determinant, and inverse of the product matrix
-    // Matrix matrix4 = new Matrix(".\\matrices\\productofmatrices.txt");
-    // Matrix.transposeOfMatrix(matrix4.matrix, ".\\matrices\\transposeofmatrix2.txt");
-    // Matrix.cofactorOfMatrix(matrix4.matrix, ".\\matrices\\cofactormatrix2.txt");
-    // Matrix.determinantOfMatrix(matrix4.matrix, ".\\matrices\\determinant2.txt");
-    // matrix4.inverseOfMatrix(".\\matrices\\inversematrix2.txt");
+    // Calculate the sum of the matrices and print it to file
+    Matrix sum = matrix1.add(matrix2);
+    Matrix.printMatrixToFile(sum, ".\\matrices\\sum.txt");
+
+    // Calculate the transpose of the sum and print it to file
+    Matrix transposeOfSum = sum.transpose();
+    Matrix.printMatrixToFile(transposeOfSum,".\\matrices\\transposeofsum.txt");
+
+    // Calculate the cofactor of the sum and print it to file
+    Matrix cofactorOfSum = sum.cofactor();
+    Matrix.printMatrixToFile(cofactorOfSum,".\\matrices\\cofactorofsum.txt");
+
+    // Calculate the determinant of the sum
+    double determinantOfSum = sum.determinant();
+    Matrix.printNumberToFile(determinantOfSum, ".\\matrices\\determinantofsum.txt");
+
+    // Calculate the inverse of the sum and print it to file
+    Matrix inverseOfSum = sum.inverse();
+    Matrix.printMatrixToFile(inverseOfSum,".\\matrices\\inverseofsum.txt");
+
+    // Calculate the product of the matrices and print it to file
+    Matrix product = matrix1.add(matrix2);
+    Matrix.printMatrixToFile(product, ".\\matrices\\product.txt");
+
+    // Calculate the transpose of the product and print it to file
+    Matrix transposeOfproduct = product.transpose();
+    Matrix.printMatrixToFile(transposeOfproduct,".\\matrices\\transposeofproduct.txt");
+
+    // Calculate the cofactor of the product and print it to file
+    Matrix cofactorOfproduct = product.cofactor();
+    Matrix.printMatrixToFile(cofactorOfproduct,".\\matrices\\cofactorofproduct.txt");
+
+    // Calculate the determinant of the product
+    double determinantOfproduct = product.determinant();
+    Matrix.printNumberToFile(determinantOfproduct,
+        ".\\matrices\\determinantofproduct.txt");
+
+    // Calculate the inverse of the product and print it to file
+    Matrix inverseOfproduct = product.inverse();
+    Matrix.printMatrixToFile(inverseOfproduct,".\\matrices\\inverseofproduct.txt");
   } // end main()
 } // end class Main

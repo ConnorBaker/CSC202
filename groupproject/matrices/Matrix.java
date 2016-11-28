@@ -3,9 +3,9 @@
 *  File Name: Matrix.java
 *
 *  Author: Connor Baker, Rae Bouldin
-*  Version: 0.3b
+*  Version: 0.4a
 *  Created: November 14, 2016
-*  Last Updated: November 27, 2016
+*  Last Updated: November 28, 2016
 *
 *  A note in general about the matrix processing methods:
 *  Instead of using matrix.length and matrix[i].length in all of the for loops,
@@ -34,20 +34,20 @@ import java.util.StringTokenizer;
 
 public class Matrix { // begin class TuningCircuit
   // Create our matrix for processing
-  static int matrix[][] = new int[3][3];
-  static int transpose[][] = new int[3][3];
-  static int cofactor[][] = new int[3][3];
-  static double inverse[][] = new double[3][3];
-  static int determinant;
+  int matrix[][] = new int[3][3];
+  int transpose[][] = new int[3][3];
+  int cofactor[][] = new int[3][3];
+  double inverse[][] = new double[3][3];
+  int determinant;
 
   // Set up objects to grab input from the file
-  static File file;
-  static FileReader fr;
-  static BufferedReader br;
+  File file;
+  FileReader fr;
+  BufferedReader br;
 
   // Set up objects to stream output to
-  static BufferedWriter bw;
-  static PrintWriter pw;
+  BufferedWriter bw;
+  PrintWriter pw;
 
   // Default constructor for our object
   public Matrix() throws IOException {
@@ -86,25 +86,25 @@ public class Matrix { // begin class TuningCircuit
   }
 
   // Method to take the determinant of a matrix
-  public static void determinantOfMatrix(int a[][]) {
+  public void determinantOfMatrix(int a[][]) {
     determinant =   a[0][0]*(a[1][1]*a[2][2]-a[1][2]*a[2][1])
                   - a[0][1]*(a[1][0]*a[2][2]-a[1][2]*a[2][0])
                   + a[0][2]*(a[1][0]*a[2][1]-a[1][1]*a[2][0]);
   }
 
   // Method to take the determinant of a matrix
-  public static void determinantOfMatrix(int a[][], String filename) throws IOException {
+  public void determinantOfMatrix(int a[][], String filename) throws IOException {
     determinant =   a[0][0]*(a[1][1]*a[2][2]-a[1][2]*a[2][1])
                   - a[0][1]*(a[1][0]*a[2][2]-a[1][2]*a[2][0])
                   + a[0][2]*(a[1][0]*a[2][1]-a[1][1]*a[2][0]);
 
     // Print out the matrix
     System.out.println("The determinant of the matrix is: " +determinant);
-    printIntegerToFile(determinant, filename);
+    printNumberToFile(determinant, filename);
   }
 
   // Method to take the transpose of a matrix
-  public static void transposeOfMatrix(int a[][]) {
+  public void transposeOfMatrix(int a[][]) {
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 3; j++) {
         // Simply swapping the element's position yeilds the transpose
@@ -115,7 +115,7 @@ public class Matrix { // begin class TuningCircuit
   }
 
   // Method to take the transpose of a matrix
-  public static void transposeOfMatrix(int a[][], String filename) throws IOException {
+  public void transposeOfMatrix(int a[][], String filename) throws IOException {
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 3; j++) {
         // Simply swapping the element's position yeilds the transpose
@@ -128,7 +128,7 @@ public class Matrix { // begin class TuningCircuit
   }
 
   // Method to take the cafactor matrix of a matrix
-  public static void cofactorOfMatrix(int a[][]) {
+  public void cofactorOfMatrix(int a[][]) {
     // Initialize our resultant matrix
     // Calculates the cofactor matrix using a formula derived in the documentation
     // See documentation, section X.X.X for more information
@@ -144,7 +144,7 @@ public class Matrix { // begin class TuningCircuit
   }
 
   // Method to take the cafactor matrix of a matrix
-  public static void cofactorOfMatrix(int a[][], String filename) throws IOException {
+  public void cofactorOfMatrix(int a[][], String filename) throws IOException {
     // Initialize our resultant matrix
     // Calculates the cofactor matrix using a formula derived in the documentation
     // See documentation, section X.X.X for more information
@@ -163,7 +163,7 @@ public class Matrix { // begin class TuningCircuit
   }
 
   // Calculates the inverse of a matrix
-  public static void inverseOfMatrix() throws IOException {
+  public void inverseOfMatrix() throws IOException {
     // transposeOfMatrix(cofactor);
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 3; j++) {
@@ -173,7 +173,7 @@ public class Matrix { // begin class TuningCircuit
   }
 
   // Calculates the inverse of a matrix
-  public static void inverseOfMatrix(String filename) throws IOException {
+  public void inverseOfMatrix(String filename) throws IOException {
     // transposeOfMatrix(cofactor);
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 3; j++) {
@@ -211,6 +211,38 @@ public class Matrix { // begin class TuningCircuit
     }
     // Print out the matrix
     print(c, "product", filename);
+  }
+
+  // Method to find the sample standard deviation of the main diagonals
+  public static void stdDeviation(int a[][], int b[][], String filename) throws IOException {
+    // Initialize our mean
+    double mean = 0;
+    // Calculates the mean of the diagonals
+    // See documentation, section X.X.X for more information
+    for (int i = 0; i < 3; i++) {
+      mean += a[i][i] + b[i][i];
+    }
+    // Divide the sum by the number of elements summed
+    mean /= 6.0;
+
+    // Initialize our variance
+    double variance = 0.0;
+    // Calculates the variance of the elements of the diagonals
+    // See documentation, section X.X.X for more information
+    for (int i = 0; i < 3; i++) {
+      // Calculates the mean of the diagonals
+      // See documentation, section X.X.X for more information
+      variance += Math.pow(((a[i][i] - mean)), 2.0) + Math.pow(((b[i][i] - mean)), 2.0);
+    }
+    // Divide the variance by the number of elements summed
+    variance /= 5.0;
+
+    // Calculate the standard deviation of the elements
+    double stdDeviation = Math.sqrt(variance);
+
+    // Print out the standard deviation
+    System.out.println("The standard deviation of the main diagonals is: " +stdDeviation);
+    printNumberToFile(stdDeviation, filename);
   }
 
   // Method to print
@@ -286,7 +318,19 @@ public class Matrix { // begin class TuningCircuit
   }
 
   // Method to print an integer to file
-  public static void printIntegerToFile(int a, String filename) throws IOException {
+  public static void printNumberToFile(int a, String filename) throws IOException {
+    FileWriter tmpFile = new FileWriter(filename);
+    BufferedWriter tempBW = new BufferedWriter(tmpFile);
+    PrintWriter tempPW = new PrintWriter(tempBW);
+    tempPW.println(a);
+
+    // Close the output file streams
+    tempPW.flush();
+    tempPW.close();
+  }
+
+  // Method to print an double to file
+  public static void printNumberToFile(double a, String filename) throws IOException {
     FileWriter tmpFile = new FileWriter(filename);
     BufferedWriter tempBW = new BufferedWriter(tmpFile);
     PrintWriter tempPW = new PrintWriter(tempBW);

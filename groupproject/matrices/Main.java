@@ -3,9 +3,9 @@
 *  File Name: Main.java
 *
 *  Author: Connor Baker, Rae Bouldin
-*  Version: 0.3a
+*  Version: 0.4a
 *  Created: November 14, 2016
-*  Last Updated: November 19, 2016
+*  Last Updated: November 28, 2016
 */
 
 // Declare our package
@@ -27,6 +27,9 @@ public class Main { // begin class Main
     Matrix matrix1 = new Matrix();
     Matrix matrix2 = new Matrix(".\\matrices\\matrix2.txt");
 
+    // Calculate the standard deviation of the two inputted matrice's main diagonals
+    Matrix.stdDeviation(matrix1.matrix, matrix2.matrix, ".\\matrices\\stdDeviation.txt");
+
     // Calculate the sum of the matrices
     Matrix.sumOfMatrices(matrix1.matrix, matrix2.matrix,
         ".\\matrices\\sumofmatrices.txt");
@@ -37,16 +40,16 @@ public class Main { // begin class Main
     Matrix.cofactorOfMatrix(matrix3.matrix, ".\\matrices\\cofactormatrix1.txt");
     Matrix.determinantOfMatrix(matrix3.matrix, ".\\matrices\\determinant1.txt");
     matrix3.inverseOfMatrix(".\\matrices\\inversematrix1.txt");
-
-    // Calculate the product of the matrices
-    Matrix.productOfMatrices(matrix1.matrix, matrix2.matrix,
-    ".\\matrices\\productofmatrices.txt");
-
-    // Calculate the transpose, cofactor, determinant, and inverse of the product matrix
-    Matrix matrix4 = new Matrix(".\\matrices\\productofmatrices.txt");
-    Matrix.transposeOfMatrix(matrix4.matrix, ".\\matrices\\transposeofmatrix2.txt");
-    Matrix.cofactorOfMatrix(matrix4.matrix, ".\\matrices\\cofactormatrix2.txt");
-    Matrix.determinantOfMatrix(matrix4.matrix, ".\\matrices\\determinant2.txt");
-    matrix4.inverseOfMatrix(".\\matrices\\inversematrix2.txt");
+    //
+    // // Calculate the product of the matrices
+    // Matrix.productOfMatrices(matrix1.matrix, matrix2.matrix,
+    // ".\\matrices\\productofmatrices.txt");
+    //
+    // // Calculate the transpose, cofactor, determinant, and inverse of the product matrix
+    // Matrix matrix4 = new Matrix(".\\matrices\\productofmatrices.txt");
+    // Matrix.transposeOfMatrix(matrix4.matrix, ".\\matrices\\transposeofmatrix2.txt");
+    // Matrix.cofactorOfMatrix(matrix4.matrix, ".\\matrices\\cofactormatrix2.txt");
+    // Matrix.determinantOfMatrix(matrix4.matrix, ".\\matrices\\determinant2.txt");
+    // matrix4.inverseOfMatrix(".\\matrices\\inversematrix2.txt");
   } // end main()
 } // end class Main

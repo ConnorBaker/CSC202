@@ -3,9 +3,9 @@
 *  File Name: StackArray.java
 *
 *  Author: Connor Baker
-*  Version: 0.2b
+*  Version: 0.2c
 *  Created: December 2, 2016
-*  Last Updated: December 3, 2016
+*  Last Updated: December 4, 2016
 */
 
 // Declare package  name
@@ -27,7 +27,6 @@ public class StackArray {
     input = InputUtility.getInput();
     capacityOfStack = InputUtility.getLengthOfInput(input);
     getStackOfChars();
-    printStackOfChars();
   }
 
   // Create a stack of characters

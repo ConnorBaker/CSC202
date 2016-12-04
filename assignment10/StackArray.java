@@ -3,7 +3,7 @@
 *  File Name: StackArray.java
 *
 *  Author: Connor Baker
-*  Version: 0.2d
+*  Version: 0.2e
 *  Created: December 2, 2016
 *  Last Updated: December 4, 2016
 */
@@ -26,14 +26,12 @@ public class StackArray {
     top = 0;
     input = InputUtility.getInput();
     capacityOfStack = InputUtility.getLengthOfInput(input);
-    getStackOfChars();
   }
 
   StackArray(String input) {
     top = 0;
     this.input = input;
     capacityOfStack = InputUtility.getLengthOfInput(input);
-    getStackOfChars();
   }
 
   // Create a stack of characters
@@ -91,7 +89,6 @@ public class StackArray {
     // Debugging
     // System.out.println("Debugging: stackOfChars["+(top-1)+"] is "+stackOfChars[top-1]);
   }
-
 
   // Check if the stack is empty
   public boolean isEmpty() {

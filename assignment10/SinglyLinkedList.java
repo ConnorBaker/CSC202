@@ -3,7 +3,7 @@
 *  File Name: SinglyLinkedList.java
 *
 *  Author: Connor Baker
-*  Version: 0.1b
+*  Version: 0.1c
 *  Created: December 3, 2016
 *  Last Updated: December 4, 2016
 *
@@ -14,16 +14,29 @@
 // Declare package  name
 package assignment10;
 
+// Import necessary package(s)
+import java.io.IOException;
+
 public class SinglyLinkedList<V> {
   // Declare our variables used in the class
   Node<V> head, tail;
   int size;
+  String input;
 
-  SinglyLinkedList() {
+  SinglyLinkedList() throws IOException {
     head = null;
     tail = null;
     size = 0;
+    input = InputUtility.getInput();
   }
+
+  SinglyLinkedList(String input) {
+    head = null;
+    tail = null;
+    size = 0;
+    this.input = input;
+  }
+
 
   public void addFirst(Node<V> Node) {
     if (tail == null) {

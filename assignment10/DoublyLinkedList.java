@@ -3,9 +3,9 @@
 *  File Name: DoublyLinkedList.java
 *
 *  Author: Connor Baker
-*  Version: 0.1a
+*  Version: 0.1b
 *  Created: December 3, 2016
-*  Last Updated: December 3, 2016
+*  Last Updated: December 4, 2016
 *
 *  Reference: http://crunchify.com/a-simple-singly-linked-list-implementation-in-java/
 *             This tutorial helped give me insight into how to build a generic class.
@@ -17,12 +17,12 @@
 // Declare package  name
 package assignment10;
 
-public class DoublyLinkedList {
+public class DoublyLinkedList<V> {
   // Declare our variables used in the class
   Node<V> head, tail;
   int size;
 
-  public SinglyLinkedList() {
+  DoublyLinkedList() {
     head = null;
     tail = null;
     size = 0;
@@ -55,6 +55,12 @@ public class DoublyLinkedList {
     newNode.setNext(currentNode.getNext());
     currentNode.setNext(newNode);
 
+    // Increment the size of our linked list
+    size++;
+  }
+
+  // TODO: Does not currently work
+  public void addBefore(Node<V> currentNode, Node<V> newNode) {
     // Increment the size of our linked list
     size++;
   }

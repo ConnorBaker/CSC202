@@ -3,7 +3,7 @@
 *  File Name: StackArray.java
 *
 *  Author: Connor Baker
-*  Version: 0.2c
+*  Version: 0.2d
 *  Created: December 2, 2016
 *  Last Updated: December 4, 2016
 */
@@ -25,6 +25,13 @@ public class StackArray {
   StackArray() throws IOException {
     top = 0;
     input = InputUtility.getInput();
+    capacityOfStack = InputUtility.getLengthOfInput(input);
+    getStackOfChars();
+  }
+
+  StackArray(String input) {
+    top = 0;
+    this.input = input;
     capacityOfStack = InputUtility.getLengthOfInput(input);
     getStackOfChars();
   }

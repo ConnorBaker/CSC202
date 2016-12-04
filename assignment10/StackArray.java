@@ -3,9 +3,9 @@
 *  File Name: StackArray.java
 *
 *  Author: Connor Baker
-*  Version: 0.2a
+*  Version: 0.2b
 *  Created: December 2, 2016
-*  Last Updated: December 2, 2016
+*  Last Updated: December 3, 2016
 */
 
 // Declare package  name
@@ -15,15 +15,17 @@ package assignment10;
 import java.io.IOException;
 import java.util.EmptyStackException;
 
-public class StackArray extends Utility {
+public class StackArray {
   // Declare our variables used in the class
+  String input;
+  int capacityOfStack;
   char[] stackOfChars;
   int top;
 
   StackArray() throws IOException {
     top = 0;
-    getInput();
-    getLengthOfInput();
+    input = InputUtility.getInput();
+    capacityOfStack = InputUtility.getLengthOfInput(input);
     getStackOfChars();
     printStackOfChars();
   }

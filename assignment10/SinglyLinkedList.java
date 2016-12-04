@@ -3,9 +3,9 @@
 *  File Name: SinglyLinkedList.java
 *
 *  Author: Connor Baker
-*  Version: 0.1a
+*  Version: 0.1b
 *  Created: December 3, 2016
-*  Last Updated: December 3, 2016
+*  Last Updated: December 4, 2016
 *
 *  Reference: http://crunchify.com/a-simple-singly-linked-list-implementation-in-java/
 *             This tutorial helped give me insight into how to build a generic class.
@@ -19,7 +19,7 @@ public class SinglyLinkedList<V> {
   Node<V> head, tail;
   int size;
 
-  public SinglyLinkedList() {
+  SinglyLinkedList() {
     head = null;
     tail = null;
     size = 0;

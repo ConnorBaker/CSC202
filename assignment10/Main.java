@@ -3,7 +3,7 @@
 *  File Name: Main.java
 *
 *  Author: Connor Baker
-*  Version: 0.2b
+*  Version: 0.2c
 *  Created: December 2, 2016
 *  Last Updated: December 5, 2016
 */
@@ -55,7 +55,8 @@ public class Main {
 
     // Print the new linked list
     System.out.println("The singly linked list returns: ");
-    newSinglyLinkedList.print();
+    newSinglyLinkedList.printInReverse(newSinglyLinkedList.head.getNext());
+    System.out.println();
   }
 
   public static void newDoublyLinkedList(String input) {
@@ -69,6 +70,7 @@ public class Main {
 
     // Print the new linked list
     System.out.println("The doubly linked list returns: ");
-    newDoublyLinkedList.print();
+    newDoublyLinkedList.printInReverse(newDoublyLinkedList.tail.getNext());
+    System.out.println();
   }
 }

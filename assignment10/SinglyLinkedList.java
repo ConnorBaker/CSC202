@@ -3,7 +3,7 @@
 *  File Name: SinglyLinkedList.java
 *
 *  Author: Connor Baker
-*  Version: 0.2a
+*  Version: 0.2b
 *  Created: December 3, 2016
 *  Last Updated: December 5, 2016
 *
@@ -86,6 +86,13 @@ public class SinglyLinkedList {
     }
     // Add padding for console output
     System.out.println();
+  }
+
+  public void printInReverse(Node n) {
+    if (n.next != null) {
+      printInReverse(n.next);
+    }
+    System.out.print(n.element);
   }
 
   public void print(int index) {

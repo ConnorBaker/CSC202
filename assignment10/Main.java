@@ -3,9 +3,9 @@
 *  File Name: Main.java
 *
 *  Author: Connor Baker
-*  Version: 0.1e
+*  Version: 0.2a
 *  Created: December 2, 2016
-*  Last Updated: December 4, 2016
+*  Last Updated: December 5, 2016
 */
 
 // Declare package  name
@@ -19,16 +19,39 @@ public class Main {
     // Get user input
     String input = InputUtility.getInput();
 
+    // Print output back to the user
+    System.out.println("You inputted: "+input);
+
+    // Make the new stack array
+    newStackArray(input);
+
+    // Make the new singly linked list
+    newSinglyLinkedList(input);
+  }
+
+  public static void newStackArray(String input) {
     // Create a new StackArray object
     StackArray newStackArray = new StackArray(input);
 
     // Fill the new StackArray object
     newStackArray.getStackOfChars();
+
+    // Print the new stack
+    System.out.println("The stack array returns: ");
     newStackArray.printStackOfChars();
+  }
 
+  public static void newSinglyLinkedList(String input) {
     // Create a new SinglyLinkedList
-    SinglyLinkedList<Character> newSinglyLinkedList = new SinglyLinkedList<>(input);
-    newSinglyLinkedList.getSinglyLinkedListOfChars();
+    SinglyLinkedList newSinglyLinkedList = new SinglyLinkedList(input);
 
+    // Fill the new linked list
+    for (int i = 0; i < input.length(); i++) {
+      newSinglyLinkedList.add(input.charAt(i));
+    }
+
+    // Print the new linked list
+    System.out.println("The singly linked list returns: ");
+    newSinglyLinkedList.print();
   }
 }

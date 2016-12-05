@@ -3,7 +3,7 @@
 *  File Name: InputUtility.java
 *
 *  Author: Connor Baker
-*  Version: 0.1a
+*  Version: 0.1b
 *  Created: December 3, 2016
 *  Last Updated: December 3, 2016
 */
@@ -28,7 +28,7 @@ public class InputUtility {
     br.close();
 
     // Debugging
-    System.out.println("Debugging: input was "+input);
+    // System.out.println("Debugging: input was "+input);
 
     // Return the input
     return input;
@@ -39,7 +39,7 @@ public class InputUtility {
     int capacityOfStack = s.length();
 
     // Debugging
-    System.out.println("Debugging: capacityOfStack is "+capacityOfStack);
+    // System.out.println("Debugging: capacityOfStack is "+capacityOfStack);
 
     // Return the length of the input
     return capacityOfStack;

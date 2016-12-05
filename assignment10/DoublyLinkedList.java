@@ -3,15 +3,9 @@
 *  File Name: DoublyLinkedList.java
 *
 *  Author: Connor Baker
-*  Version: 0.2a
+*  Version: 0.2b
 *  Created: December 3, 2016
 *  Last Updated: December 5, 2016
-*
-*  Reference: http://crunchify.com/a-simple-singly-linked-list-implementation-in-java/
-*             This tutorial helped give me insight into how to build a generic class.
-*
-*  TODO: Add overrides to the Node class that allows us to make this a true
-*        DoublyLinkedList. It currently lacks the previous reference.
 */
 
 // Declare package  name
@@ -23,7 +17,7 @@ import java.io.IOException;
 public class DoublyLinkedList {
   // Declare our variables used in the class
   String input;
-  Node head, tail;
+  DoublyNode head, tail;
   int size;
 
   DoublyLinkedList() throws IOException {
@@ -43,26 +37,26 @@ public class DoublyLinkedList {
   public void add(char element) {
     // Check if this is the first node to be created
     if (head == null) {
-      head = new Node(element);
+      head = new DoublyNode(element);
     }
 
     // Create a temporary node to hold the new element
-    Node tempNode = new Node(element);
-    Node currentNode = head;
+    DoublyNode tempDoublyNode = new DoublyNode(element);
+    DoublyNode currentDoublyNode = head;
 
     // Condition to halt the method
-    if (currentNode == null) {
-      System.out.println("ERROR: currentNode is null");
+    if (currentDoublyNode == null) {
+      System.out.println("ERROR: currentDoublyNode is null");
       return;
     }
 
     // Go to the end of the linked list and add the element
-    while (currentNode.getNext() != null) {
-      currentNode = currentNode.getNext();
+    while (currentDoublyNode.getNext() != null) {
+      currentDoublyNode = currentDoublyNode.getNext();
     }
 
     // Set the last node's next to the new node
-    currentNode.setNext(tempNode);
+    currentDoublyNode.setNext(tempDoublyNode);
 
     // Increment the size of our linked list
     size++;
@@ -74,21 +68,28 @@ public class DoublyLinkedList {
     }
 
     // Create a temporary node to traverse the list
-    Node currentNode = head;
+    DoublyNode currentDoublyNode = head;
 
     // Condition to halt the method
-    if (currentNode == null) {
-      System.out.println("ERROR: currentNode is null");
+    if (currentDoublyNode == null) {
+      System.out.println("ERROR: currentDoublyNode is null");
       return;
     }
 
     // Iterate through the list, printing the contents of the node
-    while (currentNode.getNext() != null) {
-      currentNode = currentNode.getNext();
-      System.out.print(currentNode.element);
+    while (currentDoublyNode.getNext() != null) {
+      currentDoublyNode = currentDoublyNode.getNext();
+      System.out.print(currentDoublyNode.element);
     }
     // Add padding for console output
     System.out.println();
+  }
+
+  public void printInReverse(DoublyNode n) {
+    if (n.previous != head) {
+      printInReverse(n.previous);
+    }
+    System.out.print(n.element);
   }
 
   public void print(int index) {
@@ -97,19 +98,19 @@ public class DoublyLinkedList {
     }
 
     // Create a temporary node to traverse the list
-    Node currentNode = head;
+    DoublyNode currentDoublyNode = head;
     int i = 0;
 
     // Condition to halt the method
-    if (currentNode == null) {
-      System.out.println("ERROR: currentNode is null");
+    if (currentDoublyNode == null) {
+      System.out.println("ERROR: currentDoublyNode is null");
       return;
     }
 
     // Iterate through the list, printing the contents of the node
-    while ((currentNode.getNext() != null) && (i < index)) {
-      currentNode = currentNode.getNext();
-      System.out.print(currentNode.element);
+    while ((currentDoublyNode.getNext() != null) && (i < index)) {
+      currentDoublyNode = currentDoublyNode.getNext();
+      System.out.print(currentDoublyNode.element);
       i++;
     }
     // Add padding for console output

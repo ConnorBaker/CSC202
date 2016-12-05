@@ -3,12 +3,9 @@
 *  File Name: SinglyLinkedList.java
 *
 *  Author: Connor Baker
-*  Version: 0.2b
+*  Version: 0.2c
 *  Created: December 3, 2016
 *  Last Updated: December 5, 2016
-*
-*  Reference: http://crunchify.com/a-simple-singly-linked-list-implementation-in-java/
-*             This tutorial helped give me insight into how to build a generic class.
 */
 
 // Declare package  name

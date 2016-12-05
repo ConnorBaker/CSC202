@@ -3,9 +3,9 @@
 *  File Name: StackArray.java
 *
 *  Author: Connor Baker
-*  Version: 0.2e
+*  Version: 0.3a
 *  Created: December 2, 2016
-*  Last Updated: December 4, 2016
+*  Last Updated: December 5, 2016
 */
 
 // Declare package  name
@@ -45,7 +45,7 @@ public class StackArray {
   }
 
   public void printStackOfChars() {
-    for (int i = 0; i < capacityOfStack; i++) {
+    for (int i = capacityOfStack-1; i > -1; i--) {
       System.out.print(stackOfChars[i]);
     }
     System.out.println();

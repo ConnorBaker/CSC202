@@ -3,9 +3,9 @@
 *  File Name: Node.java
 *
 *  Author: Connor Baker
-*  Version: 0.1a
+*  Version: 0.2a
 *  Created: December 3, 2016
-*  Last Updated: December 3, 2016
+*  Last Updated: December 5, 2016
 *
 *  Reference: http://crunchify.com/a-simple-singly-linked-list-implementation-in-java/
 *             This tutorial helped give me insight into how to build a generic class.
@@ -16,34 +16,39 @@ package assignment10;
 
 // Import necessary package(s)
 
-public class Node<V> {
-  // Declare our variables used in the class
-  V element;
-  Node<V> next;
+public class Node {
+  char element;
+  Node next;
 
-  public Node() {
-    this(null, null);
+  Node() {
+    this('\0', null);
   }
 
-  public Node(V element, Node<V> next) {
+  Node(char element) {
+    this(element, null);
+  }
+
+  Node(char element, Node next) {
     this.element = element;
     this.next = next;
   }
 
-  public V getElement() {
-    return element;
+  public void setNext(Node next) {
+    this.next = next;
   }
 
-  public Node<V> getNext() {
+
+  public Node getNext() {
     return next;
   }
 
-  public void setElement(V element) {
+
+  public void setChar(char element) {
     this.element = element;
   }
 
-  public void setNext(Node<V> next) {
-    this.next = next;
-  }
 
+  public char getChar() {
+    return element;
+  }
 }

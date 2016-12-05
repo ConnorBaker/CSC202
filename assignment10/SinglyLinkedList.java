@@ -3,9 +3,9 @@
 *  File Name: SinglyLinkedList.java
 *
 *  Author: Connor Baker
-*  Version: 0.1c
+*  Version: 0.2a
 *  Created: December 3, 2016
-*  Last Updated: December 4, 2016
+*  Last Updated: December 5, 2016
 *
 *  Reference: http://crunchify.com/a-simple-singly-linked-list-implementation-in-java/
 *             This tutorial helped give me insight into how to build a generic class.
@@ -17,11 +17,11 @@ package assignment10;
 // Import necessary package(s)
 import java.io.IOException;
 
-public class SinglyLinkedList<V> {
+public class SinglyLinkedList {
   // Declare our variables used in the class
-  Node<V> head, tail;
-  int size;
   String input;
+  Node head, tail;
+  int size;
 
   SinglyLinkedList() throws IOException {
     head = null;
@@ -37,36 +37,80 @@ public class SinglyLinkedList<V> {
     this.input = input;
   }
 
-
-  public void addFirst(Node<V> Node) {
-    if (tail == null) {
-      tail = Node;
+  public void add(char element) {
+    // Check if this is the first node to be created
+    if (head == null) {
+      head = new Node(element);
     }
-    Node.setNext(head);
-    head = Node;
+
+    // Create a temporary node to hold the new element
+    Node tempNode = new Node(element);
+    Node currentNode = head;
+
+    // Condition to halt the method
+    if (currentNode == null) {
+      System.out.println("ERROR: currentNode is null");
+      return;
+    }
+
+    // Go to the end of the linked list and add the element
+    while (currentNode.getNext() != null) {
+      currentNode = currentNode.getNext();
+    }
+
+    // Set the last node's next to the new node
+    currentNode.setNext(tempNode);
 
     // Increment the size of our linked list
     size++;
   }
 
-  public void addLast(Node<V> Node) {
-    Node.setNext(null);
-    tail.setNext(Node);
-    tail = Node;
+  public void print() {
+    if (head == null) {
+      System.out.println("List is empty");
+    }
 
-    // Increment the size of our linked list
-    size++;
+    // Create a temporary node to traverse the list
+    Node currentNode = head;
+
+    // Condition to halt the method
+    if (currentNode == null) {
+      System.out.println("ERROR: currentNode is null");
+      return;
+    }
+
+    // Iterate through the list, printing the contents of the node
+    while (currentNode.getNext() != null) {
+      currentNode = currentNode.getNext();
+      System.out.print(currentNode.element);
+    }
+    // Add padding for console output
+    System.out.println();
   }
 
-  public void addAfter(Node<V> currentNode, Node<V> newNode) {
-    if (currentNode == tail) {
-      tail = newNode;
+  public void print(int index) {
+    if (head == null) {
+      System.out.println("List is empty");
     }
-    newNode.setNext(currentNode.getNext());
-    currentNode.setNext(newNode);
 
-    // Increment the size of our linked list
-    size++;
+    // Create a temporary node to traverse the list
+    Node currentNode = head;
+    int i = 0;
+
+    // Condition to halt the method
+    if (currentNode == null) {
+      System.out.println("ERROR: currentNode is null");
+      return;
+    }
+
+    // Iterate through the list, printing the contents of the node
+    while ((currentNode.getNext() != null) && (i < index)) {
+      currentNode = currentNode.getNext();
+      System.out.print(currentNode.element);
+      i++;
+    }
+    // Add padding for console output
+    System.out.println();
   }
 
 }

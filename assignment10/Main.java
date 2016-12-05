@@ -3,7 +3,7 @@
 *  File Name: Main.java
 *
 *  Author: Connor Baker
-*  Version: 0.2c
+*  Version: 0.2d
 *  Created: December 2, 2016
 *  Last Updated: December 5, 2016
 */
@@ -29,7 +29,7 @@ public class Main {
     newSinglyLinkedList(input);
 
     // Make the new doubly linked list
-    newDoublyLinkedList(input);
+    // newDoublyLinkedList(input);
   }
 
   public static void newStackArray(String input) {
@@ -59,18 +59,18 @@ public class Main {
     System.out.println();
   }
 
-  public static void newDoublyLinkedList(String input) {
-    // Create a new SinglyLinkedList
-    DoublyLinkedList newDoublyLinkedList = new DoublyLinkedList(input);
-
-    // Fill the new linked list
-    for (int i = 0; i < input.length(); i++) {
-      newDoublyLinkedList.add(input.charAt(i));
-    }
-
-    // Print the new linked list
-    System.out.println("The doubly linked list returns: ");
-    newDoublyLinkedList.printInReverse(newDoublyLinkedList.tail.getNext());
-    System.out.println();
-  }
+  // public static void newDoublyLinkedList(String input) {
+  //   // Create a new SinglyLinkedList
+  //   DoublyLinkedList newDoublyLinkedList = new DoublyLinkedList(input);
+  //
+  //   // Fill the new linked list
+  //   for (int i = 0; i < input.length(); i++) {
+  //     newDoublyLinkedList.add(input.charAt(i));
+  //   }
+  //
+  //   // Print the new linked list
+  //   System.out.println("The doubly linked list returns: ");
+  //   newDoublyLinkedList.printInReverse(newDoublyLinkedList.tail.getNext());
+  //   System.out.println();
+  // }
 }
